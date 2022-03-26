@@ -1,0 +1,3 @@
+# HoloSongRanker
+
+- framework: django
