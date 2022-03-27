@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,7 +33,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "songs",
-    # "users",
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -57,7 +57,9 @@ ROOT_URLCONF = "holosongranker.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(BASE_DIR, 'templates/')
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -78,8 +80,13 @@ WSGI_APPLICATION = "holosongranker.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        'NAME': 'holosongranker',  # 資料庫名字
+        'USER': "root",  # mysql 使用者名稱稱
+        'PASSWORD': '',  # 資料庫的密碼
+        'HOST': "127.0.0.1",  # 資料庫服務地址， 這裡我們是測試開發 填本地地址
+        'PORT': 3306,   # mysql 對應的埠號
+        'default-character-set': "UTF8",  # 設定編碼規則 utf8
     }
 }
 
@@ -106,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = "zh-Hant"
+LANGUAGE_CODE = "zh-hant"
 
 TIME_ZONE = "Asia/Taipei"
 
@@ -119,6 +126,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIR = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

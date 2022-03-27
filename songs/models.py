@@ -45,7 +45,7 @@ class Group(models.Model):
     unit = models.CharField("所屬身分", max_length=255, choices=Unit.choices)
 
     class Meta:
-        db_table = "hololive"
+        db_table = "Group"
         ordering = ['unit', 'vtuber']
 
     def __str__(self):
