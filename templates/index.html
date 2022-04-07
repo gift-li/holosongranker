@@ -1,11 +1,18 @@
 {% extends 'partials/base.html' %}
+{% load static %}
 
-{% block title %}
-首頁
+{% block title %}首頁{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock styles %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 {% endblock %}
 
 {% block main %}
-<main>
-    main
-</main>
+<div class="bg-info">
+    <h4>Main Components</h4>
+</div>
 {% endblock %}

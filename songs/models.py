@@ -17,6 +17,8 @@ class Vtuber(models.Model):
     class Meta:
         db_table = "vtuber"
         ordering = ['name', 'youtube_id']
+        verbose_name = 'vtuber'
+        verbose_name_plural = 'vtubers'
 
     def __str__(self):
         return self.name
@@ -45,8 +47,10 @@ class Group(models.Model):
     unit = models.CharField("所屬身分", max_length=255, choices=Unit.choices)
 
     class Meta:
-        db_table = "Group"
+        db_table = "group"
         ordering = ['unit', 'vtuber']
+        verbose_name = 'group'
+        verbose_name_plural = 'groups'
 
     def __str__(self):
         return self.unit
@@ -70,6 +74,8 @@ class Song(models.Model):
     class Meta:
         db_table = "song"
         ordering = ['-publish_at', 'name', 'owner']
+        verbose_name = 'song'
+        verbose_name_plural = 'songs'
 
     def __str__(self):
         return self.name
