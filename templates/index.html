@@ -1,18 +1,15 @@
 {% extends 'partials/base.html' %}
-{% load static %}
 
 {% block title %}首頁{% endblock %}
 
-{% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-{% endblock styles %}
-
-{% block scripts %}
-<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
-{% endblock %}
-
 {% block main %}
-<div class="bg-info">
-    <h4>Main Components</h4>
+<div class="container pt-5">
+    <div class="row justify-content-center text-center">
+        <h1>大標</h1>
+        <hr class="bg-dark">
+        <p>
+            簡介
+        </p>
+    </div>
 </div>
 {% endblock %}

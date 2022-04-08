@@ -1,0 +1,32 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}歌曲排行{% endblock %}
+
+{% block main %}
+<div class="container pt-5">
+    <div class="row justify-content-center">
+        <h1>歌曲排行</h1>
+        <hr class="bg-dark">
+        <table class="table table-hover table-striped align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for song in songs %}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{song.name}}</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
