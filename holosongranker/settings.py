@@ -32,14 +32,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "songs",
+    "singers",
+    "datas",
 ]
 
 MIDDLEWARE = [
@@ -80,14 +82,19 @@ WSGI_APPLICATION = "holosongranker.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        'NAME': 'holosongranker',  # 資料庫名字
-        'USER': "root",  # mysql 使用者名稱稱
-        'PASSWORD': '',  # 資料庫的密碼
-        'HOST': "127.0.0.1",  # 資料庫服務地址， 這裡我們是測試開發 填本地地址
-        'PORT': 3306,   # mysql 對應的埠號
-        'default-character-set': "UTF8",  # 設定編碼規則 utf8
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+    # ? Mysql setting
+    # "default": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     'NAME': 'holosongranker',  # 資料庫名字
+    #     'USER': "root",  # mysql 使用者名稱稱
+    #     'PASSWORD': '',  # 資料庫的密碼
+    #     'HOST': "127.0.0.1",  # 資料庫服務地址， 這裡我們是測試開發 填本地地址
+    #     'PORT': 3306,   # mysql 對應的埠號
+    #     'default-character-set': "UTF8",  # 設定編碼規則 utf8
+    # }
 }
 
 

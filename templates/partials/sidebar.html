@@ -1,32 +1,39 @@
 <div class="d-flex flex-column align-items-center pt-2 text-white min-vh-100">
-    <a href="{% url 'pagehome' %}" class="d-flex align-items-center pb-3 mb-md-0 text-white text-decoration-none">
+    <a href="{% url 'homepage' %}" class="d-flex align-items-center pb-3 mb-md-0 text-white text-decoration-none">
         <span class="fs-1 d-none d-sm-inline text-break text-center">
             Holo<br>Song<br>Ranker
         </span>
     </a>
     <hr class="d-none d-sm-flex w-100 p-1 bg-light">
-    <ul class="nav nav-pills flex-column px-2 px-sm-0 mb-sm-auto pt-3 mb-0 align-items-center align-items-sm-start"
+    <ul class="nav nav-pills flex-column px-2 px-sm-0 mb-0 mb-sm-auto pt-3 align-items-center align-items-sm-start"
         id="menu">
         <li class="nav-item">
-            <a href="{% url 'homepage' %}" class="nav-link align-middle px-0 link-light">
-                <i class="fs-3 bi bi-house"></i> <span class="ms-1 d-none d-sm-inline">首頁</span>
+            <a href="{% url 'homepage' %}" class="nav-link align-middle px-0 link-light d-flex align-items-center">
+                <i class="fs-3 bi bi-house"></i>
+                <span class="ms-2 d-none d-sm-inline">首頁</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'songs:index' %}" class="nav-link px-0 align-middle link-light">
-                <i class="fs-3 bi bi-file-music"></i> <span class="ms-1 d-none d-sm-inline">歌曲</span></a>
+            <a href="{% url 'songs:index' %}" class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                <i class="fs-3 bi bi-file-music"></i>
+                <span class="ms-2 d-none d-sm-inline">歌曲</span></a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link px-0 align-middle link-light">
-                <i class="fs-3 bi bi-mic"></i> <span class="ms-1 d-none d-sm-inline">歌手</span></a>
+            <a href="{% url 'singers:index' %}" class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                <i class="fs-3 bi bi-mic"></i>
+                <span class="ms-2 d-none d-sm-inline">歌手</span></a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link px-0 align-middle link-light">
-                <i class="fs-3 bi bi-bar-chart-line"></i> <span class="ms-1 d-none d-sm-inline">比較</span></a>
+            <a href="{% url 'datas:index' %}" class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                <i class="fs-3 bi bi-bar-chart-line"></i>
+                <span class="ms-2 d-none d-sm-inline">綜合</span></a>
         </li>
+        <li class="offset"></li>
         <li class="nav-item">
-            <a href="{% url 'admin:index' %}" class="nav-link px-0 align-middle link-light">
-                <i class="fs-3 bi bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">控制台</span></a>
+            <a href="{% url 'admin:index' %}" class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                <i class="fs-3 bi bi-speedometer2"></i>
+                <div class="ms-2 d-none d-sm-inline">控制台</div>
+            </a>
         </li>
         <!--dropdown for future use-->
         {% comment %} <li>

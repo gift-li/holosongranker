@@ -21,4 +21,6 @@ urlpatterns = [
     path("", views.Home, name='homepage'),
     path('admin/', admin.site.urls),
     path('songs/', include('songs.urls')),
+    path('singers/', include('singers.urls')),
+    path('datas/', include('datas.urls')),
 ]
