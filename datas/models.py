@@ -58,8 +58,10 @@ class Group(models.Model):
 
 class Song(models.Model):
     name = models.CharField("歌曲曲名", max_length=255)
+    # singer = models.ManyToManyField(
+    #     Vtuber, through='Singer_Song', through_fields=('song', 'singer') ,)
     singer = models.ManyToManyField(
-        Vtuber, through='Singer_Song', through_fields=('song', 'singer') ,)
+        Vtuber, related_name="sing_songs", verbose_name="歌手")
     youtube_id = models.URLField(
         "影片連結", max_length=255, unique=True, editable=True)
 
@@ -79,13 +81,3 @@ class Song(models.Model):
     def __str__(self):
         return self.name
 
-
-class Singer_Song(models.Model):
-    singer = models.ForeignKey(Vtuber, on_delete=models.CASCADE)
-    song = models.ForeignKey(Song, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.song} {self.singer} '
-        
-    class Meta:
-        db_table = 'songs_singer_song'

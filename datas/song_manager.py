@@ -34,6 +34,8 @@ def load_songs_csv():
     for i in range(start, end):
 
         song_name = songs_df['title'][i]
+        singer_name = songs_df['singer'][i]
+        singer = Vtuber.objects.filter(name = singer_name)[0]
 
         if(song_name != song_temp):
             skip = False
@@ -47,10 +49,19 @@ def load_songs_csv():
                 publish_at = songs_df['publishedAt'][i],
                 skip = skip)
             song.save()
+            # song.singer.add(singer)
             song_temp = song_name
-
-        singer_name = songs_df['singer'][i]
-        singer = Vtuber.objects.filter(name = singer_name)[0]
-
+        # else:
         song.singer.add(singer)
 
+        
+
+
+def test():
+    # songs = Song.objects.all()
+    # print(songs[15].singer.all())
+    # load_vtuber_csv()
+    # load_songs_csv()
+    # vtuber =  Vtuber.objects.filter(name ="")
+    # print(vtuber)
+    a = 1

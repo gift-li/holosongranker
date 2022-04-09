@@ -16,6 +16,4 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Group._meta.fields]
     ordering = ('vtuber', 'unit')
 
-@admin.register(Singer_Song)
-class Singer_SongAdmin(admin.ModelAdmin):
-    list_display = ['song', 'singer']
+
