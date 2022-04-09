@@ -58,10 +58,8 @@ class Group(models.Model):
 
 class Song(models.Model):
     name = models.CharField("歌曲曲名", max_length=255)
-    owner = models.ForeignKey(
-        Vtuber, on_delete=models.CASCADE, related_name="own_songs", verbose_name="影片持有人")
     singer = models.ManyToManyField(
-        Vtuber, related_name="sing_songs", verbose_name="歌手")
+        Vtuber, through='Singer_Song', through_fields=('song', 'singer') ,)
     youtube_id = models.URLField(
         "影片連結", max_length=255, unique=True, editable=True)
 
@@ -70,12 +68,24 @@ class Song(models.Model):
     youtube_url = models.URLField("縮圖連結", max_length=255, blank=True)
 
     publish_at = models.DateField("發行日期", default=timezone.now)
+    skip = models.BooleanField("歌手排名時跳過",default=False)
 
     class Meta:
         db_table = "song"
-        ordering = ['-publish_at', 'name', 'owner']
+        #ordering = ['-publish_at', 'name']
         verbose_name = 'song'
         verbose_name_plural = 'songs'
 
     def __str__(self):
         return self.name
+
+
+class Singer_Song(models.Model):
+    singer = models.ForeignKey(Vtuber, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.song} {self.singer} '
+        
+    class Meta:
+        db_table = 'songs_singer_song'
