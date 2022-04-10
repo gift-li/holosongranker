@@ -78,6 +78,7 @@ class Song(models.Model):
 
     def __str__(self):
         return self.name
+    
 
 
 class Record(models.Model):
@@ -85,8 +86,9 @@ class Record(models.Model):
         Song, on_delete=models.CASCADE, related_name="song_records", verbose_name="歌曲")
     date = models.DateField("資料取得日期", default=timezone.now)
     
-    view = models.IntegerField('觀看數', blank=True, editable=True)
+    total_view = models.IntegerField('總觀看數', blank=True, editable=True)
+    weekly_view = models.IntegerField('周觀看數成長', blank=True, editable=True)
     
 
     def __str__(self):
-        return self.date + self.song
+        return self.song.name

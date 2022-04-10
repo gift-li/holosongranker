@@ -93,7 +93,7 @@ def find_new_song():
     # YouTube Data API陪額使用量
     has_use_quate = 500
     change_quate = 9000
-    youtube = y_api.set_api_key(0) # 使用分帳
+    youtube = y_api.set_api_key(1) # 使用分帳
 
      # Step1:以YouTube Data API 的 Search功能，找出所有 new songs
     videoDuration = ['short','medium']
@@ -123,7 +123,7 @@ def find_new_song():
             # API陪額使用量超過時，切換帳號
             has_use_quate += 100
             if(has_use_quate > change_quate):
-                youtube = y_api.set_api_key(1) # 使用本帳
+                youtube = y_api.set_api_key(0) # 使用本帳
             has_use_quate = 0
     
     print('Step1的expect:')
@@ -232,8 +232,38 @@ def add_new_songs_to_models():
         else:
             song.singer.add(singer)
 
+def update_weekly_song_record():
+    last_date = '2022-4-3'
+    this_date = '2022-4-10'
+    youtube = y_api.set_api_key(1) # 使用分帳
 
+    songs = Song.objects.all()
+    except_video = []
+    views_col = []
+    start = 0
+    end = len(songs)
+    for i in range(start, end):
+        video_id = songs[i].youtube_id
 
+        try:
+            request = youtube.videos().list(
+            part= "snippet,statistics", 
+            id= video_id
+            )
+            response = request.execute()
+            viewCount = response['items'][0]['statistics']['viewCount']
+            views_col.append(viewCount)
+
+            record = Record(song = songs[i], 
+            view = viewCount, 
+            date=date)
+            record.save()
+
+        except:
+            except_video.append(video_id)
+            views_col.append(0)
+        
+        print(except_video)
 
 def test():
     # songs = Song.objects.all()
@@ -243,6 +273,8 @@ def test():
     # vtuber =  Vtuber.objects.filter(name ="")
     # print(vtuber)
     # add_new_songs_to_models()
-    load_record_csv()
-
+    # load_record_csv()
+    # update_weekly_song_record()
+    # songs = Song.objects.all()[0].test()
+    Record.objects.all().delete()
     a = 1

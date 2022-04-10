@@ -6,7 +6,8 @@ from googleapiclient.errors import HttpError
 def set_api_key(index):
   DEVELOPER_KEY = 'AIzaSyCNUQ5A1BcgQjv2r6X2G93tovFzdf18oUo' # 你的金鑰
   DEVELOPER_KEY2 = 'AIzaSyC5Ejf4LJzcbsQ2Krx273E4dWNy_NjdJn0' # 分帳的金鑰
-  keys = [DEVELOPER_KEY, DEVELOPER_KEY2]
+  DEVELOPER_KEY3 = 'AIzaSyDOCVlg4alDX2bEaVldjjIa3IBlyx1q6-A'# 分帳的金鑰
+  keys = [DEVELOPER_KEY, DEVELOPER_KEY2, DEVELOPER_KEY3]
   youtube = build('youtube', 'v3', developerKey=keys[index])
   return youtube
 
