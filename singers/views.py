@@ -1,15 +1,24 @@
 from django.shortcuts import render
 from datas.models import *
-# Create your views here.
 
 
 def Index(request):
-    # TODO: 撈資料 & 改順序
-    datas = {}
-    # TODO: 放入表頭標籤eg. 排名、歌曲名稱...
-    table_headers = []
+    template = 'singers/index.html'
+    # TODO: Vtuber
+    # * 排序: 總觀看量(大->小)
+    # TODO: Song
+    # * 分群: Vtuber
+    # * 排序: 總觀看量
+    vtubers = Vtuber.objects.all()
+    songs = Song.objects.all()
 
-    return render(request, 'singers/index.html', {
-        'datas': datas,
-        'table_headers': table_headers
-    })
+    table_headers = [
+        '排名', '頻道縮圖 & 連結', '歌手',
+    ]
+    context = {
+        'table_headers': table_headers,
+        'vtubers': vtubers,
+        'songs': songs,
+    }
+
+    return render(request, template, context)

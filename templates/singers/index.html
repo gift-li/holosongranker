@@ -1,28 +1,62 @@
 {% extends 'partials/base.html' %}
+{% load static %}
 
 {% block title %}歌手排行{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/singers/index.css' %}">
+{% endblock  %}
 
 {% block main %}
 <div class="container pt-5">
     <div class="row justify-content-center">
         <h1>歌手排行</h1>
         <hr class="bg-dark">
-        <table class="table table-hover table-striped align-middle">
+        <table class="table table-hover align-middle">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    {% for tag in table_headers %}
+                    <th class="col-auto" scope="col">{{tag}}</th>
+                    {% endfor %}
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
+            <tbody class="accordion" id="singer_accordion">
+                <div class="accordion-item">
+                    {% for vtuber in vtubers %}
+                    <tr class="accordion-header" id="heading_{{forloop.counter}}" class="accordion-button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="true"
+                        aria-controls="collapse_{{forloop.counter}}">
+                        <th scope="row">
+                            <span class="fs-3">
+                                #{{forloop.counter}}
+                            </span>
+                        </th>
+                        <td>
+                            <a href="{{vtuber.youtube_url}}" target="_blank">
+                                <img class="channel_img img-thumbnail" src="{{vtuber.thumbnail_url}}" alt="頻道縮圖">
+                            </a>
+                        </td>
+                        <td>
+                            {{vtuber.name}}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="p-0">
+                            <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse"
+                                aria-labelledby="heading_{{forloop.counter}}" data-bs-parent="#singer_accordion">
+                                <div class="accordion-body">
+                                    <!--各歌手歌曲排名-->
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </div>
             </tbody>
         </table>
     </div>

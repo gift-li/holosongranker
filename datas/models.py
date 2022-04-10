@@ -8,7 +8,6 @@ class Vtuber(models.Model):
     youtube_id = models.CharField(
         'Youtube ID', max_length=50, unique=True, editable=True)
 
-    # TODO: 需要新增自動抓取填寫函式
     youtube_url = models.CharField(
         'Youtube連結', max_length=255, blank=True)
     thumbnail_url = models.URLField(
@@ -65,19 +64,17 @@ class Song(models.Model):
     youtube_id = models.URLField(
         "影片連結", max_length=255, unique=True, editable=True)
 
-    # TODO: 需要填寫自動抓取填寫函式
     thumbnail_url = models.URLField("縮圖連結", max_length=255, blank=True)
     youtube_url = models.URLField("縮圖連結", max_length=255, blank=True)
 
     publish_at = models.DateField("發行日期", default=timezone.now)
-    skip = models.BooleanField("歌手排名時跳過",default=False)
+    skip = models.BooleanField("歌手排名時跳過", default=False)
 
     class Meta:
         db_table = "song"
-        #ordering = ['-publish_at', 'name']
+        ordering = ['name', '-publish_at']
         verbose_name = 'song'
         verbose_name_plural = 'songs'
 
     def __str__(self):
         return self.name
-

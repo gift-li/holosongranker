@@ -5,24 +5,52 @@
 {% block main %}
 <div class="container pt-5">
     <div class="row justify-content-center">
-        <h1>歌曲排行</h1>
+        <h1>歌手排行</h1>
         <hr class="bg-dark">
-        <table class="table table-hover table-striped align-middle">
+        <table class="table table-hover align-middle">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th class="col-1" scope="col">排名</th>
+                    <th class="col-4" scope="col">影片</th>
+                    <th class="col-4" scope="col">歌曲曲名</th>
+                    <th class="col-auto d-none d-lg-table-cell" scope="col">演唱人員</th>
+                    <th class="col-auto d-none d-md-table-cell" scope="col">發行日期</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
+            <tbody class="accordion" id="song_accordion">
+                <div class="accordion-item">
+                    {% for song in songs %}
+                    <tr class="accordion-header" id="heading_{{forloop.counter}}" class="accordion-button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="true"
+                        aria-controls="collapse_{{forloop.counter}}">
+                        <th scope="row">
+                            <span class="fs-3">
+                                #{{forloop.counter}}
+                            </span>
+                        </th>
+                        <td>
+                            <a href="{{song.youtube_url}}" target="_blank">
+                                <img class="channel_img img-thumbnail" src="{{song.thumbnail_url}}" alt="頻道縮圖">
+                            </a>
+                        </td>
+                        <td>{{song.name}}</td>
+                        <td class="d-none d-lg-table-cell">{{song.singers}}</td>
+                        <td class="d-none d-md-table-cell">
+                            {{song.publish_at|date:"m/d, Y"}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="p-0">
+                            <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse"
+                                aria-labelledby="heading_{{forloop.counter}}" data-bs-parent="#song_accordion">
+                                <div class="accordion-body">
+                                    <!--歌曲細項資料-->
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </div>
             </tbody>
         </table>
     </div>
