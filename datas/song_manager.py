@@ -2,7 +2,7 @@ from email import message
 from unicodedata import name
 import datas.youtube_api as y_api
 import pandas as pd
-from datas.models import Vtuber, Song
+from datas.models import Record, Vtuber, Song
 from django_pandas.io import read_frame
 
 def load_vtuber_csv():
@@ -55,6 +55,26 @@ def load_songs_csv():
             song_temp = song_name
         # else:
         song.singer.add(singer)
+
+def load_record_csv():
+    record_df = pd.read_csv('./datas/csv/record.csv') 
+    print(record_df)
+
+    start = 0
+    end = len(record_df)
+
+    for i in range(start, end):
+        youtube_id = record_df['videoId'][i]
+        song = Song.objects.filter(youtube_id = youtube_id)[0]
+
+        view = record_df['view'][i]
+        date = record_df['date'][i]
+
+        record = Record(song = song, 
+            view = view, 
+            date=date)
+        record.save()
+
 
 # 之後來是在colab 上做好了
 def find_new_song():
@@ -171,14 +191,16 @@ def find_new_song():
 
     print(new_songs_df.head())
     new_songs_df.to_csv('./datas/csv/new_songs_raw.csv')
+    x
 
-
-def add_new_song_to_models():
+def add_new_songs_to_models():
+    # 記得要上傳new_songs.csv
     songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
 
     start = 0
     # end = 2
     end = len(songs_df)
+    song_temp = ''
 
     for i in range(start, end):
 
@@ -210,6 +232,9 @@ def add_new_song_to_models():
         else:
             song.singer.add(singer)
 
+
+
+
 def test():
     # songs = Song.objects.all()
     # print(songs[15].singer.all())
@@ -217,6 +242,7 @@ def test():
     # load_songs_csv()
     # vtuber =  Vtuber.objects.filter(name ="")
     # print(vtuber)
-    find_new_song()
+    # add_new_songs_to_models()
+    load_record_csv()
 
     a = 1

@@ -17,3 +17,9 @@ class SongAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Group._meta.fields]
     ordering = ('vtuber', 'unit')
+
+
+@admin.register(Record)
+class RecordAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Record._meta.fields]
+    ordering = ('date', 'song')

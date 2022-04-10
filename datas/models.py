@@ -78,3 +78,15 @@ class Song(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Record(models.Model):
+    song = models.ForeignKey(
+        Song, on_delete=models.CASCADE, related_name="song_records", verbose_name="歌曲")
+    date = models.DateField("資料取得日期", default=timezone.now)
+    
+    view = models.IntegerField('觀看數', blank=True, editable=True)
+    
+
+    def __str__(self):
+        return self.date + self.song
