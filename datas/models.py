@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django_pandas.io import read_frame
 
 class Vtuber(models.Model):
     name = models.CharField('Vtuber姓名', max_length=255,
@@ -86,9 +86,32 @@ class Record(models.Model):
         Song, on_delete=models.CASCADE, related_name="song_records", verbose_name="歌曲")
     date = models.DateField("資料取得日期", default=timezone.now)
     
-    total_view = models.IntegerField('總觀看數', blank=True, editable=True)
-    weekly_view = models.IntegerField('周觀看數成長', blank=True, editable=True)
+    total_view = models.IntegerField('總觀看數', blank=True, editable=True, default=0)
+    weekly_view = models.IntegerField('周觀看數成長', blank=True, editable=True, default=0)
     
 
     def __str__(self):
         return self.song.name
+
+    def get_dates():
+        dates = Record.objects.values('date').distinct()
+        date_df = read_frame(dates, fieldnames=['date'])
+
+        return date_df.sort_values(['date'],ascending=False)
+    
+    def get_last_date(now_date):
+        date_df = Record.get_dates()
+
+        now_date_index = date_df[date_df['date'] ==  now_date].index.values
+
+        if(len(now_date_index) == 0 ):
+            print('找不到{}'.format(now_date))
+            return False, now_date
+        
+        if(now_date_index[0] == 0):
+            print('找不到上週資料')
+            return False, now_date
+        
+        last_date = date_df['date'][now_date_index[0]-1]
+
+        return True, last_date

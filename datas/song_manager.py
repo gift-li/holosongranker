@@ -1,9 +1,45 @@
+from calendar import week
 from email import message
+import this
 from unicodedata import name
 import datas.youtube_api as y_api
 import pandas as pd
 from datas.models import Record, Vtuber, Song
 from django_pandas.io import read_frame
+from datetime import date
+
+
+
+def add_weekly_view(now_record):
+    now_date = now_record.date
+    song = now_record.song
+
+    has_find , last_date = Record.get_last_date(now_date)
+
+    # 預設為總觀看數
+    weekly_view = now_record.total_view 
+    # 有找到上週的日期
+    if(has_find):
+        # 尋找上週歌曲紀錄
+        records =  Record.objects.filter(date = str(last_date)).filter(song = song)
+ 
+        if(len(records) == 1):
+            last_record = records[0]
+
+            this_total_view = now_record.total_view
+            last_total_view = last_record.total_view
+            weekly_view = this_total_view - last_total_view
+        else:
+            print('找不到{}上週日期'.format(song))
+
+        # print('找不到{}上週資料'.format(song))
+
+    print('{} \n在 {} ~ {} 的周觀看數成長為{}'
+        .format(song, last_date, now_date, weekly_view))
+    now_record.weekly_view = weekly_view
+
+    now_record.save()
+
 
 def load_vtuber_csv():
     vtuber_df = pd.read_csv('./datas/csv/vtuber.csv') 
@@ -71,9 +107,16 @@ def load_record_csv():
         date = record_df['date'][i]
 
         record = Record(song = song, 
-            view = view, 
+            total_view = view,
+            weekly_view = 0, 
             date=date)
         record.save()
+
+def add_all_weekly_view():
+    records = Record.objects.all()
+
+    for record in records:
+        add_weekly_view(record)
 
 
 # 之後來是在colab 上做好了
@@ -265,7 +308,10 @@ def update_weekly_song_record():
         
         print(except_video)
 
+
+
 def test():
+    a = 1
     # songs = Song.objects.all()
     # print(songs[15].singer.all())
     # load_vtuber_csv()
@@ -273,8 +319,29 @@ def test():
     # vtuber =  Vtuber.objects.filter(name ="")
     # print(vtuber)
     # add_new_songs_to_models()
-    # load_record_csv()
+    
     # update_weekly_song_record()
     # songs = Song.objects.all()[0].test()
-    Record.objects.all().delete()
-    a = 1
+    # songs = Song.objects.select_related('sing_songs')
+    # print(songs.query)
+
+    # dates = Record.objects.values('date').distinct()
+    # date_df = read_frame(dates, fieldnames=['date'])
+    # date_df = date_df.sort_values(['date'],ascending=False)
+    # print(date_df)
+
+    # record = Record.objects.all()[2000]
+    # add_weekly_view(record)
+
+    add_all_weekly_view()
+
+    # Record.objects.all().delete()
+    # load_record_csv()
+    
+
+    
+    # print(records)
+    
+
+            
+        
