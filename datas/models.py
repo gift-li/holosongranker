@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django_pandas.io import read_frame
 
 class Vtuber(models.Model):
     name = models.CharField('Vtuber姓名', max_length=255,
@@ -86,9 +86,24 @@ class Record(models.Model):
         Song, on_delete=models.CASCADE, related_name="song_records", verbose_name="歌曲")
     date = models.DateField("資料取得日期", default=timezone.now)
     
-    total_view = models.IntegerField('總觀看數', blank=True, editable=True)
-    weekly_view = models.IntegerField('周觀看數成長', blank=True, editable=True)
+    total_view = models.IntegerField('總觀看數', blank=True, editable=True, default=0)
+    weekly_view = models.IntegerField('周觀看數成長', blank=True, editable=True, default=0)
     
 
     def __str__(self):
         return self.song.name
+
+    
+    def get_last_date(now_date):
+        
+        last_date = Record.objects.filter(date__lt  = now_date).values('date').distinct().order_by('-date').first()
+
+        if(last_date != None):
+            last_date = last_date['date']
+
+        return last_date != None , last_date
+    
+    def get_previous_record(now_record):
+        previous_record = Record.objects.filter(date__lt  = now_record.date).filter(song = now_record.song).order_by('-date').first()
+
+        return previous_record != None , previous_record
