@@ -93,25 +93,17 @@ class Record(models.Model):
     def __str__(self):
         return self.song.name
 
-    def get_dates():
-        dates = Record.objects.values('date').distinct()
-        date_df = read_frame(dates, fieldnames=['date'])
-
-        return date_df.sort_values(['date'],ascending=False)
     
     def get_last_date(now_date):
-        date_df = Record.get_dates()
-
-        now_date_index = date_df[date_df['date'] ==  now_date].index.values
-
-        if(len(now_date_index) == 0 ):
-            print('找不到{}'.format(now_date))
-            return False, now_date
         
-        if(now_date_index[0] == 0):
-            print('找不到上週資料')
-            return False, now_date
-        
-        last_date = date_df['date'][now_date_index[0]-1]
+        last_date = Record.objects.filter(date__lt  = now_date).values('date').distinct().order_by('-date').first()
 
-        return True, last_date
+        if(last_date != None):
+            last_date = last_date['date']
+
+        return last_date != None , last_date
+    
+    def get_previous_record(now_record):
+        previous_record = Record.objects.filter(date__lt  = now_record.date).filter(song = now_record.song).order_by('-date').first()
+
+        return previous_record != None , previous_record

@@ -1,6 +1,7 @@
 from calendar import week
 from email import message
 import this
+from traceback import print_tb
 from unicodedata import name
 import datas.youtube_api as y_api
 import pandas as pd
@@ -9,37 +10,7 @@ from django_pandas.io import read_frame
 from datetime import date
 
 
-
-def add_weekly_view(now_record):
-    now_date = now_record.date
-    song = now_record.song
-
-    has_find , last_date = Record.get_last_date(now_date)
-
-    # 預設為總觀看數
-    weekly_view = now_record.total_view 
-    # 有找到上週的日期
-    if(has_find):
-        # 尋找上週歌曲紀錄
-        records =  Record.objects.filter(date = str(last_date)).filter(song = song)
- 
-        if(len(records) == 1):
-            last_record = records[0]
-
-            this_total_view = now_record.total_view
-            last_total_view = last_record.total_view
-            weekly_view = this_total_view - last_total_view
-        else:
-            print('找不到{}上週日期'.format(song))
-
-        # print('找不到{}上週資料'.format(song))
-
-    print('{} \n在 {} ~ {} 的周觀看數成長為{}'
-        .format(song, last_date, now_date, weekly_view))
-    now_record.weekly_view = weekly_view
-
-    now_record.save()
-
+##### Vtuber #####
 
 def load_vtuber_csv():
     vtuber_df = pd.read_csv('./datas/csv/vtuber.csv') 
@@ -57,6 +28,9 @@ def load_vtuber_csv():
             youtube_url=youtube_url, 
             thumbnail_url=vtuber_df['img_url'][i])
         vtuber.save()
+
+
+##### Songs #####
 
 def load_songs_csv():
     songs_df = pd.read_csv('./datas/csv/songs.csv') 
@@ -91,150 +65,6 @@ def load_songs_csv():
             song_temp = song_name
         # else:
         song.singer.add(singer)
-
-def load_record_csv():
-    record_df = pd.read_csv('./datas/csv/record.csv') 
-    print(record_df)
-
-    start = 0
-    end = len(record_df)
-
-    for i in range(start, end):
-        youtube_id = record_df['videoId'][i]
-        song = Song.objects.filter(youtube_id = youtube_id)[0]
-
-        view = record_df['view'][i]
-        date = record_df['date'][i]
-
-        record = Record(song = song, 
-            total_view = view,
-            weekly_view = 0, 
-            date=date)
-        record.save()
-
-def add_all_weekly_view():
-    records = Record.objects.all()
-
-    for record in records:
-        add_weekly_view(record)
-
-
-# 之後來是在colab 上做好了
-def find_new_song():
-
-    # Get vtuber data : 'name', 'youtube_id'
-    vtubers = Vtuber.objects.all()
-    vtuber_df = read_frame(vtubers, fieldnames=['name', 'youtube_id'])
-    print(vtuber_df.head())
-    
-    # 初始參數
-    publishAfter = '2022-04-02T00:00:00Z' # 從此日期開始搜尋新歌
-    start = 0 # for 迴圈開始點
-    end = len(vtuber_df['youtube_id'])
-    # end = 1 # for 迴圈結束點
-
-    # YouTube Data API陪額使用量
-    has_use_quate = 500
-    change_quate = 9000
-    youtube = y_api.set_api_key(1) # 使用分帳
-
-     # Step1:以YouTube Data API 的 Search功能，找出所有 new songs
-    videoDuration = ['short','medium']
-    responses = []
-    expects = []
-
-    for j in range(start, end):
-        channel_id = vtuber_df['youtube_id'][j]
-    
-        for i in range(2):
-            request = youtube.search().list(
-            part="snippet",   
-            q="",
-            channelId = channel_id,
-            publishedAfter = publishAfter,
-            maxResults = 50,
-            order = 'date',
-            type = 'video',
-            videoDuration = videoDuration[i]
-            )
-            try:
-                response = request.execute()
-                responses.append(response)
-            except:
-                expects.append((vtuber_df['name'][j], videoDuration[i], j))
-
-            # API陪額使用量超過時，切換帳號
-            has_use_quate += 100
-            if(has_use_quate > change_quate):
-                youtube = y_api.set_api_key(0) # 使用本帳
-            has_use_quate = 0
-    
-    print('Step1的expect:')
-    print(expects)
-
-     # Step2:從responses中，找出所有的歌曲，存進search_videos_df
-    columns = ['title' , 'videoId' , 'thumbnail_url', 'youtube_url', 'image', 'publishedAt', 'singer', 'owner']
-    search_videos_df = pd.DataFrame(columns = columns)
-
-    for j in range( len(responses)):
-        response = responses[j]
-
-        for i in range(len(response['items'])):
-            title = response['items'][i]['snippet']['title']
-            videoId = response['items'][i]['id']['videoId']
-            thumbnail_url = response['items'][i]['snippet']['thumbnails']['medium']['url']
-            youtube_url = y_api.get_youtube_url(videoId)
-            singer = response['items'][i]['snippet']['channelTitle']
-            owner = response['items'][i]['snippet']['channelTitle']
-            image = ""
-
-            publishedAt = response['items'][i]['snippet']['publishedAt']
-            publishedAt = publishedAt[:publishedAt.index('T')] # 只取日期
-
-            video_data = {'title':title , 'videoId': videoId, 'thumbnail_url':thumbnail_url, 'youtube_url':youtube_url,
-                        'image': image ,'publishedAt':publishedAt, 'singer':singer, 'owner':owner} 
-            search_videos_df  = search_videos_df.append(video_data, ignore_index=True)
-
-    print(search_videos_df.head())
-    search_videos_df.to_csv('./datas/search_videos.csv')
-
-    # Step3: 從search_videos_df中，篩選出min_second～max_second時間長度的影片
-    start = 0
-    end = len(search_videos_df)
-    columns = ['title' , 'videoId' , 'thumbnail_url', 'youtube_url', 'image', 'publishedAt', 'singer', 'owner', 'isSong']
-    new_songs_df = pd.DataFrame(columns = columns)
-    min_second = 80
-    max_second = 400
-    
-
-    except_video= []
-    for i in range(start, end): # len(song_list_df)
-        video_id = search_videos_df['videoId'][i]
-
-        try:
-            request = youtube.videos().list(
-                part= "snippet,statistics,contentDetails", 
-                id= video_id
-            )
-
-            response = request.execute()
-
-            duration_raw = response['items'][0]['contentDetails']['duration']
-            second = y_api.get_second(duration_raw)
-
-            # 時間在min_second與max_second之間的，在放入
-            if(second < max_second):
-                if(second > min_second):
-                    new_songs_df = new_songs_df.append(search_videos_df.iloc[i])
-        except:
-            except_video.append(video_id)
-
-    print('Step3的expect:')
-    print(except_video)
-
-    print(new_songs_df.head())
-    new_songs_df.to_csv('./datas/csv/new_songs_raw.csv')
-    x
 
 def add_new_songs_to_models():
     # 記得要上傳new_songs.csv
@@ -275,6 +105,30 @@ def add_new_songs_to_models():
         else:
             song.singer.add(singer)
 
+##### Record ######
+
+def load_record_csv():
+    record_df = pd.read_csv('./datas/csv/record.csv') 
+    print(record_df)
+
+    start = 0
+    end = len(record_df)
+
+    for i in range(start, end):
+        youtube_id = record_df['videoId'][i]
+        song = Song.objects.filter(youtube_id = youtube_id)[0]
+
+        view = record_df['view'][i]
+        date = record_df['date'][i]
+
+        record = Record(song = song, 
+            total_view = view,
+            weekly_view = 0, 
+            date=date)
+        record.save()
+
+    add_all_weekly_view_to_record()
+
 def update_weekly_song_record():
     last_date = '2022-4-3'
     this_date = '2022-4-10'
@@ -308,6 +162,27 @@ def update_weekly_song_record():
         
         print(except_video)
 
+def add_all_weekly_view_to_record():
+    records = Record.objects.all()
+
+    for record in records:
+        add_weekly_view_to_record(record)
+
+def add_weekly_view_to_record(now_record):
+    has_find , previous_record = Record.get_previous_record(now_record)
+
+    if(has_find):
+        weekly_view = now_record.total_view - previous_record.total_view
+        previous_date = previous_record.date
+    else:
+        weekly_view = now_record.total_view
+        previous_date =  ''
+
+    print('{} \n在 {} ~ {} 的周觀看數成長為{}'
+        .format(now_record.song, previous_date , now_record.date, weekly_view))
+
+    now_record.weekly_view = weekly_view
+    now_record.save()
 
 
 def test():
@@ -331,15 +206,29 @@ def test():
     # print(date_df)
 
     # record = Record.objects.all()[2000]
+    # last_record = Record.get_last_record(record)
+    # print(last_record)
     # add_weekly_view(record)
 
-    add_all_weekly_view()
+    add_all_weekly_view_to_record()
 
     # Record.objects.all().delete()
     # load_record_csv()
-    
 
-    
+    # dates = Record.get_dates()
+    # now_date = dates[0]
+
+    # print(now_date)
+    # last_date = Record.objects.filter(date__lt  = now_date['date']).values('date').distinct().order_by('-date').first()
+    # # .distinct('date').order_by('date')
+
+    # print(last_date)
+
+    # now_date = Record.objects.all()[1000].date
+
+    # last_date = Record.objects.filter(date__lt  = now_date).values('date').distinct().order_by('-date').first()['date']
+    # print(last_date)
+
     # print(records)
     
 
