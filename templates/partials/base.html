@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="zh-tw">
 
 <head>
@@ -17,12 +18,12 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row flex">
-            <div class="col-auto col-md-3 col-lg-2 px-0 px-sm-2 bg-dark">
-                {% include 'partials/sidebar.html' %}
-            </div>
+        <div class="row h-100">
+            {% include 'partials/sidebar.html' %}
 
-            <div class="col col-md-9 col-lg-10 bg-gray">
+            <div class="col">
+                {% include 'partials/navbar.html' %}
+
                 {% block main %}
                 {% endblock main %}
             </div>
@@ -39,6 +40,7 @@
     </script>
 
     {% block scripts %}{% endblock scripts %}
+    <script src="{% static 'js/home/navbar.js' %}"></script>
 </body>
 
 </html>
