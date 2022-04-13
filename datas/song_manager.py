@@ -8,7 +8,7 @@ import pandas as pd
 from datas.models import Record, Vtuber, Song
 from django_pandas.io import read_frame
 from datetime import date
-
+import datas.google_sheet_manager as google_sheet_manager
 
 ##### Vtuber #####
 
@@ -66,19 +66,21 @@ def load_songs_csv():
         # else:
         song.singer.add(singer)
 
-def add_new_songs_to_models():
+def add_this_week_new_song_to_models():
     # 記得要上傳new_songs.csv
-    songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
+    # songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
+    new_songs_df, new_song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.new_song_sheet_id)
+    song_df, song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.song_sheet_id)
 
     start = 0
     # end = 2
-    end = len(songs_df)
+    end = len(new_songs_df)
     song_temp = ''
 
     for i in range(start, end):
 
-        song_name = songs_df['title'][i]
-        singer_name = songs_df['singer'][i]
+        song_name = new_songs_df['title'][i]
+        singer_name = new_songs_df['singer'][i]
         singer = Vtuber.objects.filter(name = singer_name)[0]
 
         # 是否為一首歌多個歌手
@@ -90,20 +92,35 @@ def add_new_songs_to_models():
                 print(message)
             else:
                 skip = False
-                if(songs_df['Skip'][i] == 'TRUE'):
+                if(new_songs_df['Skip'][i] == 'TRUE'):
                     skip = True
 
                 song = Song(name = song_name, 
-                    youtube_id= songs_df['videoId'][i], 
-                    thumbnail_url= songs_df['thumbnail_url'][i],
-                    youtube_url = songs_df['youtube_url'][i],
-                    publish_at = songs_df['publishedAt'][i],
+                    youtube_id= new_songs_df['videoId'][i], 
+                    thumbnail_url= new_songs_df['thumbnail_url'][i],
+                    youtube_url = new_songs_df['youtube_url'][i],
+                    publish_at = new_songs_df['publishedAt'][i],
                     skip = skip)
                 song.save()
                 song.singer.add(singer)
                 song_temp = song_name
+
+                # 新增歌曲資料至google sheet 備份
+                video_data = {'title':song_name , 'videoId': new_songs_df['videoId'][i], 'thumbnail_url':new_songs_df['thumbnail_url'][i],
+                    'youtube_url':new_songs_df['youtube_url'][i], 'image': '' ,
+                    'publishedAt':new_songs_df['publishedAt'][i], 'singer':singer_name, 'Skip':''} 
+                song_df.append(video_data)
+
         else:
             song.singer.add(singer)
+            # 新增歌曲資料至google sheet 備份
+            video_data = {'title':song_name , 'videoId': new_songs_df['videoId'][i], 'thumbnail_url':new_songs_df['thumbnail_url'][i],
+                'youtube_url':new_songs_df['youtube_url'][i], 'image': '' ,
+                'publishedAt':new_songs_df['publishedAt'][i], 'singer':singer_name, 'Skip':''} 
+            song_df.append(video_data)
+
+    # 新增歌曲資料至google sheet 備份
+    google_sheet_manager.update_worksheet(song_df, song_worksheet)
 
 ##### Record ######
 
@@ -129,10 +146,13 @@ def load_record_csv():
 
     add_all_weekly_view_to_record()
 
-def update_weekly_song_record():
-    last_date = '2022-4-3'
+def add_this_week_record_to_models():
+
     this_date = '2022-4-10'
     youtube = y_api.set_api_key(1) # 使用分帳
+
+    # Google sheet 備份
+    record_df, record_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.record_sheet_id)
 
     songs = Song.objects.all()
     except_video = []
@@ -153,14 +173,25 @@ def update_weekly_song_record():
 
             record = Record(song = songs[i], 
             view = viewCount, 
-            date=date)
+            date=this_date)
             record.save()
+
+            video_data = {'videoId':songs[i].youtube_id , 'view': viewCount, 'date':this_date} 
+            record_df = record_df.append(video_data, ignore_index=True)
 
         except:
             except_video.append(video_id)
             views_col.append(0)
         
         print(except_video)
+    
+    # 更新週觀看數
+    add_all_weekly_view_to_record()
+
+    # 備份record to google sheet
+    record_df, record_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.record_sheet_id)
+    google_sheet_manager.update_worksheet(record_df, record_worksheet)
+
 
 def add_all_weekly_view_to_record():
     records = Record.objects.all()
@@ -187,50 +218,20 @@ def add_weekly_view_to_record(now_record):
 
 def test():
     a = 1
-    # songs = Song.objects.all()
-    # print(songs[15].singer.all())
-    # load_vtuber_csv()
-    # load_songs_csv()
-    # vtuber =  Vtuber.objects.filter(name ="")
-    # print(vtuber)
-    # add_new_songs_to_models()
+
+    # 每週要做的事情
+    add_this_week_new_song_to_models()
+    add_this_week_record_to_models()
     
-    # update_weekly_song_record()
-    # songs = Song.objects.all()[0].test()
-    # songs = Song.objects.select_related('sing_songs')
-    # print(songs.query)
-
-    # dates = Record.objects.values('date').distinct()
-    # date_df = read_frame(dates, fieldnames=['date'])
-    # date_df = date_df.sort_values(['date'],ascending=False)
-    # print(date_df)
-
-    # record = Record.objects.all()[2000]
-    # last_record = Record.get_last_record(record)
-    # print(last_record)
-    # add_weekly_view(record)
-
-    add_all_weekly_view_to_record()
-
-    # Record.objects.all().delete()
-    # load_record_csv()
-
-    # dates = Record.get_dates()
-    # now_date = dates[0]
-
-    # print(now_date)
-    # last_date = Record.objects.filter(date__lt  = now_date['date']).values('date').distinct().order_by('-date').first()
-    # # .distinct('date').order_by('date')
-
-    # print(last_date)
-
-    # now_date = Record.objects.all()[1000].date
-
-    # last_date = Record.objects.filter(date__lt  = now_date).values('date').distinct().order_by('-date').first()['date']
-    # print(last_date)
-
-    # print(records)
     
+    # records = Record.objects.filter(date = '2022-03-09').values('song__name', 'song__youtube_id', 'total_view')
+    # df = read_frame(records)
+    # print(df)
+
+    # songs = Song.objects.filter(singer__name = 'Suisei Channel').filter(song_records__date =  '2022-03-09').values('name', 'song_records__total_view')
+    # df = read_frame(songs)
+    # print(df)
+
 
             
         
