@@ -5,7 +5,7 @@ from traceback import print_tb
 from unicodedata import name
 import datas.youtube_api as y_api
 import pandas as pd
-from datas.models import Record, Vtuber, Song
+from datas.models import Group, Record, Vtuber, Song
 from django_pandas.io import read_frame
 from datetime import date
 import datas.google_sheet_manager as google_sheet_manager
@@ -28,6 +28,25 @@ def load_vtuber_csv():
             youtube_url=youtube_url, 
             thumbnail_url=vtuber_df['img_url'][i])
         vtuber.save()
+
+def load_group_sheet():
+    group_df, group_df_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.group_sheet_id )
+
+    start = 0
+    # end = 2
+    end = len(group_df)
+
+    for i in range(start, end):
+
+        vtuber_str = group_df['Chanel Name'][i]
+        group_str = group_df['Group'][i]
+        vtuber = Vtuber.objects.filter(name = vtuber_str)[0]
+        print(group_str)
+        unit = Group.Unit(group_str)
+
+        group = Group(vtuber = vtuber, unit = unit)
+        group.save()
+        
 
 
 ##### Songs #####
@@ -220,8 +239,8 @@ def test():
     a = 1
 
     # 每週要做的事情
-    add_this_week_new_song_to_models()
-    add_this_week_record_to_models()
+    # add_this_week_new_song_to_models()
+    # add_this_week_record_to_models()
     
     
     # records = Record.objects.filter(date = '2022-03-09').values('song__name', 'song__youtube_id', 'total_view')
@@ -231,6 +250,20 @@ def test():
     # songs = Song.objects.filter(singer__name = 'Suisei Channel').filter(song_records__date =  '2022-03-09').values('name', 'song_records__total_view')
     # df = read_frame(songs)
     # print(df)
+    # 'Gen-0'
+
+    # unit = Group.Unit('Gen-0')
+    # print(unit)
+    # vtuber = ''
+
+    # group = Group(vtuber = vtuber, 
+    #     unit = unit)
+    # group.save()
+
+    load_group_sheet()
+
+
+
 
 
             

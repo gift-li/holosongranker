@@ -11,6 +11,7 @@ song_sheet_id = 1564903369
 record_sheet_id = 2121622859
 song_all_sheet_id = 742986052
 new_song_sheet_id = 1439287617
+group_sheet_id = 1706140349
 
 def auth_gss_client(path, scopes):
     credentials = ServiceAccountCredentials.from_json_keyfile_name(path, scopes)
