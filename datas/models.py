@@ -93,10 +93,7 @@ class Record(models.Model):
     def __str__(self):
         return self.song.name
 
-<<<<<<< HEAD
     # 取得上一筆紀錄的日期
-=======
->>>>>>> ea34c658129f50cb69dadea79504c01d8e9cdb2f
     def get_last_date(now_date):
         last_date = Record.objects.filter(date__lt=now_date).values(
             'date').distinct().order_by('-date').first()
