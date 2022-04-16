@@ -21,10 +21,16 @@
                     <span class="ms-2 d-none d-sm-inline">歌曲</span></a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'singers:index' %}"
+                <a href="{% url 'singers:ranker' %}"
                     class="nav-link px-0 align-middle link-light d-flex align-items-center">
                     <i class="fs-3 bi bi-mic"></i>
                     <span class="ms-2 d-none d-sm-inline">歌手</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'singers:menu' %}"
+                    class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                    <i class="fs-3 bi bi-file-person"></i>
+                    <span class="ms-2 d-none d-sm-inline">介紹</span></a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'datas:index' %}"

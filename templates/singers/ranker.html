@@ -1,0 +1,73 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}歌手排行{% endblock %}
+
+{% block styles %}
+<style>
+    .img-vtuber {
+        max-width: 8vw;
+        min-width: 4rem;
+    }
+</style>
+{% endblock  %}
+
+{% block main %}
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>歌手排行</h1>
+        <hr class="bg-dark">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th class="col-1 text-center" scope="col">排名</th>
+                        <th class="col-6 text-center" scope="col" colspan="2">頻道/姓名</th>
+                        <th class="col-1 d-none d-lg-table-cell text-center" scope="col">所屬組別</th>
+                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">總觀看數</th>
+                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">平均觀看數</th>
+                        <th class="col-auto d-none d-lg-table-cell text-center" scope="col">歌曲數量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vtuber in vtubers %}
+                    <tr id="row_{{forloop.counter}}">
+                        <th scope="row">
+                            <!--排名-->
+                            <span class="fs-3">
+                                #{{forloop.counter}}
+                            </span>
+                        </th>
+                        <td>
+                            <!--頻道-->
+                            <a href="{{vtuber.youtube_url}}" target="_blank">
+                                <img class="img-song img-fluid shadow my-3 border border-1 rounded-circle"
+                                    src="{{vtuber.thumbnail_url}}" alt="頻道縮圖">
+                            </a>
+                        </td>
+                        <td>
+                            <!--姓名-->
+                            <p class="fs-5">
+                                {{vtuber.name}}
+                            </p>
+                        </td>
+                        <td class="d-none d-lg-table-cell">
+                            <!--所屬組別-->
+                        </td>
+                        <td class="d-none d-md-table-cell">
+                            <!--總觀看數-->
+                        </td>
+                        <td class="d-none d-md-table-cell">
+                            <!--平均觀看數-->
+                        </td>
+                        <td class="d-none d-lg-table-cell">
+                            <!--歌曲數量-->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

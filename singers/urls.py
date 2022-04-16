@@ -1,9 +1,11 @@
 from django.urls import path
-from . import views  # 引用這個資料夾中的views檔案
+from . import views
 from datas.models import *
 
 app_name = 'singers'
 
 urlpatterns = [
-    path("", views.Index, name="index"),
+    path("ranker/", views.Ranker, name="ranker"),
+    path("profile/menu", views.Menu, name="menu"),
+    path("profile/<int:id>", views.Profile, name="profile"),
 ]

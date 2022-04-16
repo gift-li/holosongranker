@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import mimetypes
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from . import homepage
@@ -24,3 +26,11 @@ urlpatterns = [
     path('singers/', include('singers.urls')),
     path('datas/', include('datas.urls')),
 ]
+if settings.DEBUG:
+    import debug_toolbar
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
