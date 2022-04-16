@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "holosongranker",
+  "private_key_id": "64378970cbd3a5dacd86b9950ca6970c54c53dd5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCxHgb0uqocSC5A\nCACPM0mWsUs5fTyaYQK++Bd1bjS/SlA5mGDqugHf2CARD6uecmHSn7isXBkEICTi\nt2waww4e1wKaQMGIZ1fUdzwntuM2tKASnoIhtcwSBG1QoinMAlc+uXSm8f8AKBuj\nipqOfHW3R7ir9s8s7JPpyddIKWL9L6JPMJg1GKEndnST0liu2ElJb/2IHFPG+VzE\nOTKyJKuUnvSSOo5yIKD/4Z6anBrwSJAYzdqRyrXe5AzEEzZaGiOgnRiudSacQgDg\nA73tx3HnOuIObSfG8Fghm55OPe9C+sE76AAPeYDl0jV+CTOkmSCflimaKO44aeeo\n+9OHe2opAgMBAAECggEAIvqqJwUCeYlr0OuDqMRZQTCMibMJF/gWwb5fa6qzMiAs\nDePhKBpKKnoVgykUHLu8RAuVPj0GF8F9Z2UQLYzeKgsOkYY+coDuYKCXucQtxW0Q\nu/yf+KZdwiUrraQJGyhPMK0Rs7LRSKejJb5G3eMIoITCnPumWNn0MFTTdoXt7dB5\nRs0A6R03400aMtQ9p/Bcno9RdXFjEopnan24ndHPjaxUCiosrPtoC6Y+Ow1/svJq\nTL7n8t5ZA0pUXsbR0Vx9uQALGbLmhySECtNfGabHUFo4VSRMwD8LlX88295l2c+N\njO4+yYpsGpz3F5zhc+qFghKvbAnrbjl0u9RKt6Jj7QKBgQDgIzMgCRBhZcLxB0+S\n/0v/FVydY3XQaGoiMxkxC8ywqkS9kfCXh/IIH5X84zeYZgbs06R5DueaiJgbqeJC\nvyfg/H1uvdi8fwEsDT09kSnQVFcMN9PjlgMv55Ij67dB629M2xNfoYt8CadSRATi\nCztoMefV33yVFll4fAAm+nRo9wKBgQDKS6urR1gyI237Dh03keENPvmkhiTzR9Lu\n6gdwUpIutQfNIk37mWwwQ4Vom8RD3wv9/k8gFjIMGDkoj4RE1YulIYcB3N8a29zn\nbbxlUsm4I5pDd16z6X0SngYHi7NxTvjxtVm0oMcKooKiGkWlyFyQmftvi0GSWdfj\nCR+K2VAd3wKBgCznoHSInFmHE7lKZ6zhrQ4b74QwywfIA4t6hU+IN6glVMROGs+h\nEuKBwYD63MaRmk2UUV1XmRsixqa0MHqC5bBzpYWsT2HkaA21UVGmZaQxYYc3ICJ2\niYjtch/0N7DjRFc3hPgh21osbPNUYU4QRgSoCvSUY9dStPYokbc9clkdAoGAVfQM\n/vuTZ8pSAqgelevv2bb2T4eHz66m20io3HrZDetxYyG+TLcFlwQ5fRciL0xoRgV2\nDUYhAa6RKsDADJdHfGRgftQgH8NnexXPRKYGe6z08NGZdYwxzmVCXpZnKi/J6rmJ\nYgwmRkiChOnwyd32JqKmiOB8ffiamCbaNh7bwbUCgYAhQts/eYDoGu664MIZJDoQ\nUm5GkLhHvNoZjIZZRAaYOpoInhQHjXFekXLMq6czyN+anEjUL7tOJJywdyfendMM\neuM1AK/TSJSEZBUsYgvcsz6v7dGGo8BgmJQ7fxnmH/suJu5rS1YAetXHsy98bYq3\nDnXTAVFTNqFXtXOdrbsRsA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "holo-song-ranker@holosongranker.iam.gserviceaccount.com",
+  "client_id": "101471942143105104062",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/holo-song-ranker%40holosongranker.iam.gserviceaccount.com"
+}
