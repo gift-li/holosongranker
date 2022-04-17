@@ -88,8 +88,10 @@ def load_songs_csv():
 def add_this_week_new_song_to_models():
     # 記得要上傳new_songs.csv
     # songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
-    new_songs_df, new_song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.new_song_sheet_id)
-    song_df, song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.song_sheet_id)
+    # new_songs_df, new_song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.new_song_sheet_id)
+    # song_df, song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.song_sheet_id)
+
+    new_songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
 
     start = 0
     # end = 2
@@ -128,7 +130,7 @@ def add_this_week_new_song_to_models():
                 video_data = {'title':song_name , 'videoId': new_songs_df['videoId'][i], 'thumbnail_url':new_songs_df['thumbnail_url'][i],
                     'youtube_url':new_songs_df['youtube_url'][i], 'image': '' ,
                     'publishedAt':new_songs_df['publishedAt'][i], 'singer':singer_name, 'Skip':''} 
-                song_df.append(video_data)
+                # song_df.append(video_data)
 
         else:
             song.singer.add(singer)
@@ -136,10 +138,10 @@ def add_this_week_new_song_to_models():
             video_data = {'title':song_name , 'videoId': new_songs_df['videoId'][i], 'thumbnail_url':new_songs_df['thumbnail_url'][i],
                 'youtube_url':new_songs_df['youtube_url'][i], 'image': '' ,
                 'publishedAt':new_songs_df['publishedAt'][i], 'singer':singer_name, 'Skip':''} 
-            song_df.append(video_data)
+            # song_df.append(video_data)
 
     # 新增歌曲資料至google sheet 備份
-    google_sheet_manager.update_worksheet(song_df, song_worksheet)
+    # google_sheet_manager.update_worksheet(song_df, song_worksheet)
 
 ##### Record ######
 
@@ -167,17 +169,18 @@ def load_record_csv():
 
 def add_this_week_record_to_models():
 
-    this_date = '2022-4-10'
-    youtube = y_api.set_api_key(1) # 使用分帳
+    this_date = '2022-4-17'
+    youtube = y_api.set_api_key(0) # 使用分帳
 
     # Google sheet 備份
-    record_df, record_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.record_sheet_id)
+    # record_df, record_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.record_sheet_id)
 
     songs = Song.objects.all()
     except_video = []
     views_col = []
     start = 0
     end = len(songs)
+    # end = 5
     for i in range(start, end):
         video_id = songs[i].youtube_id
 
@@ -191,25 +194,25 @@ def add_this_week_record_to_models():
             views_col.append(viewCount)
 
             record = Record(song = songs[i], 
-            view = viewCount, 
+            total_view = viewCount, 
             date=this_date)
             record.save()
 
             video_data = {'videoId':songs[i].youtube_id , 'view': viewCount, 'date':this_date} 
-            record_df = record_df.append(video_data, ignore_index=True)
+            # record_df = record_df.append(video_data, ignore_index=True)
 
-        except:
+        except Exception as e:
             except_video.append(video_id)
             views_col.append(0)
+            print(e)
         
-        print(except_video)
+            print(except_video)
     
     # 更新週觀看數
-    add_all_weekly_view_to_record()
+    # add_all_weekly_view_to_record()
 
     # 備份record to google sheet
-    record_df, record_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.record_sheet_id)
-    google_sheet_manager.update_worksheet(record_df, record_worksheet)
+    # google_sheet_manager.update_worksheet(record_df, record_worksheet)
 
 
 def add_all_weekly_view_to_record():
@@ -241,7 +244,7 @@ def test():
     # 每週要做的事情
     # add_this_week_new_song_to_models()
     # add_this_week_record_to_models()
-    
+    add_all_weekly_view_to_record()
     
     # records = Record.objects.filter(date = '2022-03-09').values('song__name', 'song__youtube_id', 'total_view')
     # df = read_frame(records)
@@ -260,7 +263,8 @@ def test():
     #     unit = unit)
     # group.save()
 
-    load_group_sheet()
+    # add_this_week_new_song_to_models()
+    # new_songs_df, new_song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.song_sheet_id)
 
 
 

@@ -61,11 +61,11 @@ class Song(models.Model):
     #     Vtuber, through='Singer_Song', through_fields=('song', 'singer') ,)
     singer = models.ManyToManyField(
         Vtuber, related_name="sing_songs", verbose_name="歌手")
-    youtube_id = models.URLField(
-        "影片連結", max_length=255, unique=True, editable=True)
+    youtube_id = models.CharField(
+        "影片ID", max_length=255, unique=True, editable=True)
 
     thumbnail_url = models.URLField("縮圖連結", max_length=255, blank=True)
-    youtube_url = models.URLField("縮圖連結", max_length=255, blank=True)
+    youtube_url = models.URLField("影片連結", max_length=255, blank=True)
 
     publish_at = models.DateField("發行日期", default=timezone.now)
     skip = models.BooleanField("歌手排名時跳過", default=False)
