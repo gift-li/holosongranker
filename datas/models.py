@@ -92,6 +92,12 @@ class Record(models.Model):
 
     def __str__(self):
         return self.song.name
+    
+    def get_date_list():
+        dates = Record.objects.values('date').distinct()
+        date_df = read_frame(dates, fieldnames=['date'])
+
+        return date_df.sort_values(['date'],ascending=False).reset_index()
 
     # 取得上一筆紀錄的日期
     def get_last_date(now_date):
@@ -109,3 +115,24 @@ class Record(models.Model):
             song=now_record.song).order_by('-date').first()
 
         return previous_record != None, previous_record
+
+
+class VtuberRecord(models.Model):
+    vtuber = models.ForeignKey(
+        Vtuber, on_delete=models.CASCADE, related_name="vtuber_record", verbose_name="Vtuber姓名")
+    total_view = models.IntegerField(
+        '總觀看數', blank=True, editable=True, default=0)
+    total_view_weekly_growth = models.IntegerField(
+        '周總觀看數成長', blank=True, editable=True, default=0)
+    average_view = models.IntegerField(
+        '平均觀看數', blank=True, editable=True, default=0)
+    average_view_weekly_growth = models.IntegerField(
+        '平均觀看數週成長', blank=True, editable=True, default=0)
+    
+    song_count = models.IntegerField(
+        '歌曲數量', blank=True, editable=True, default=0)
+
+    date = models.DateField("資料取得日期", default=timezone.now)
+
+    def __str__(self):
+        return self.vtuber.name

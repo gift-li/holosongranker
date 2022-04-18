@@ -5,7 +5,7 @@ from traceback import print_tb
 from unicodedata import name
 import datas.youtube_api as y_api
 import pandas as pd
-from datas.models import Group, Record, Vtuber, Song
+from datas.models import Group, Record, Vtuber, Song, VtuberRecord
 from django_pandas.io import read_frame
 from datetime import date
 import datas.google_sheet_manager as google_sheet_manager
@@ -238,13 +238,76 @@ def add_weekly_view_to_record(now_record):
     now_record.save()
 
 
-def test():
+def add_vtuber_record_by_date(now_date):
+    vtubers = Vtuber.objects.all()
+    for vtuber in vtubers:
+        print(vtuber, now_date)
+        songs = Song.objects.filter(singer = vtuber).filter(song_records__date = now_date).values('name', 'song_records__total_view', 'song_records__weekly_view')
+        df = read_frame(songs)
+        if(len(df) != 0):
+            total_view_df = df[df['song_records__total_view'] != 0] # 篩掉觀看數為0
+            total_view = total_view_df['song_records__total_view'].sum()
+            song_count = len(total_view_df)
+            average_view  = int(total_view/ song_count)
+
+            weekly_view_df = df[df['song_records__weekly_view'] != 0] # 篩掉觀看數為0
+            total_view_weekly_growth = weekly_view_df['song_records__weekly_view'].sum()
+            weekly_song_count = len(weekly_view_df)
+            average_view_weekly_growth = int(total_view_weekly_growth /weekly_song_count)
+
+            vtuber_record = VtuberRecord(
+                vtuber = vtuber,
+                total_view = total_view,
+                total_view_weekly_growth = total_view_weekly_growth,
+                average_view = average_view,
+                average_view_weekly_growth = average_view_weekly_growth,
+                song_count = song_count,
+                date = now_date)
+            vtuber_record.save()
+            
+            print(vtuber_record)
+
+def add_init_vtuber_record():
+    vtubers = Vtuber.objects.all()
+    date_list = Record.get_date_list()
+
+    for vtuber in vtubers:
+        for now_date in date_list['date']:
+            print(vtuber, now_date)
+            songs = Song.objects.filter(singer = vtuber).filter(song_records__date = now_date).values('name', 'song_records__total_view', 'song_records__weekly_view')
+            df = read_frame(songs)
+            if(len(df) != 0):
+                total_view_df = df[df['song_records__total_view'] != 0] # 篩掉觀看數為0
+                total_view = total_view_df['song_records__total_view'].sum()
+                song_count = len(total_view_df)
+                average_view  = int(total_view/ song_count)
+
+                weekly_view_df = df[df['song_records__weekly_view'] != 0] # 篩掉觀看數為0
+                total_view_weekly_growth = weekly_view_df['song_records__weekly_view'].sum()
+                weekly_song_count = len(weekly_view_df)
+                average_view_weekly_growth = int(total_view_weekly_growth /weekly_song_count)
+
+                vtuber_record = VtuberRecord(
+                    vtuber = vtuber,
+                    total_view = total_view,
+                    total_view_weekly_growth = total_view_weekly_growth,
+                    average_view = average_view,
+                    average_view_weekly_growth = average_view_weekly_growth,
+                    song_count = song_count,
+                    date = now_date)
+                vtuber_record.save()
+                
+                print(vtuber_record)
+
+
+def test_code():
     a = 1
 
     # 每週要做的事情
     # add_this_week_new_song_to_models()
     # add_this_week_record_to_models()
-    add_all_weekly_view_to_record()
+    # add_all_weekly_view_to_record()
+    # add_vtuber_record_by_date(now_date)
     
     # records = Record.objects.filter(date = '2022-03-09').values('song__name', 'song__youtube_id', 'total_view')
     # df = read_frame(records)
@@ -266,8 +329,9 @@ def test():
     # add_this_week_new_song_to_models()
     # new_songs_df, new_song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.song_sheet_id)
 
+    
 
-
+    
 
 
             

@@ -23,3 +23,9 @@ class GroupAdmin(admin.ModelAdmin):
 class RecordAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Record._meta.fields]
     ordering = ('date', 'song')
+
+@admin.register(VtuberRecord)
+class VtuberRecordAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in VtuberRecord._meta.fields]
+    ordering = ('vtuber', 'date')
+    list_filter = ('vtuber', 'date')
