@@ -167,9 +167,9 @@ def load_record_csv():
 
     add_all_weekly_view_to_record()
 
-def add_this_week_record_to_models():
+def add_this_week_record_to_models(this_date):
 
-    this_date = '2022-4-17'
+    
     youtube = y_api.set_api_key(0) # 使用分帳
 
     # Google sheet 備份
@@ -214,6 +214,11 @@ def add_this_week_record_to_models():
     # 備份record to google sheet
     # google_sheet_manager.update_worksheet(record_df, record_worksheet)
 
+def add_weekly_view_to_record_by_this_date(this_date):
+    records = Record.objects.filter(date = this_date)
+
+    for record in records:
+        add_weekly_view_to_record(record)
 
 def add_all_weekly_view_to_record():
     records = Record.objects.all()
@@ -304,10 +309,13 @@ def test_code():
     a = 1
 
     # 每週要做的事情
+    this_date = '2022-4-24'
     # add_this_week_new_song_to_models()
-    # add_this_week_record_to_models()
-    # add_all_weekly_view_to_record()
-    # add_vtuber_record_by_date(now_date)
+    # add_this_week_record_to_models(this_date)
+    # add_weekly_view_to_record_by_this_date(this_date)
+    
+
+    # print(Record.get_date_list())
     
     # records = Record.objects.filter(date = '2022-03-09').values('song__name', 'song__youtube_id', 'total_view')
     # df = read_frame(records)
