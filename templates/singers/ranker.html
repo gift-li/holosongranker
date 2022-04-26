@@ -53,6 +53,11 @@
                         </td>
                         <td class="d-none d-lg-table-cell">
                             <!--所屬組別-->
+                            {% for group in vtuber.vtuber_groups.values %}
+                            <p>
+                                {{group.unit}}
+                            </p>
+                            {% endfor %}
                         </td>
                         <td class="d-none d-md-table-cell">
                             <!--總觀看數-->

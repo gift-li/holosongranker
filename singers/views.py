@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from datas.models import *
+from django.db.models import Prefetch, Max
 from pprint import pp
 
 # 歌手排名
@@ -8,8 +9,10 @@ from pprint import pp
 def Ranker(request):
     # TODO: Vtuber
     # * 排序: 總觀看量(大->小)
-    vtubers = Vtuber.objects.all()[:5]
-
+    vtubers = Vtuber.objects.prefetch_related(
+        'vtuber_groups')[:1]
+    for v in vtubers:
+        pp(list(v.sing_songs.values()))
     template = 'singers/ranker.html'
     context = {
         'vtubers': vtubers,

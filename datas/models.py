@@ -42,7 +42,7 @@ class Group(models.Model):
         GROUP = 'Group'
 
     vtuber = models.ForeignKey(
-        Vtuber, on_delete=models.CASCADE, related_name="groups", verbose_name="Vtuber姓名")
+        Vtuber, on_delete=models.CASCADE, related_name="vtuber_groups", verbose_name="Vtuber姓名")
     unit = models.CharField("所屬身分", max_length=255, choices=Unit.choices)
 
     class Meta:
