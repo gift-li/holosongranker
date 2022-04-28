@@ -1,7 +1,168 @@
 {% extends 'partials/base.html' %}
+{% load humanize %}
 
-{% block title %}歌手排行{% endblock %}
+{% block title %}歌手專頁 - {{profile.vtuber.name}}{% endblock %}
+
+{% block styles %}
+<style>
+    .img-vtuber {
+        max-width: 8vw;
+        min-width: 5rem;
+    }
+
+    .img-song {
+        max-width: 18vw;
+        min-width: 8rem;
+    }
+
+    .truncate-1 {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+    .truncate-2 {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+</style>
+{% endblock  %}
 
 {% block main %}
-{{vtuber.name}}
+<div class="container">
+    <section id="profile" class="row justify-content-center">
+        <div class="col-4 col-lg-2">
+            <!--頻道-->
+            <img class="img-vtuber img-fluid shadow my-3 border border-1 rounded-circle mx-auto d-block"
+                src="{{profile.vtuber.thumbnail_url}}" alt="頻道縮圖">
+        </div>
+        <div class="col-8 col-lg-4 d-inline my-auto">
+            <p class="fs-4 text-truncate">
+                {{profile.vtuber.name}}
+            </p>
+            <p class="fs-5 mb-0">
+                <span class="fs-5 text-warning">
+                    {% for group in profile.vtuber.vtuber_groups.values %}
+                    {{group.unit}}{% if not forloop.last %} / {% endif %}
+                    {% endfor %}
+                </span>
+            </p>
+        </div>
+        <div class="col-4 col-lg-2 d-inline my-auto pe-auto pe-lg-0 text-center">
+            <p class="fs-5">
+                總觀看數
+            </p>
+            <p class="fs-5 mb-0 text-primary">
+                {{profile.total_view|intcomma}}
+            </p>
+        </div>
+        <div class="col-4 col-lg-2 d-inline my-auto pe-auto pe-lg-0 text-center">
+            <p class="fs-5">
+                平均觀看數
+            </p>
+            <p class="fs-5 mb-0 text-primary">
+                {{profile.average_view|intcomma}}
+            </p>
+        </div>
+        <div class="col-4 col-lg-2 d-inline my-auto text-center">
+            <p class="fs-5">
+                歌曲數量
+            </p>
+            <p class="fs-5 mb-0 text-primary">
+                {{profile.song_count}}
+            </p>
+        </div>
+    </section>
+    <section id="song" class="row justify-content-center pt-4">
+        <h1 class="ms-4">歌曲排行</h1>
+        <div class="table-responsive">
+            <table class="table table-hover table-borderless align-middle">
+                <thead class="border-top border-bottom">
+                    <tr>
+                        <th class="col-2 col-lg-1 text-center" scope="col">排名</th>
+                        <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
+                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">觀看數</th>
+                        <th class="col-2 d-none d-lg-table-cell text-center" scope="col">歌手</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in songs %}
+                    <tr id="row_{{forloop.counter}}">
+                        <th class="text-center" scope="row">
+                            <span class="fs-3">
+                                #{{forloop.counter}}
+                            </span>
+                        </th>
+                        <td>
+                            <a href="{{record.song.youtube_url}}" target="_blank">
+                                <img class="img-song img-fluid shadow my-3" src="{{record.song.thumbnail_url}}"
+                                    alt="歌曲縮圖">
+                            </a>
+                        </td>
+                        <td class="ps-2 px-md-4">
+                            <p class="fs-5 truncate-2">
+                                {{record.song.name}}
+                            </p>
+                            <p class="fs-6 text-secondary mb-0">
+                                <i class="bi bi-calendar-event"></i>
+                                {{record.song.publish_at|date:"Y/m/d"|naturaltime}}
+                            </p>
+                        </td>
+                        <td class="d-none d-md-table-cell text-center text-primary">
+                            <span class="fs-5">
+                                {{ record.total_view|intcomma }}
+                            </span>
+                        </td>
+                        <td class="d-none d-lg-table-cell text-center">
+                            <div id="carousel_vtuber_{{forloop.counter}}" class="carousel carousel-dark slide"
+                                data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for vtuber in record.song.singer.values %}
+                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                        <a class="link-dark" href="{% url 'singers:profile' id=vtuber.id %}"
+                                            target="_blank">
+                                            <img src="{{vtuber.thumbnail_url}}"
+                                                class="img-vtuber img-fluid border border-1 rounded-circle"
+                                                alt="vtuber圖片">
+                                            <div class="d-none d-md-block">
+                                                <p class="mt-2 truncate-1">
+                                                    {{vtuber.name}}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% if record.song.singer.values.count != 1 %}
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">前一位</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">後一位</span>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="graph" class="row justify-content-center pt-4">
+        <h1 class="ms-4">相關圖表</h1>
+        <hr class="bg-dark">
+    </section>
+    <section id="weekly_view_graph" class="row justify-content-center pt-4">
+        <h1 class="ms-4">週觀看數成長變化圖</h1>
+        <hr class="bg-dark">
+    </section>
+</div>
 {% endblock %}

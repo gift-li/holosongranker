@@ -1,13 +1,20 @@
 {% extends 'partials/base.html' %}
-{% load static %}
+{% load humanize %}
 
 {% block title %}歌手排行{% endblock %}
 
 {% block styles %}
 <style>
     .img-vtuber {
-        max-width: 8vw;
-        min-width: 4rem;
+        max-width: 10vw;
+        min-width: 7rem;
+    }
+
+    .truncate-1 {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
 </style>
 {% endblock  %}
@@ -15,24 +22,23 @@
 {% block main %}
 <div class="container">
     <div class="row justify-content-center">
-        <h1>歌手排行</h1>
-        <hr class="bg-dark">
+        <h1 class="fs-1 ps-5">歌手排行</h1>
         <div class="table-responsive">
             <table class="table table-hover align-middle">
-                <thead>
+                <thead class="border-top border-bottom">
                     <tr>
-                        <th class="col-1 text-center" scope="col">排名</th>
-                        <th class="col-6 text-center" scope="col" colspan="2">頻道/姓名</th>
-                        <th class="col-1 d-none d-lg-table-cell text-center" scope="col">所屬組別</th>
+                        <th class="col-2 col-md-1 text-center" scope="col">排名</th>
+                        <th class="col-auto text-center" scope="col" colspan="2">頻道/姓名</th>
+                        <th class="col-1 d-none d-xl-table-cell text-center" scope="col">所屬組別</th>
                         <th class="col-auto d-none d-md-table-cell text-center" scope="col">總觀看數</th>
-                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">平均觀看數</th>
-                        <th class="col-auto d-none d-lg-table-cell text-center" scope="col">歌曲數量</th>
+                        <th class="col-auto d-none d-lg-table-cell text-center" scope="col">平均觀看數</th>
+                        <th class="col-auto d-none d-xl-table-cell text-center" scope="col">歌曲數量</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for vtuber in vtubers %}
+                    {% for record in vtuber_record_list %}
                     <tr id="row_{{forloop.counter}}">
-                        <th scope="row">
+                        <th class="text-center" scope="row">
                             <!--排名-->
                             <span class="fs-3">
                                 #{{forloop.counter}}
@@ -40,33 +46,47 @@
                         </th>
                         <td>
                             <!--頻道-->
-                            <a href="{{vtuber.youtube_url}}" target="_blank">
-                                <img class="img-song img-fluid shadow my-3 border border-1 rounded-circle"
-                                    src="{{vtuber.thumbnail_url}}" alt="頻道縮圖">
+                            <a class="link-dark" href="{% url 'singers:profile' id=record.vtuber.id %}">
+                                <img class="img-vtuber img-fluid shadow my-3 border border-1 rounded-circle"
+                                    src="{{record.vtuber.thumbnail_url}}" alt="頻道縮圖">
                             </a>
                         </td>
                         <td>
                             <!--姓名-->
-                            <p class="fs-5">
-                                {{vtuber.name}}
-                            </p>
-                        </td>
-                        <td class="d-none d-lg-table-cell">
-                            <!--所屬組別-->
-                            {% for group in vtuber.vtuber_groups.values %}
-                            <p>
-                                {{group.unit}}
-                            </p>
+                            <span class="fs-5 truncate-1">
+                                {{record.vtuber.name}}
+                            </span>
+                            {% for group in record.vtuber.vtuber_groups.values %}
+                            <span class="d-inline-block d-lg-none fs-5 text-warning">
+                                {{group.unit}}{% if not forloop.last %} / {% endif %}
+                            </span>
                             {% endfor %}
                         </td>
-                        <td class="d-none d-md-table-cell">
+                        <td class="d-none d-xl-table-cell text-center">
+                            <!--所屬組別-->
+                            {% for group in record.vtuber.vtuber_groups.values %}
+                            <span class="fs-5 text-warning">
+                                {{group.unit}}
+                            </span>
+                            {% endfor %}
+                        </td>
+                        <td class="d-none d-md-table-cell text-center">
                             <!--總觀看數-->
+                            <span class="fs-5 text-primary">
+                                {{record.total_view}}
+                            </span>
                         </td>
-                        <td class="d-none d-md-table-cell">
+                        <td class="d-none d-lg-table-cell text-center">
                             <!--平均觀看數-->
+                            <span class="fs-5 text-primary">
+                                {{record.average_view|intcomma}}
+                            </span>
                         </td>
-                        <td class="d-none d-lg-table-cell">
+                        <td class="d-none d-xl-table-cell text-center">
                             <!--歌曲數量-->
+                            <span class="fs-5 text-primary">
+                                {{record.song_count|intcomma}}
+                            </span>
                         </td>
                     </tr>
                     {% endfor %}

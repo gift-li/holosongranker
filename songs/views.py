@@ -5,15 +5,22 @@ from pprint import pp
 
 
 def Index(request):
-    # 取得最新總觀看數前n名的songs
-    # songs = Song.objects.prefetch_related('sing_songs')[:3]
-    songs = Song.objects.annotate(
-        latest_total_view=Max('song_records__total_view')
-    ).order_by('-latest_total_view')[:5]
+    order_query = str('-total_view')
+    exclude_group = [Group.Unit.GROUP]
+    rank_num_to = 5
+
+    last_song_record_date = Record.objects.values_list(
+        'date', flat=True).latest('date')
+    records = Record.objects.filter(date=last_song_record_date) \
+        .prefetch_related('song', 'song__singer', 'song__singer__vtuber_groups') \
+        .exclude(song__singer__vtuber_groups__unit__in=exclude_group) \
+        .order_by(order_query)[:rank_num_to]
+
+    pp(records[0].song.singer)
 
     template = 'songs/ranker.html'
     context = {
-        'songs': songs,
+        'records': records,
     }
 
     return render(request, template, context)

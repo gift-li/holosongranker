@@ -10,8 +10,15 @@
     }
 
     .img-song {
-        max-width: 15vw;
+        max-width: 18vw;
         min-width: 8rem;
+    }
+
+    .truncate-2 {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 </style>
 {% endblock  %}
@@ -19,20 +26,20 @@
 {% block main %}
 <div class="container">
     <div class="row justify-content-center">
-        <h1>Hololive歌曲排行</h1>
+        <h1 class="fs-1 ps-5">Hololive歌曲排行</h1>
         <hr class="bg-dark">
         <div class="table-responsive">
             <table class="table table-hover table-borderless align-middle">
                 <thead class="border-bottom">
                     <tr>
                         <th class="col-1 text-center" scope="col">排名</th>
-                        <th class="col-6 text-center" scope="col" colspan="2">歌曲</th>
+                        <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
                         <th class="col-auto d-none d-md-table-cell text-center" scope="col">觀看數</th>
-                        <th class="col-auto d-none d-lg-table-cell text-center" scope="col">歌手</th>
+                        <th class="col-2 d-none d-xl-table-cell text-center" scope="col">歌手</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for song in songs %}
+                    {% for record in records %}
                     <tr id="row_{{forloop.counter}}">
                         <th class="text-center" scope="row">
                             <span class="fs-3">
@@ -40,37 +47,37 @@
                             </span>
                         </th>
                         <td>
-                            <a href="{{song.youtube_url}}" target="_blank">
-                                <img class="img-song img-fluid shadow my-3" src="{{song.thumbnail_url}}" alt="歌曲縮圖">
+                            <a href="{{record.song.youtube_url}}" target="_blank">
+                                <img class="img-song img-fluid shadow my-3" src="{{record.song.thumbnail_url}}"
+                                    alt="歌曲縮圖">
                             </a>
                         </td>
                         <td class="ps-2 px-md-4">
-                            <p class="fs-5">
-                                {{song.name|truncatewords:8}}
+                            <p class="fs-5 truncate-2">
+                                {{record.song.name}}
                             </p>
                             <p class="fs-6 text-secondary mb-0">
                                 <i class="bi bi-calendar-event"></i>
-                                {{song.publish_at|date:"Y/m/d"|naturaltime}}
+                                {{record.song.publish_at|date:"Y/m/d"|naturaltime}}
                             </p>
                         </td>
                         <td class="d-none d-md-table-cell text-center text-primary">
-                            <p class="fs-5">
-                                {{ song.latest_total_view|intcomma }}
-                            </p>
+                            <span class="fs-5">
+                                {{ record.total_view|intcomma }}
+                            </span>
                         </td>
-                        <td class="d-none d-lg-table-cell text-center">
+                        <td class="d-none d-xl-table-cell text-center">
                             <div id="carousel_vtuber_{{forloop.counter}}" class="carousel carousel-dark slide mx-3"
                                 data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                    {% for vtuber in song.singer.values %}
+                                    {% for vtuber in record.song.singer.values %}
                                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                        <a class="link-dark" href="{% url 'singers:profile' id=vtuber.id %}"
-                                            target="_blank">
+                                        <a class="link-dark" href="{% url 'singers:profile' id=vtuber.id %}">
                                             <img src="{{vtuber.thumbnail_url}}"
                                                 class="img-vtuber img-fluid mx-auto d-block w-100 border border-1 rounded-circle"
                                                 alt="vtuber圖片">
                                             <div class="d-none d-md-block">
-                                                <p class="mx-0 mx-md-3 mx-lg-4 mt-2">
+                                                <p class="mt-2 text-truncate">
                                                     {{vtuber.name}}
                                                 </p>
                                             </div>
@@ -78,7 +85,7 @@
                                     </div>
                                     {% endfor %}
                                 </div>
-                                {% if song.singer.values.count != 1 %}
+                                {% if record.song.singer.values.count != 1 %}
                                 <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

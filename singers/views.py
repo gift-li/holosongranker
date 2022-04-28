@@ -7,15 +7,22 @@ from pprint import pp
 
 
 def Ranker(request):
-    # TODO: Vtuber
-    # * 排序: 總觀看量(大->小)
-    vtubers = Vtuber.objects.prefetch_related(
-        'vtuber_groups')[:1]
-    for v in vtubers:
-        pp(list(v.sing_songs.values()))
+    # search querys setting
+    order_query = str('-total_view')
+    exclude_group = [Group.Unit.GROUP]
+    rank_num_to = 5
+
+    lastest_record_date = VtuberRecord.objects.values_list(
+        'date', flat=True).latest('date')
+    vtuber_record_list = VtuberRecord.objects.filter(
+        date=lastest_record_date) \
+        .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
+        .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
+        .order_by(order_query)[:rank_num_to]
+
     template = 'singers/ranker.html'
     context = {
-        'vtubers': vtubers,
+        'vtuber_record_list': vtuber_record_list,
     }
 
     return render(request, template, context)
@@ -24,19 +31,51 @@ def Ranker(request):
 
 
 def Menu(request):
-    template = 'singers/menu.html'
+    group_query = 'all'
+    selected = group_query
+    if request.method == 'POST':
+        group_query = request.POST.get('group_query')
+        selected = group_query
 
-    return render(request, template)
+    if group_query != 'all':
+        list = Vtuber.objects.prefetch_related('vtuber_groups') \
+            .filter(vtuber_groups__unit__in=[group_query])
+    else:
+        list = Vtuber.objects.all()
+    units = [unit.value for unit in Group.Unit]
+
+    template = 'singers/menu.html'
+    context = {
+        'list': list,
+        'units': units,
+        'selected': selected,
+    }
+    return render(request, template, context)
 
 # 選定歌手的個人介紹/資訊(by id)
 
 
 def Profile(request, id):
-    vtuber = Vtuber.objects.filter(pk=id).get()
+    order_query = str('-total_view')
+    rank_num_to = 3
+
+    lastest_vtuber_record_date = VtuberRecord.objects.values_list(
+        'date', flat=True).latest('date')
+    profile = VtuberRecord.objects.filter(vtuber=id) \
+        .filter(date=lastest_vtuber_record_date) \
+        .prefetch_related('vtuber', 'vtuber__vtuber_groups').get()
+
+    lastest_song_record_date = Record.objects.values_list(
+        'date', flat=True).latest('date')
+    songs = Record.objects.filter(date=lastest_song_record_date) \
+        .prefetch_related('song', 'song__singer') \
+        .filter(song__singer__in=[id]) \
+        .order_by(order_query)[:rank_num_to]
 
     template = 'singers/profile.html'
     context = {
-        'vtuber': vtuber
+        'profile': profile,
+        'songs': songs,
     }
 
     return render(request, template, context)

@@ -1,0 +1,47 @@
+{% extends 'partials/base.html' %}
+{% load humanize %}
+
+{% block title %}歌手分類選單{% endblock %}
+
+{% block styles %}
+<style>
+    .truncate-1 {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+</style>
+{% endblock  %}
+
+{% block main %}
+<div class="container">
+    <h1 class="fs-1 pb-4 ps-5">
+        歌手分類選單
+    </h1>
+    <div class="row pb-5">
+        <form action={% url 'singers:menu' %} method="post">
+            {% csrf_token %}
+            <select name="group_query" class="form-select" onChange="form.submit();" aria-label="group_unit_select">
+                <option {% if selected == 'all' %}selected{% endif %} value="all">全選</option>
+                {% for unit in units %}
+                <option {% if selected == unit %}selected{% endif %} value="{{unit}}">{{unit}}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-5">
+        {% for vtuber in list %}
+        <div class="col">
+            <a class="link-dark hover-shadow" href="{% url 'singers:profile' id=vtuber.id %}">
+                <img src="{{vtuber.thumbnail_url}}"
+                    class="img-vtuber img-fluid mx-auto d-block w-100 border border-1 rounded-circle" alt="vtuber圖片">
+                <p class="mt-2 truncate-1 text-center">
+                    {{vtuber.name}}
+                </p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
