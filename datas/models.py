@@ -92,12 +92,16 @@ class Record(models.Model):
 
     def __str__(self):
         return self.song.name
-    
+
+    # 取得歌曲最新紀錄日期
+    def get_lastest_record_date():
+        return Record.objects.values_list('date', flat=True).latest('date')
+
     def get_date_list():
         dates = Record.objects.values('date').distinct()
         date_df = read_frame(dates, fieldnames=['date'])
 
-        return date_df.sort_values(['date'],ascending=False).reset_index()
+        return date_df.sort_values(['date'], ascending=False).reset_index()
 
     # 取得上一筆紀錄的日期
     def get_last_date(now_date):
@@ -128,7 +132,7 @@ class VtuberRecord(models.Model):
         '平均觀看數', blank=True, editable=True, default=0)
     average_view_weekly_growth = models.IntegerField(
         '平均觀看數週成長', blank=True, editable=True, default=0)
-    
+
     song_count = models.IntegerField(
         '歌曲數量', blank=True, editable=True, default=0)
 

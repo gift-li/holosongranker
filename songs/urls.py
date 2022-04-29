@@ -5,5 +5,5 @@ from datas.models import *
 app_name = 'songs'
 
 urlpatterns = [
-    path("", views.Index, name="index"),
+    path("ranker", views.Ranker, name="ranker"),
 ]
