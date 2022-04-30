@@ -59,15 +59,11 @@ def Profile(request, id):
     order_query = str('-total_view')
     rank_num_to = 3
 
-    lastest_vtuber_record_date = VtuberRecord.objects.values_list(
-        'date', flat=True).latest('date')
     profile = VtuberRecord.objects.filter(vtuber=id) \
-        .filter(date=lastest_vtuber_record_date) \
+        .filter(date=VtuberRecord.get_lastest_record_date()) \
         .prefetch_related('vtuber', 'vtuber__vtuber_groups').get()
 
-    lastest_song_record_date = Record.objects.values_list(
-        'date', flat=True).latest('date')
-    songs = Record.objects.filter(date=lastest_song_record_date) \
+    songs = Record.objects.filter(date=Record.get_lastest_record_date()) \
         .prefetch_related('song', 'song__singer') \
         .filter(song__singer__in=[id]) \
         .order_by(order_query)[:rank_num_to]

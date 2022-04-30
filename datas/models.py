@@ -140,3 +140,7 @@ class VtuberRecord(models.Model):
 
     def __str__(self):
         return self.vtuber.name
+
+    # 取得Vtuber最新紀錄日期
+    def get_lastest_record_date():
+        return VtuberRecord.objects.values_list('date', flat=True).latest('date')
