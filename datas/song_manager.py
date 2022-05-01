@@ -170,7 +170,7 @@ def load_record_csv():
 def add_this_week_record_to_models(this_date):
 
     
-    youtube = y_api.set_api_key(0) # 使用分帳
+    youtube = y_api.set_api_key(2) # 使用分帳
 
     # Google sheet 備份
     # record_df, record_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.record_sheet_id)
@@ -304,12 +304,43 @@ def add_init_vtuber_record():
                 
                 print(vtuber_record)
 
+import urllib.request
+
+def download_vtuber_img_to_media():
+    youtube = y_api.set_api_key(2) # 使用分帳
+
+    vtuber_df = pd.read_csv('./datas/csv/vtuber.csv') 
+    thumbnails_path = 'media/vtuber_thumbnails/'
+    banners_path = 'media/vtuber_banners/'
+
+    start = 0
+    # end = 2
+    end = len(vtuber_df)
+
+    for i in range(start, end):
+        channel_id = vtuber_df['channel_id'][i]
+        request = youtube.channels().list(
+            part= "snippet,statistics,brandingSettings",   
+            id= channel_id
+        )
+        response = request.execute()
+
+        # 頻道縮圖
+        thumbnails_url = response['items'][0]['snippet']['thumbnails']['medium']['url']
+        thumbnails_file_name = thumbnails_path + channel_id + '.png'
+        urllib.request.urlretrieve(thumbnails_url, thumbnails_file_name)
+
+        # 頻道封面
+        # banners_url = response['items'][0]['brandingSettings']['image']['bannerExternalUrl']
+        # banners_file_name = banners_path + vtuber_df['Chanel Name'][i] + '.png'
+        # urllib.request.urlretrieve(banners_url, banners_file_name)
+        
 
 def test_code():
     a = 1
-
+    # download_vtuber_img_to_media()
     # 每週要做的事情
-    this_date = '2022-4-24'
+    this_date = '2022-5-1'
     # add_this_week_new_song_to_models()
     # add_this_week_record_to_models(this_date)
     # add_weekly_view_to_record_by_this_date(this_date)
