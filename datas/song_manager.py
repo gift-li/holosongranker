@@ -171,7 +171,7 @@ def add_vtuber_record_by_date(now_date):
                 date = now_date)
             vtuber_record.save()
             
-            print(vtuber_record)
+            # print(vtuber_record)
 
 
 
@@ -179,7 +179,7 @@ def test_code():
     a = 1
    
     # 每週要做的事情
-    this_date = '2022-5-1'
+    this_date = '2022-4-24'
     # add_this_week_new_song_to_models() # 新增新歌到songs
     # add_this_week_record_to_models(this_date) # 新增本周所有歌曲的record
     # add_weekly_view_to_record_by_this_date(this_date) # 計算本周歌曲的 weekly record
