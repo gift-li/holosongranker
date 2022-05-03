@@ -4,8 +4,30 @@
 {% block title %}Hololive歌曲排行{% endblock title %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'js/songs/select.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/tooltip.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        if ("{{request.session.songs_view_select}}" == "total_view") {
+            $("#date_select").hide();
+        } else {
+            $("#date_select").show();
+        }
+
+        $("#view_select").change(function () {
+            if ($(this).val() == "total_view") {
+                $("#date_select").hide();
+                $("#select_form").submit();
+            } else {
+                $("#date_select").show();
+            }
+        });
+        $("#date_select").change(function () {
+            if ($("#view_select").val() == "weekly_view") {
+                $("#select_form").submit();
+            }
+        });
+    });
+</script>
 {% endblock %}
 
 {% block styles %}
@@ -39,19 +61,19 @@
                 {% csrf_token %}
                 <span class="input-group-text">排序條件</span>
                 <select id="view_select" name="view_select" class="form-select form-control">
-                    <option {% if request.session.view_select == "weekly_view" %}selected
-                        {% elif request.session.view_select == "total_view" %} {% else %} selected {% endif %}
+                    <option {% if request.session.songs_view_select == "weekly_view" %}selected
+                        {% elif request.session.songs_view_select == "total_view" %} {% else %} selected {% endif %}
                         value="weekly_view">
                         周觀看數
                     </option>
-                    <option {% if request.session.view_select == "total_view" %} selected {% endif %}
+                    <option {% if request.session.songs_view_select == "total_view" %} selected {% endif %}
                         value="total_view">
                         總觀看數</option>
                 </select>
                 <select id="date_select" name="date_select" class="form-select form-control">
                     {% for date in date_select_list %}
                     <option
-                        {% if forloop.first or request.session.date_select == date|date:"Y/m/d" %}selected{% endif %}
+                        {% if forloop.first or request.session.songs_date_select == date|date:"Y/m/d" %}selected{% endif %}
                         value="{{date|date:"Y/m/d"}}">
                         {{date|date:"Y/m/d"}}</option>
                     {% endfor %}
@@ -65,10 +87,12 @@
                         <th class="col-2 col-md-1 text-center" scope="col">排名</th>
                         <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
                         <th class="col-auto d-none d-md-table-cell text-center" scope="col">
-                            {% if request.session.view_select == 'weekly_view' %}
+                            {% if request.session.songs_view_select == 'weekly_view' %}
                             周觀看數
-                            {% else %}
+                            {% elif request.session.songs_view_select == 'total_view' %}
                             總觀看數
+                            {% else %}
+                            周觀看數
                             {% endif %}
                         </th>
                         <th class="col-2 d-none d-xl-table-cell text-center" scope="col">歌手</th>
@@ -99,10 +123,12 @@
                         </td>
                         <td class="d-none d-md-table-cell text-center text-primary">
                             <span class="fs-5">
-                                {% if request.session.view_select == 'weekly_view' %}
+                                {% if request.session.songs_view_select == 'weekly_view' %}
                                 {{ record.weekly_view|intcomma }}
-                                {% else %}
+                                {% elif request.session.songs_view_select == 'total_view' %}
                                 {{ record.total_view|intcomma }}
+                                {% else %}
+                                {{ record.weekly_view|intcomma }}
                                 {% endif %}
                             </span>
                         </td>

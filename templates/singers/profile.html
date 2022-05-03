@@ -1,38 +1,40 @@
 {% extends 'partials/base.html' %}
 {% load humanize %}
+{% load static %}
 
 {% block title %}歌手專頁 - {{profile.vtuber.name}}{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/singers/select.js' %}"></script>
+{% endblock %}
 
 {% block styles %}
 <style>
     .img-vtuber {
-        max-width: 8vw;
+        max-width: 10vw;
+        min-width: 6rem;
+    }
+
+    .img-song-vtuber {
+        max-width: 6vw;
         min-width: 5rem;
     }
 
     .img-song {
-        max-width: 18vw;
-        min-width: 8rem;
-    }
-
-    .truncate-1 {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-    }
-
-    .truncate-2 {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+        max-width: 12vw;
+        min-width: 6rem;
     }
 </style>
 {% endblock  %}
 
 {% block main %}
 <div class="container">
+    <section id="banner" class="row justify-content-center">
+        <div class="col">
+            <img src="{% static 'img/vtuber_banners/'|add:profile.vtuber.youtube_id|add:'.png' %}" alt="頻道banner"
+                class="img-fluid">
+        </div>
+    </section>
     <section id="profile" class="row justify-content-center">
         <div class="col-4 col-lg-2">
             <!--頻道-->
@@ -40,45 +42,41 @@
                 src="{{profile.vtuber.thumbnail_url}}" alt="頻道縮圖">
         </div>
         <div class="col-8 col-lg-4 d-inline my-auto">
-            <p class="fs-4 text-truncate">
+            <p class="fs-3 text-truncate">
                 {{profile.vtuber.name}}
             </p>
-            <p class="fs-5 mb-0">
-                <span class="fs-5 text-warning">
-                    {% for group in profile.vtuber.vtuber_groups.values %}
+            <p class="fs-5 mb-0 text-warning">
+                <i class="bi bi-tag"></i>
+                {% for group in profile.vtuber.vtuber_groups.values %}
+                <span class="text-decoration-underline">
                     {{group.unit}}{% if not forloop.last %} / {% endif %}
-                    {% endfor %}
                 </span>
+                {% endfor %}
             </p>
         </div>
-        <div class="col-4 col-lg-2 d-inline my-auto pe-auto pe-lg-0 text-center">
-            <p class="fs-5">
+        <div class="col-4 col-lg-2 d-inline my-auto text-center">
+            <p class="fs-5 text-muted">
                 總觀看數
             </p>
-            <p class="fs-5 mb-0 text-primary">
+            <p class="fs-5 mb-0 text-black fw-bolder">
                 {{profile.total_view|intcomma}}
             </p>
         </div>
-        <div class="col-4 col-lg-2 d-inline my-auto pe-auto pe-lg-0 text-center">
-            <p class="fs-5">
+        <div class="col-4 col-lg-2 d-inline my-auto text-center">
+            <p class="fs-5 text-muted">
                 平均觀看數
             </p>
-            <p class="fs-5 mb-0 text-primary">
+            <p class="fs-5 mb-0 text-black fw-bolder">
                 {{profile.average_view|intcomma}}
             </p>
         </div>
         <div class="col-4 col-lg-2 d-inline my-auto text-center">
-            <p class="fs-5">
+            <p class="fs-5 text-muted">
                 歌曲數量
             </p>
-            <p class="fs-5 mb-0 text-primary">
+            <p class="fs-5 mb-0 text-black fw-bolder">
                 {{profile.song_count}}
             </p>
-        </div>
-    </section>
-    <section id="banner" class="row justify-content-center">
-        <div class="col">
-            <img src="" alt="頻道banner" class="img-fluid">
         </div>
     </section>
     <section id="song" class="row justify-content-center pt-4">
@@ -130,7 +128,7 @@
                                         <a class="link-dark" href="{% url 'singers:profile' id=vtuber.id %}"
                                             target="_blank">
                                             <img src="{{vtuber.thumbnail_url}}"
-                                                class="img-vtuber img-fluid border border-1 rounded-circle"
+                                                class="img-song-vtuber img-fluid border border-1 rounded-circle"
                                                 alt="vtuber圖片">
                                             <div class="d-none d-md-block">
                                                 <p class="mt-2 truncate-1">

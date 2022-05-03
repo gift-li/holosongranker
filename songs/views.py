@@ -8,13 +8,20 @@ from pprint import pp
 @require_http_methods(['GET', 'POST'])
 def Ranker(request):
     rank_num_to = 5
-    order_query = 'weekly_view'
+    order_query = '-weekly_view'
     date_query = Record.get_lastest_record_date()
     date_select_list = Record.get_date_list()['date'].tolist()
 
+    if request.method == 'GET':
+        request.session['singers_view_select'] = order_query
+        request.session['singers_date_select'] = datetime.strftime(
+            date_query, "%Y/%m/%d")
+
     if request.method == 'POST':
-        request.session['view_select'] = request.POST.get('view_select')
-        request.session['date_select'] = request.POST.get('date_select')
+        request.session['songs_view_select'] = request.POST.get(
+            'view_select')
+        request.session['songs_date_select'] = request.POST.get(
+            'date_select')
 
         order_query = str('-' + request.POST.get('view_select'))
         date_query = datetime.strptime(

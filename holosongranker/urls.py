@@ -21,11 +21,13 @@ from . import homepage
 
 urlpatterns = [
     path("", homepage.Index, name='homepage'),
+    path("about/", homepage.About, name='about'),
     path('admin/', admin.site.urls),
     path('songs/', include('songs.urls')),
     path('singers/', include('singers.urls')),
     path('datas/', include('datas.urls')),
 ]
+
 if settings.DEBUG:
     import debug_toolbar
     DEBUG_TOOLBAR_CONFIG = {

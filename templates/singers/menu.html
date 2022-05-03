@@ -4,23 +4,12 @@
 
 {% block title %}歌手分類選單{% endblock %}
 
-{% block styles %}
-<style>
-    .truncate-1 {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-    }
-</style>
-{% endblock  %}
-
 {% block main %}
 <div class="container">
-    <h1 class="fs-1 pb-4 ps-5">
+    <h1 class="fs-1 pb-3 ps-2">
         歌手分類選單
     </h1>
-    <div class="row pb-5">
+    <div class="row pb-3">
         <form action={% url 'singers:menu' %} method="post">
             {% csrf_token %}
             <select name="group_query" class="form-select" onChange="form.submit();" aria-label="group_unit_select">

@@ -3,6 +3,10 @@ from django.db.models import Sum
 from datas.models import *
 from pprint import pp
 
+def About(request):
+    template = 'about.html'
+
+    return render(request, template)
 
 def Index(request):
     holodata, holodata_record_date = getHolodata()

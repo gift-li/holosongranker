@@ -11,16 +11,22 @@ from pprint import pp
 @require_http_methods(['GET', 'POST'])
 def Ranker(request):
     # search querys setting
-    order_query = 'weekly_view'
+    order_query = '-total_view_weekly_growth'
     exclude_group = [Group.Unit.GROUP]
     rank_num_to = 5
     date_query = VtuberRecord.get_lastest_record_date()
     date_select_list = VtuberRecord.get_date_list()['date'].tolist()
 
-    if request.method == 'POST':
-        request.session['view_select'] = request.POST.get('view_select')
-        request.session['date_select'] = request.POST.get('date_select')
+    if request.method == 'GET':
+        request.session['singers_view_select'] = order_query
+        request.session['singers_date_select'] = datetime.strftime(
+            date_query, "%Y/%m/%d")
 
+    if request.method == 'POST':
+        request.session['singers_view_select'] = request.POST.get(
+            'view_select')
+        request.session['singers_date_select'] = request.POST.get(
+            'date_select')
         order_query = str('-' + request.POST.get('view_select'))
         date_query = datetime.strptime(
             request.POST.get('date_select'), "%Y/%m/%d").date()
@@ -31,7 +37,7 @@ def Ranker(request):
             date=date_query) \
             .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
             .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
-            .order_by(str('-'+order_query))[:rank_num_to]
+            .order_by(order_query)[:rank_num_to]
     except:
         vtuber_record_list = VtuberRecord.objects.filter(
             date=VtuberRecord.get_lastest_record_date()) \
