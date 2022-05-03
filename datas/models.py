@@ -97,6 +97,7 @@ class Record(models.Model):
     def get_lastest_record_date():
         return Record.objects.values_list('date', flat=True).latest('date')
 
+    # 紀錄日期清單
     def get_date_list():
         dates = Record.objects.values('date').distinct()
         date_df = read_frame(dates, fieldnames=['date'])
@@ -144,3 +145,10 @@ class VtuberRecord(models.Model):
     # 取得Vtuber最新紀錄日期
     def get_lastest_record_date():
         return VtuberRecord.objects.values_list('date', flat=True).latest('date')
+
+    # 紀錄日期清單
+    def get_date_list():
+        dates = VtuberRecord.objects.values('date').distinct()
+        date_df = read_frame(dates, fieldnames=['date'])
+
+        return date_df.sort_values(['date'], ascending=False).reset_index()

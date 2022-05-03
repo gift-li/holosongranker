@@ -1,20 +1,19 @@
 {% extends 'partials/base.html' %}
 {% load humanize %}
+{% load static %}
 
 {% block title %}歌手排行{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/singers/select.js' %}"></script>
+{% endblock %}
+
 
 {% block styles %}
 <style>
     .img-vtuber {
-        max-width: 10vw;
-        min-width: 7rem;
-    }
-
-    .truncate-1 {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
+        max-width: 8vw;
+        min-width: 6rem;
     }
 </style>
 {% endblock  %}
@@ -22,16 +21,44 @@
 {% block main %}
 <div class="container">
     <div class="row justify-content-center">
-        <h1 class="fs-1 ps-5">歌手排行</h1>
+        <h1 class="fs-1 ps-3">歌手排行</h1>
+        <div class="col">
+            <form id="select_form" action="{% url 'singers:ranker' %}" method="post" class="input-group">
+                {% csrf_token %}
+                <span class="input-group-text">排序條件</span>
+                <select id="view_select" name="view_select" class="form-select form-control">
+                    <option {% if request.session.view_select == "total_view_weekly_growth" %}selected
+                        {% elif request.session.view_select == "total_view" %} {% else %} selected {% endif %}
+                        value="total_view_weekly_growth">
+                        周觀看數
+                    </option>
+                    <option {% if request.session.view_select == "total_view" %} selected {% endif %}
+                        value="total_view">
+                        總觀看數</option>
+                </select>
+                <select id="date_select" name="date_select" class="form-select form-control">
+                    {% for date in date_select_list %}
+                    <option
+                        {% if forloop.first or request.session.date_select == date|date:"Y/m/d" %}selected{% endif %}
+                        value="{{date|date:"Y/m/d"}}">
+                        {{date|date:"Y/m/d"}}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
         <div class="table-responsive">
             <table class="table table-hover align-middle">
-                <thead class="border-top border-bottom">
+                <thead class="border-bottom">
                     <tr>
                         <th class="col-2 col-md-1 text-center" scope="col">排名</th>
                         <th class="col-auto text-center" scope="col" colspan="2">頻道/姓名</th>
-                        <th class="col-1 d-none d-xl-table-cell text-center" scope="col">所屬組別</th>
-                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">總觀看數</th>
-                        <th class="col-auto d-none d-lg-table-cell text-center" scope="col">平均觀看數</th>
+                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">
+                            {% if request.session.view_select == 'total_view_weekly_growth' %}
+                            周觀看數
+                            {% else %}
+                            總觀看數
+                            {% endif %}
+                        </th>
                         <th class="col-auto d-none d-xl-table-cell text-center" scope="col">歌曲數量</th>
                     </tr>
                 </thead>
@@ -44,47 +71,40 @@
                                 #{{forloop.counter}}
                             </span>
                         </th>
-                        <td>
+                        <td class="d-flex justify-content-center">
                             <!--頻道-->
                             <a class="link-dark" href="{% url 'singers:profile' id=record.vtuber.id %}">
                                 <img class="img-vtuber img-fluid shadow my-3 border border-1 rounded-circle"
-                                    src="{{record.vtuber.thumbnail_url}}" alt="頻道縮圖">
+                                    src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
+                                    alt="頻道縮圖">
                             </a>
                         </td>
                         <td>
                             <!--姓名-->
-                            <span class="fs-5 truncate-1">
+                            <p class="fs-4 truncate-1">
                                 {{record.vtuber.name}}
-                            </span>
-                            {% for group in record.vtuber.vtuber_groups.values %}
-                            <span class="d-inline-block d-lg-none fs-5 text-warning">
-                                {{group.unit}}{% if not forloop.last %} / {% endif %}
-                            </span>
-                            {% endfor %}
-                        </td>
-                        <td class="d-none d-xl-table-cell text-center">
-                            <!--所屬組別-->
-                            {% for group in record.vtuber.vtuber_groups.values %}
-                            <span class="fs-5 text-warning">
-                                {{group.unit}}
-                            </span>
-                            {% endfor %}
+                            </p>
+                            <div class="div">
+                                <i class="bi bi-tag"></i>
+                                {% for group in record.vtuber.vtuber_groups.values %}
+                                <span class="text-warning">
+                                    {{group.unit}}{% if not forloop.last %} / {% endif %}
+                                </span>
+                                {% endfor %}
+                            </div>
                         </td>
                         <td class="d-none d-md-table-cell text-center">
-                            <!--總觀看數-->
                             <span class="fs-5 text-primary">
-                                {{record.total_view}}
-                            </span>
-                        </td>
-                        <td class="d-none d-lg-table-cell text-center">
-                            <!--平均觀看數-->
-                            <span class="fs-5 text-primary">
-                                {{record.average_view|intcomma}}
+                                {% if request.session.view_select == 'total_view_weekly_growth' %}
+                                {{ record.total_view_weekly_growth|intcomma }}
+                                {% else %}
+                                {{ record.total_view|intcomma }}
+                                {% endif %}
                             </span>
                         </td>
                         <td class="d-none d-xl-table-cell text-center">
                             <!--歌曲數量-->
-                            <span class="fs-5 text-primary">
+                            <span class="fs-5 text-info">
                                 {{record.song_count|intcomma}}
                             </span>
                         </td>

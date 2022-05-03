@@ -1,28 +1,48 @@
-from django.shortcuts import render
+from datetime import datetime
 from datas.models import *
-from django.db.models import Prefetch, Max
+from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import render
 from pprint import pp
 
 # 歌手排名
 
 
+@require_http_methods(['GET', 'POST'])
 def Ranker(request):
     # search querys setting
-    order_query = str('-total_view')
+    order_query = 'weekly_view'
     exclude_group = [Group.Unit.GROUP]
     rank_num_to = 5
+    date_query = VtuberRecord.get_lastest_record_date()
+    date_select_list = VtuberRecord.get_date_list()['date'].tolist()
 
-    lastest_record_date = VtuberRecord.objects.values_list(
-        'date', flat=True).latest('date')
-    vtuber_record_list = VtuberRecord.objects.filter(
-        date=lastest_record_date) \
-        .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
-        .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
-        .order_by(order_query)[:rank_num_to]
+    if request.method == 'POST':
+        request.session['view_select'] = request.POST.get('view_select')
+        request.session['date_select'] = request.POST.get('date_select')
+
+        order_query = str('-' + request.POST.get('view_select'))
+        date_query = datetime.strptime(
+            request.POST.get('date_select'), "%Y/%m/%d").date()
+
+    # * 嘗試抓取資料，失敗使用預設抓取
+    try:
+        vtuber_record_list = VtuberRecord.objects.filter(
+            date=date_query) \
+            .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
+            .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
+            .order_by(str('-'+order_query))[:rank_num_to]
+    except:
+        vtuber_record_list = VtuberRecord.objects.filter(
+            date=VtuberRecord.get_lastest_record_date()) \
+            .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
+            .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
+            .order_by('-total_view_weekly_growth')[:rank_num_to]
 
     template = 'singers/ranker.html'
     context = {
         'vtuber_record_list': vtuber_record_list,
+        'date_select_list': date_select_list,
     }
 
     return render(request, template, context)

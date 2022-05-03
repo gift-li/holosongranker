@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load humanize %}
+{% load static %}
 
 {% block title %}歌手分類選單{% endblock %}
 
@@ -30,11 +31,11 @@
             </select>
         </form>
     </div>
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-5">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-lg-5 g-5">
         {% for vtuber in list %}
         <div class="col">
             <a class="link-dark hover-shadow" href="{% url 'singers:profile' id=vtuber.id %}">
-                <img src="{{vtuber.thumbnail_url}}"
+                <img src="{% static 'img/vtuber_thumbnails/'|add:vtuber.youtube_id|add:'.png' %}"
                     class="img-vtuber img-fluid mx-auto d-block w-100 border border-1 rounded-circle" alt="vtuber圖片">
                 <p class="mt-2 truncate-1 text-center">
                     {{vtuber.name}}
