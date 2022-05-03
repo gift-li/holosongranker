@@ -20,14 +20,14 @@
         簡介
     </p>
 </section>
-<section id="song_rank" class="container text-center justify-content-center bg-primary bg-opacity-10 p-5">
+<section id="song_rank" class="container-fluid text-center justify-content-center bg-primary bg-opacity-10 p-5">
     <div class="row mx-3 mx-md-5 justify-content-center">
         <div class="col-12 border border-1 border-dark py-3 mb-3">
             <h2 class="fs-3 fw-bold m-0">
                 歌曲周榜
             </h2>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-2 g-md-3 g-lg-4 mb-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-2 g-md-3 g-lg-4 mb-3">
             {% for record in songrank %}
             <div class="col">
                 <div class="card rounded-3 h-100">
@@ -71,7 +71,8 @@
         </div>
     </div>
 </section>
-<section id="singer_rank" class="container text-center justify-content-center bg-info bg-gradient bg-opacity-10 p-5">
+<section id="singer_rank"
+    class="container-fluid text-center justify-content-center bg-info bg-gradient bg-opacity-10 p-5">
     <div class="row mx-3 mx-md-5 justify-content-center mt-3">
         <div class="col-12 border border-1 border-dark py-3 mb-3">
             <h2 class="fs-3 fw-bold m-0">
@@ -83,18 +84,19 @@
             <div class="col">
                 <div class="card h-100 rounded-3">
                     <div class="row g-0 py-2">
-                        <div class="col-4 col-md-2 my-auto">
+                        <!--TODO: 大/小螢幕排版&位置需討論-->
+                        <div class="col-auto col-md-2 my-auto">
                             <h3 class="fs-2 m-0 text-center text-danger">
                                 #{{forloop.counter}}
                             </h3>
                         </div>
-                        <div class="col-8 col-md-3 my-auto">
+                        <div class="col-auto col-md-2 my-auto">
                             <a href="{% url 'singers:profile' id=record.vtuber.id %}" target="_blank">
                                 <img src="{{record.vtuber.thumbnail_url}}"
                                     class="card-img-top img-vtuber img-fluid border border-1 rounded-circle" alt="頻道縮圖">
                             </a>
                         </div>
-                        <div class="col-12 col-md-7 my-auto">
+                        <div class="col-auto col-md-8 my-auto">
                             <div class="card-body mx-4 mx-md-0">
                                 <h3 class="card-title truncate-1 text-start">
                                     {{record.vtuber.name}}
@@ -138,7 +140,7 @@
         </div>
     </div>
 </section>
-<section id="holo_data" class="container text-center justify-content-center bg-secondary bg-opacity-10 p-5">
+<section id="holo_data" class="container-fluid text-center justify-content-center bg-secondary bg-opacity-10 p-5">
     <div class="row mx-3 mx-md-5 justify-content-center my-3 pb-3">
         <div class="border border-1 border-dark py-3">
             <h2 class="col-12 fs-3 fw-bold m-0">

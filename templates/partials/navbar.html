@@ -1,8 +1,44 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-sen bg-light py-4">
+<nav class="navbar navbar-expand navbar-light bg-secondary bg-light py-1 sticky-top">
     <div class="container">
-        <button class="navbar-toggler" type="button">
+        <a href="{% url 'homepage' %}" class="navbar-brand fs-4 d-flex align-middle">
+            HoloSongRanker
+        </a>
+        <ul class="navbar-nav me-auto d-none d-lg-flex flex-row text-nowrap flex-nowrap" id="navbar">
+            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+                <a href="{% url 'songs:ranker' %}" class="nav-link d-flex align-items-center">
+                    <i class="fs-3 bi bi-file-music"></i>
+                    <span class="ms-2">歌曲</span></a>
+            </li>
+            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+                <a href="{% url 'singers:ranker' %}" class="nav-link d-flex align-items-center">
+                    <i class="fs-3 bi bi-mic"></i>
+                    <span class="ms-2">歌手</span></a>
+            </li>
+            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+                <a href="{% url 'singers:menu' %}" class="nav-link d-flex align-items-center">
+                    <i class="fs-3 bi bi-file-person"></i>
+                    <span class="ms-2">介紹</span></a>
+            </li>
+            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+                <a href="{% url 'datas:index' %}" class="nav-link d-flex align-items-center">
+                    <i class="fs-3 bi bi-bar-chart-line"></i>
+                    <span class="ms-2">綜合</span></a>
+            </li>
+            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+                <a href="{% url 'about' %}" class="nav-link d-flex align-items-center">
+                    <i class="fs-3 bi bi-info-circle"></i>
+                    <span class="ms-2">關於</span></a>
+            </li>
+            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+                <a href="{% url 'admin:index' %}" class="nav-link d-flex align-items-center">
+                    <i class="fs-3 bi bi-speedometer2"></i>
+                    <div class="ms-2">控制台</div>
+                </a>
+            </li>
+        </ul>
+        <button class="navbar-toggler d-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+            aria-controls="sidebar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!--下滑: scrollspy-->
     </div>
 </nav>

@@ -1,90 +1,60 @@
-<div id="sidebar" class="col-auto col-md-2 px-0 px-sm-2 bg-dark vh-100 sticky-top">
-    <div class="d-flex flex-column align-items-center pt-4 text-white vh-100">
-        <a href="{% url 'homepage' %}" class="d-flex align-items-center pb-3 mb-md-0 text-white text-decoration-none">
-            <span class="fs-1 d-none d-sm-inline text-break text-center">
+<div id="sidebar" class="offcanvas offcanvas-end col-auto px-0 px-sm-2 bg-dark" tabindex="-1" data-bs-scroll="true">
+    <div class="offcanvas-header text-white d-block">
+        <button type="button" class="btn-close text-reset bg-white float-end" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column align-items-center text-white">
+        <a href="{% url 'homepage' %}" class="d-flex align-items-center text-white text-decoration-none">
+            <span class="fs-1 text-break text-center">
                 Holo<br>Song<br>Ranker
             </span>
         </a>
-        <hr class="d-none d-sm-flex w-100 p-1 bg-light">
-        <ul class="nav nav-pills flex-column px-2 px-sm-0 mb-0 mb-sm-auto pt-3 align-items-center align-items-sm-start"
-            id="menu">
-            <li class="nav-item">
-                <a href="{% url 'homepage' %}" class="nav-link align-middle px-0 link-light d-flex align-items-center">
+        <hr class="p-1 w-100">
+        <ul id="menu" class="nav nav-pills mb-sm-auto pt-3 align-items-start d-grid w-100">
+            <li class="nav-item btn btn-outline-secondary border-0">
+                <a href="{% url 'homepage' %}"
+                    class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-house"></i>
-                    <span class="ms-2 d-none d-sm-inline">首頁</span>
+                    <span class="ms-2">首頁</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'songs:ranker' %}"
-                    class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                    class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-file-music"></i>
-                    <span class="ms-2 d-none d-sm-inline">歌曲</span></a>
+                    <span class="ms-2">歌曲</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'singers:ranker' %}"
-                    class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                    class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-mic"></i>
-                    <span class="ms-2 d-none d-sm-inline">歌手</span></a>
+                    <span class="ms-2">歌手</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'singers:menu' %}"
-                    class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                    class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-file-person"></i>
-                    <span class="ms-2 d-none d-sm-inline">介紹</span></a>
+                    <span class="ms-2">介紹</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'datas:index' %}"
-                    class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                    class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-bar-chart-line"></i>
-                    <span class="ms-2 d-none d-sm-inline">綜合</span></a>
+                    <span class="ms-2">綜合</span></a>
             </li>
-            <li class="nav-item">
-                <a href="{% url 'about' %}" class="nav-link px-0 align-middle link-light d-flex align-items-center">
+            <li class="nav-item btn btn-outline-secondary border-0">
+                <a href="{% url 'about' %}"
+                    class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-info-circle"></i>
-                    <span class="ms-2 d-none d-sm-inline">關於</span></a>
+                    <span class="ms-2">關於</span></a>
             </li>
-            <li class="offset"></li>
-            <li class="nav-item">
+            <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'admin:index' %}"
-                    class="nav-link px-0 align-middle link-light d-flex align-items-center">
+                    class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-speedometer2"></i>
-                    <div class="ms-2 d-none d-sm-inline">控制台</div>
+                    <div class="ms-2">控制台</div>
                 </a>
             </li>
-            <!--dropdown for future use-->
-            {% comment %} <li>
-                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle link-light">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
-                </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                    <li class="w-100">
-                        <a href="#" class="nav-link px-0 link-light">
-                            <span class="d-none d-sm-inline">Item</span> 1
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 link-light">
-                            <span class="d-none d-sm-inline">Item</span> 2 </a>
-                    </li>
-                </ul>
-            </li> {% endcomment %}
         </ul>
-        <hr>
-        {% comment %} <div class="dropdown pb-4">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                <span class="d-none d-sm-inline mx-1">loser</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-        </div> {% endcomment %}
     </div>
 </div>

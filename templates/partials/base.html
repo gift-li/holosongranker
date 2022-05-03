@@ -20,7 +20,7 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row h-100">
+        <div class="row">
             {% include 'partials/sidebar.html' %}
 
             <div class="col px-0">
@@ -30,6 +30,8 @@
                 {% endblock main %}
             </div>
         </div>
+
+        {% include 'partials/footer.html' %}
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -42,7 +44,6 @@
     </script>
 
     {% block scripts %}{% endblock scripts %}
-    <script type="text/javascript" src="{% static 'js/home/navbar.js' %}"></script>
 </body>
 
 </html>
