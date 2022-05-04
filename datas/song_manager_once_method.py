@@ -176,8 +176,8 @@ def download_vtuber_img_to_media():
     youtube = y_api.set_api_key(2) # 使用分帳
 
     vtuber_df = pd.read_csv('./datas/csv/vtuber.csv') 
-    thumbnails_path = 'media/vtuber_thumbnails/'
-    banners_path = 'media/vtuber_banners/'
+    thumbnails_path = 'img/vtuber_thumbnails/'
+    banners_path = 'img/vtuber_banners/'
 
     start = 0
     # end = 1
@@ -210,3 +210,56 @@ def download_vtuber_img_to_media():
         except:
             print('No Banner: ' + vtuber_df['Chanel Name'][i])
         
+
+def download_songs_img_to_media():
+    thumbnails_path = 'static/img/song_thumbnails/'
+    songs = Song.objects.all()
+    except_ids = []
+
+    for song in songs:
+        youtube_id = song.youtube_id 
+        url = song.thumbnail_url 
+        url = url.replace("mqde", "sdde")
+        # 'sdde'
+        thumbnails_file_name = thumbnails_path + youtube_id  + '.png'
+        print(url)
+        try:
+            urllib.request.urlretrieve(url, thumbnails_file_name)
+        except:
+            except_ids.append(url)
+            print(url)
+
+    print(except_ids)
+
+
+def test_code():
+    a = 1
+   
+    # 每週要做的事情
+    this_date = '2022-4-24'
+
+    except_ids = ['NtRpDpfE69Y','mEs80XOSSHQ','UBSx4qqeikY','ibXRzMUUWPE']
+    id = except_ids[0]
+
+    for id in except_ids:
+
+        songs = Song.objects.filter( youtube_id = id)
+        print(songs)
+        record = Record.objects.filter(song = songs[0])
+
+        print(record)
+        record.delete()
+        songs.delete()
+
+    # download_songs_img_to_media()
+
+
+    # add_this_week_new_song_to_models() # 新增新歌到songs
+    # add_this_week_record_to_models(this_date) # 新增本周所有歌曲的record
+    # add_weekly_view_to_record_by_this_date(this_date) # 計算本周歌曲的 weekly record
+    
+    
+
+    
+
+    

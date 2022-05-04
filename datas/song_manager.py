@@ -184,7 +184,7 @@ def test_code():
     # add_this_week_record_to_models(this_date) # 新增本周所有歌曲的record
     # add_weekly_view_to_record_by_this_date(this_date) # 計算本周歌曲的 weekly record
     
-    add_vtuber_record_by_date(this_date)
+    # add_vtuber_record_by_date(this_date)
 
     
 
