@@ -238,18 +238,20 @@ def test_code():
     # 每週要做的事情
     this_date = '2022-4-24'
 
-    except_ids = ['NtRpDpfE69Y','mEs80XOSSHQ','UBSx4qqeikY','ibXRzMUUWPE']
-    id = except_ids[0]
+    
 
-    for id in except_ids:
+    # except_ids = ['NtRpDpfE69Y','mEs80XOSSHQ','UBSx4qqeikY','ibXRzMUUWPE']
+    # id = except_ids[0]
 
-        songs = Song.objects.filter( youtube_id = id)
-        print(songs)
-        record = Record.objects.filter(song = songs[0])
+    # for id in except_ids:
 
-        print(record)
-        record.delete()
-        songs.delete()
+    #     songs = Song.objects.filter( youtube_id = id)
+    #     print(songs)
+        #record = Record.objects.filter(song = songs[0])
+
+        #print(record)
+        # record.delete()
+        # songs.delete()
 
     # download_songs_img_to_media()
 
