@@ -157,6 +157,7 @@ def test_code():
     a = 1
    
     # 每週要做的事情
+    # 去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
     this_date = '2022-5-8'
     # add_this_week_new_song_to_models() # 新增新歌到songs
     # add_this_week_record_to_models(this_date) # 新增本周所有歌曲的record
@@ -164,7 +165,11 @@ def test_code():
     
     # add_vtuber_record_by_date(this_date)
 
-    backup_manager.backup_all() # 備份資料至google sheet
+    # backup_manager.backup_all() # 備份資料至google sheet
+
+    # records = VtuberRecord.objects.filter(date = '2022-03-09')
+    # print(records)
+    # records.delete()
 
 
 
