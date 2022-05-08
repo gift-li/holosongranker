@@ -3,6 +3,8 @@ from email import message
 import this
 from traceback import print_tb
 from unicodedata import name
+
+from numpy import record
 import datas.youtube_api as y_api
 import pandas as pd
 from datas.models import Group, Record, Vtuber, Song, VtuberRecord
@@ -87,6 +89,7 @@ def load_songs_csv():
         # else:
         song.singer.add(singer)
 
+# 備份
 
 ##### Record ######
 
@@ -131,6 +134,7 @@ def add_weekly_view_to_record(now_record):
 
     now_record.weekly_view = weekly_view
     now_record.save()
+
 
 
 ##### Vtuber Record #########
@@ -238,30 +242,9 @@ def test_code():
     # 每週要做的事情
     this_date = '2022-4-24'
 
-    
+    # 備份
+    # backup_songs_to_google_sheet()
+    # backup_record_to_google_sheet()
 
-    # except_ids = ['NtRpDpfE69Y','mEs80XOSSHQ','UBSx4qqeikY','ibXRzMUUWPE']
-    # id = except_ids[0]
-
-    # for id in except_ids:
-
-    #     songs = Song.objects.filter( youtube_id = id)
-    #     print(songs)
-        #record = Record.objects.filter(song = songs[0])
-
-        #print(record)
-        # record.delete()
-        # songs.delete()
-
-    # download_songs_img_to_media()
-
-
-    # add_this_week_new_song_to_models() # 新增新歌到songs
-    # add_this_week_record_to_models(this_date) # 新增本周所有歌曲的record
-    # add_weekly_view_to_record_by_this_date(this_date) # 計算本周歌曲的 weekly record
-    
-    
-
-    
 
     

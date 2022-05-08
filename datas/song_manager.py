@@ -9,16 +9,11 @@ from datas.models import Group, Record, Vtuber, Song, VtuberRecord
 from django_pandas.io import read_frame
 from datetime import date
 import datas.google_sheet_manager as google_sheet_manager
-
+import datas.backup_manager as backup_manager
 
 ##### Songs #####
 
 def add_this_week_new_song_to_models():
-    # 記得要上傳new_songs.csv
-    # songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
-    # new_songs_df, new_song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.new_song_sheet_id)
-    # song_df, song_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.song_sheet_id)
-
     new_songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
 
     start = 0
@@ -54,33 +49,13 @@ def add_this_week_new_song_to_models():
                 song.singer.add(singer)
                 song_temp = song_name
 
-                # 新增歌曲資料至google sheet 備份
-                video_data = {'title':song_name , 'videoId': new_songs_df['videoId'][i], 'thumbnail_url':new_songs_df['thumbnail_url'][i],
-                    'youtube_url':new_songs_df['youtube_url'][i], 'image': '' ,
-                    'publishedAt':new_songs_df['publishedAt'][i], 'singer':singer_name, 'Skip':''} 
-                # song_df.append(video_data)
-
         else:
             song.singer.add(singer)
-            # 新增歌曲資料至google sheet 備份
-            video_data = {'title':song_name , 'videoId': new_songs_df['videoId'][i], 'thumbnail_url':new_songs_df['thumbnail_url'][i],
-                'youtube_url':new_songs_df['youtube_url'][i], 'image': '' ,
-                'publishedAt':new_songs_df['publishedAt'][i], 'singer':singer_name, 'Skip':''} 
-            # song_df.append(video_data)
-
-    # 新增歌曲資料至google sheet 備份
-    # google_sheet_manager.update_worksheet(song_df, song_worksheet)
 
 ##### Record ######
 
-def add_this_week_record_to_models(this_date):
-
-    
+def add_this_week_record_to_models(this_date): 
     youtube = y_api.set_api_key(2) # 使用分帳
-
-    # Google sheet 備份
-    # record_df, record_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.record_sheet_id)
-
     songs = Song.objects.all()
     except_video = []
     views_col = []
@@ -104,9 +79,6 @@ def add_this_week_record_to_models(this_date):
             date=this_date)
             record.save()
 
-            video_data = {'videoId':songs[i].youtube_id , 'view': viewCount, 'date':this_date} 
-            # record_df = record_df.append(video_data, ignore_index=True)
-
         except Exception as e:
             except_video.append(video_id)
             views_col.append(0)
@@ -114,12 +86,6 @@ def add_this_week_record_to_models(this_date):
         
             print(except_video)
     
-    # 更新週觀看數
-    # add_all_weekly_view_to_record()
-
-    # 備份record to google sheet
-    # google_sheet_manager.update_worksheet(record_df, record_worksheet)
-
 def add_weekly_view_to_record_by_this_date(this_date):
     records = Record.objects.filter(date = this_date)
 
@@ -171,10 +137,7 @@ def add_vtuber_record_by_date(now_date):
                 date = now_date)
             vtuber_record.save()
             
-            # print(vtuber_record)
-
-
-
+  
 def test_code():
     a = 1
    
@@ -184,11 +147,10 @@ def test_code():
     # add_this_week_record_to_models(this_date) # 新增本周所有歌曲的record
     # add_weekly_view_to_record_by_this_date(this_date) # 計算本周歌曲的 weekly record
     
-    add_vtuber_record_by_date(this_date)
+    # add_vtuber_record_by_date(this_date)
 
-    
+    backup_manager.backup_all() # 備份資料至google sheet
 
-    
 
 
             
