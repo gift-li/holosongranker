@@ -8,4 +8,5 @@ urlpatterns = [
     path("ranker/", views.Ranker, name="ranker"),
     path("profile/menu", views.Menu, name="menu"),
     path("profile/<int:id>", views.Profile, name="profile"),
+    path("broadcast/", views.Broadcast, name="broadcast"),
 ]

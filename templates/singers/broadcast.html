@@ -1,0 +1,150 @@
+{% extends 'partials/base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}歌手排行{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        if ("{{request.session.singers_view_select}}" == "total_view") {
+            $("#date_select").hide();
+        } else {
+            $("#date_select").show();
+        }
+
+        $("#view_select").change(function () {
+            if ($(this).val() == "total_view") {
+                $("#date_select").hide();
+                $("#select_form").submit();
+            } else {
+                $("#date_select").show();
+            }
+        });
+        $("#date_select").change(function () {
+            if ($("#view_select").val() == "total_view_weekly_growth") {
+                $("#select_form").submit();
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+
+{% block styles %}
+<style>
+    .img-vtuber {
+        max-width: 3vw;
+        min-width: 3rem;
+    }
+</style>
+{% endblock  %}
+
+{% block main %}
+<!-- hight:782 -->
+
+<div class="container pt-5">
+    <div class="col">
+        <!-- <form id="select_form" action="{% url 'singers:broadcast' %}" method="post" class="input-group">
+            {% csrf_token %}
+            <span class="input-group-text">排序條件</span>
+            <select id="view_select" name="view_select" class="form-select form-control">
+                <option {% if request.session.singers_view_select == "total_view_weekly_growth" %} selected
+                    {% elif request.session.singers_view_select == "total_view" %} {% else %} selected {% endif %}
+                    value="total_view_weekly_growth">
+                    周觀看數
+                </option>
+                <option {% if request.session.singers_view_select == "total_view" %} selected {% endif %}
+                    value="total_view">
+                    總觀看數</option>
+            </select>
+            <select id="date_select" name="date_select" class="form-select form-control">
+                {% for date in date_select_list %}
+                <option
+                    {% if forloop.first or request.session.singers_date_select == date|date:"Y/m/d" %}selected{% endif %}
+                    value="{{date|date:"Y/m/d"}}">
+                    {{date|date:"Y/m/d"}}</option>
+                {% endfor %}
+            </select>
+        </form> -->
+    </div>
+    <div class="row justify-content-center">
+        <h1 class="display-4 fw-bold ps-3">Top Hololive Singer</h1>
+        <h5 class="display-8 fw-bold ps-3 text-muted">
+                Weekly view of song from 
+            <span class="text-primary ">
+                2022-05-01 ~ 2022-05-08
+            </span>
+        </h5>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="border-bottom">
+                    <tr>
+                        <th class="col-2 col-md-1 text-center" scope="col">Rank</th>
+                        <th class="col-auto text-center" scope="col" colspan="2">Channel/Name</th>
+                        <!-- <th></th> -->
+                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">
+                            
+                            {% if request.session.singers_view_select == 'total_view_weekly_growth' %}
+                            Weekly view
+                            {% elif  request.session.singers_view_select == 'total_view' %}
+                            總觀看數
+                            {% else %}
+                            周觀看數
+                            {% endif %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in vtuber_record_list %}
+                    <tr id="row_{{forloop.counter}}">
+                        <th class="text-center" scope="row">
+                            <!--排名-->
+                            <span class="fs-3">
+                                {{forloop.counter}}
+                            </span>
+                        </th>
+                        <td class="d-flex justify-content-center">
+                            <!--頻道-->
+                            <a class="link-dark" href="{% url 'singers:profile' id=record.vtuber.id %}">
+                                <img class="img-vtuber img-fluid shadow my-6 border border-1 rounded-circle"
+                                    src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
+                                    alt="頻道縮圖">
+                            </a>
+                        </td>
+                        <td>
+                            <!--姓名-->
+                            <p class="fs-4 truncate-1 d-md-table-cell">
+                                {{record.vtuber.name}}
+                            </p>
+                            <!-- <div class="text-warning">
+                                <i class="bi bi-tag"></i>
+                                {% for group in record.vtuber.vtuber_groups.values %}
+                                <span class="text-decoration-underline text-warning">
+                                    {{group.unit}}{% if not forloop.last %} / {% endif %}
+                                </span>
+                                {% endfor %}
+                            </div> -->
+                        </td>
+                        <!-- <th><i class="bi bi-eye-fill"></i></th> -->
+                        <td class="d-none d-md-table-cell text-center">
+                            <span class="fs-5 text-primary fw-bold">
+                                
+                                {% if request.session.singers_view_select == 'total_view' %}
+                                {{ record.total_view|intcomma }}
+                                {% elif request.session.singers_view_select == 'total_view_weekly_growth' %}
+                                {{ record.total_view_weekly_growth|intcomma }}
+                                {% else %}
+                                {{ record.total_view_weekly_growth|intcomma }}
+                                {% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
