@@ -10,16 +10,21 @@ from django_pandas.io import read_frame
 from datetime import date
 import datas.google_sheet_manager as google_sheet_manager
 import datas.backup_manager as backup_manager
+import urllib.request
 
 ##### Songs #####
 
 def add_this_week_new_song_to_models():
-    new_songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
+    # new_songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
+    new_songs_df , new_songs_worksheet = google_sheet_manager.get_sheet(google_sheet_manager.new_songs_sheet_id)
 
     start = 0
     # end = 2
     end = len(new_songs_df)
     song_temp = ''
+
+    # 縮圖路徑
+    thumbnails_path = 'static/img/song_thumbnails/'
 
     for i in range(start, end):
 
@@ -34,6 +39,8 @@ def add_this_week_new_song_to_models():
             if(find_song >0):
                 message = '已經有：' + song_name
                 print(message)
+
+                
             else:
                 skip = False
                 if(new_songs_df['Skip'][i] == 'TRUE'):
@@ -48,6 +55,14 @@ def add_this_week_new_song_to_models():
                 song.save()
                 song.singer.add(singer)
                 song_temp = song_name
+
+                # 下載影片縮圖
+                url = new_songs_df['thumbnail_url'][i].replace("mqde", "sdde")
+                thumbnails_file_name = thumbnails_path + new_songs_df['youtube_url'][i]  + '.png'
+                try:
+                    urllib.request.urlretrieve(url, thumbnails_file_name)
+                except:
+                    print(url)
 
         else:
             song.singer.add(singer)
@@ -142,7 +157,7 @@ def test_code():
     a = 1
    
     # 每週要做的事情
-    this_date = '2022-5-1'
+    this_date = '2022-5-8'
     # add_this_week_new_song_to_models() # 新增新歌到songs
     # add_this_week_record_to_models(this_date) # 新增本周所有歌曲的record
     # add_weekly_view_to_record_by_this_date(this_date) # 計算本周歌曲的 weekly record

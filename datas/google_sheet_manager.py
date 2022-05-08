@@ -11,7 +11,7 @@ songs_sheet_id = 2097225833
 songs_all_singer_sheet_id = 1564903369
 record_sheet_id = 2121622859
 song_all_sheet_id = 742986052
-new_song_sheet_id = 1439287617
+new_songs_sheet_id = 1439287617
 group_sheet_id = 1706140349
 vtuber_record_sheet_id = 918121082
 
