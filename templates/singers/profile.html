@@ -39,7 +39,7 @@
         <div class="col-4 col-lg-2">
             <!--頻道-->
             <img class="img-vtuber img-fluid shadow my-3 border border-1 rounded-circle mx-auto d-block"
-                src="{{profile.vtuber.thumbnail_url}}" alt="頻道縮圖">
+                src="{% static 'img/vtuber_thumbnails/'|add:profile.vtuber.youtube_id|add:'.png' %}" alt="頻道縮圖">
         </div>
         <div class="col-8 col-lg-4 d-inline my-auto">
             <p class="fs-3 text-truncate">
@@ -101,7 +101,8 @@
                         </th>
                         <td>
                             <a href="{{record.song.youtube_url}}" target="_blank">
-                                <img class="img-song img-fluid shadow my-3" src="{{record.song.thumbnail_url}}"
+                                <img class="img-song img-fluid shadow my-3"
+                                    src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}"
                                     alt="歌曲縮圖">
                             </a>
                         </td>
@@ -127,7 +128,7 @@
                                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                         <a class="link-dark" href="{% url 'singers:profile' id=vtuber.id %}"
                                             target="_blank">
-                                            <img src="{{vtuber.thumbnail_url}}"
+                                            <img src="{% static 'img/vtuber_thumbnails/'|add:vtuber.youtube_id|add:'.png' %}"
                                                 class="img-song-vtuber img-fluid border border-1 rounded-circle"
                                                 alt="vtuber圖片">
                                             <div class="d-none d-md-block">

@@ -1,21 +1,32 @@
 {% extends 'partials/base.html' %}
 {% load humanize %}
+{% load static %}
 {% block title %}首頁{% endblock %}
 
 {% block styles %}
 <style>
+    .img-intro {
+        max-height: 10vh;
+        max-width: auto;
+    }
+
     .img-vtuber {
         max-height: 12vh;
-        min-height: 5rem;
+        min-height: 4rem;
         max-width: 12vh;
-        min-width: 5rem;
+        min-width: 4rem;
     }
 </style>
 {% endblock %}
 
 {% block main %}
 <section id="intro" class="container-fluid text-center justify-content-center bg-secondary bg-opacity-25 pt-5 pb-3">
-    <h1 class="display-5 fw-bold">Holo Song Ranker</h1>
+    <h1 class="display-5 fw-bold">
+        <img class="img-intro" src="{% static 'img/main/shortcut_icon.png' %}" alt="intro圖片">
+        <p class="p-0">
+            Holo Song Ranker
+        </p>
+    </h1>
     <p class="fs-4 pt-4">
         簡介
     </p>
@@ -32,7 +43,8 @@
             <div class="col">
                 <div class="card rounded-3 h-100">
                     <a href="{{record.song.youtube_url}}" target="_blank">
-                        <img src="{{record.song.thumbnail_url}}" class="card-img-top" alt="影片縮圖">
+                        <img src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}"
+                            class="card-img-top" alt="影片縮圖">
                     </a>
                     <div class="card-body d-inline-block align-middle p-4">
                         <h2 class="card-title text-info">#{{forloop.counter}}</h2>
@@ -84,26 +96,26 @@
             <div class="col">
                 <div class="card h-100 rounded-3">
                     <div class="row g-0 py-2">
-                        <!--TODO: 大/小螢幕排版&位置需討論-->
-                        <div class="col-auto col-md-2 my-auto">
+                        <div class="col-2 my-auto">
                             <h3 class="fs-2 m-0 text-center text-danger">
                                 #{{forloop.counter}}
                             </h3>
                         </div>
-                        <div class="col-auto col-md-2 my-auto">
+                        <div class="col-1 col-md-2 my-auto">
                             <a href="{% url 'singers:profile' id=record.vtuber.id %}" target="_blank">
-                                <img src="{{record.vtuber.thumbnail_url}}"
+                                <img src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
                                     class="card-img-top img-vtuber img-fluid border border-1 rounded-circle" alt="頻道縮圖">
                             </a>
                         </div>
-                        <div class="col-auto col-md-8 my-auto">
+                        <div class="col-9 col-md-8 my-auto">
                             <div class="card-body mx-4 mx-md-0">
                                 <h3 class="card-title truncate-1 text-start">
                                     {{record.vtuber.name}}
                                 </h3>
                                 <p class="text-end m-0">
                                     <small class="text-muted">
-                                        周總觀看數成長:{{record.total_view_weekly_growth|intcomma}}
+                                        周總觀看數成長:
+                                        {{record.total_view_weekly_growth|intcomma}}
                                     </small>
                                 </p>
                             </div>
