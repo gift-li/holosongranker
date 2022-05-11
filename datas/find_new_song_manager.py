@@ -123,4 +123,4 @@ def find_new_song():
 
     print(new_songs_df.head())
     new_songs_df.to_csv('./datas/csv/new_songs_raw.csv')
-    x
+    
