@@ -1,4 +1,7 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language_info for LANGUAGE_CODE as lang %}
 <nav class="navbar navbar-expand navbar-light bg-light py-1 sticky-top border-bottom">
     <div class="container">
         <a href="{% url 'homepage' %}" class="navbar-brand fs-4 pe-3 d-flex align-middle">
@@ -6,39 +9,53 @@
                 alt="intro圖片" style="max-height: 2rem;">
             HoloSongRanker
         </a>
-        <ul class="navbar-nav me-auto d-none d-lg-flex flex-row text-nowrap flex-nowrap" id="navbar">
-            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+        <ul class="navbar-nav me-auto d-none d-lg-flex flex-row" id="navbar">
+            <li class="nav-item btn-outline-light border-0 p-0">
                 <a href="{% url 'songs:ranker' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-file-music"></i>
                     <span class="ms-2">歌曲</span></a>
             </li>
-            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+            <li class="nav-item btn-outline-light border-0 p-0">
                 <a href="{% url 'singers:ranker' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-mic"></i>
                     <span class="ms-2">歌手</span></a>
             </li>
-            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+            <li class="nav-item btn btn-outline-light border-0 p-0">
                 <a href="{% url 'singers:menu' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-file-person"></i>
                     <span class="ms-2">介紹</span></a>
             </li>
-            <li class="nav-item btn btn-outline-secondary border-0 p-0">
-                <a href="{% url 'datas:index' %}" class="nav-link d-flex align-items-center">
-                    <i class="fs-3 bi bi-bar-chart-line"></i>
-                    <span class="ms-2">綜合</span></a>
-            </li>
-            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+            <li class="nav-item btn btn-outline-light border-0 p-0">
                 <a href="{% url 'about' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-info-circle"></i>
                     <span class="ms-2">關於</span></a>
             </li>
-            <li class="nav-item btn btn-outline-secondary border-0 p-0">
+            <li class="nav-item btn btn-outline-light border-0 p-0">
                 <a href="{% url 'admin:index' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-speedometer2"></i>
-                    <div class="ms-2">控制台</div>
+                    <span class="ms-2">控制台</span>
                 </a>
             </li>
         </ul>
+        <a class="nav-link d-none d-sm-flex align-items-center ms-auto" href="#">
+            <i class="fs-3 bi bi-twitter"></i>
+        </a>
+        <div class="dropdown ms-auto ms-sm-0">
+            <a class="nav-link link-secondary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fs-3 bi bi-gear"></i>
+            </a>
+            <form id="form_language" action="{% url 'setlang' %}" method="post"
+                class="dropdown-menu dropdown-menu-end p-3" onchange="$('#form_language').submit()">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="/" />
+                <label for="select_language" class="form-label">語言</label>
+                <select class="form-control form-select" id="select_language" name="language">
+                    <option value="zh-Hant" selected>繁體中文</option>
+                    <option value="en">英文</option>
+                </select>
+            </form>
+        </div>
         <button class="navbar-toggler d-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
             aria-controls="sidebar">
             <span class="navbar-toggler-icon"></span>

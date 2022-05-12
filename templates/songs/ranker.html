@@ -14,9 +14,10 @@
         }
 
         $("#view_select").change(function () {
+            $("#select_form").submit();
+
             if ($(this).val() == "total_view") {
                 $("#date_select").hide();
-                $("#select_form").submit();
             } else {
                 $("#date_select").show();
             }
@@ -50,32 +51,49 @@
         <div class="display-5 fw-bold ps-3">
             Hololive歌曲排行
             <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-html="true" title=" 榜單規則<br />細項">
+                data-bs-placement="right" data-bs-html="true" title="
+                <u>Hololive 歌曲觀看數排行</u><br/>
+                <ul class='align-items-start text-start'>
+                    <li>更新時間 : 每周日</li>
+                    <li>計算方式 : 總觀看數、周觀看成長數</li>
+                </ul>
+                ">
                 榜單規則 <i class="bi bi-info-circle"></i>
             </button>
         </div>
-        <div class="col">
+        <div class="col pb-3">
             <form id="select_form" action="{% url 'songs:ranker' %}" method="post" class="input-group">
                 {% csrf_token %}
-                <span class="input-group-text">排序條件</span>
-                <select id="view_select" name="view_select" class="form-select form-control">
-                    <option {% if request.session.songs_view_select == "weekly_view" %}selected
-                        {% elif request.session.songs_view_select == "total_view" %} {% else %} selected {% endif %}
-                        value="weekly_view">
-                        周觀看數
-                    </option>
-                    <option {% if request.session.songs_view_select == "total_view" %} selected {% endif %}
-                        value="total_view">
-                        總觀看數</option>
-                </select>
-                <select id="date_select" name="date_select" class="form-select form-control">
-                    {% for date in date_select_list %}
-                    <option
-                        {% if forloop.first or request.session.songs_date_select == date|date:"Y/m/d" %}selected{% endif %}
-                        value="{{date|date:"Y/m/d"}}">
-                        {{date|date:"Y/m/d"}}</option>
-                    {% endfor %}
-                </select>
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-info-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                    </svg>
+                    排序條件
+                </span>
+                <div class="col-auto me-1">
+                    <select id="view_select" name="view_select" class="form-select form-control">
+                        <option {% if request.session.songs_view_select == "weekly_view" %}selected
+                            {% elif request.session.songs_view_select == "total_view" %} {% else %} selected {% endif %}
+                            value="weekly_view">
+                            周觀看數
+                        </option>
+                        <option {% if request.session.songs_view_select == "total_view" %} selected {% endif %}
+                            value="total_view">
+                            總觀看數</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select id="date_select" name="date_select" class="form-select form-control">
+                        {% for date in date_select_list %}
+                        <option
+                            {% if forloop.first or request.session.songs_date_select == date|date:"Y/m/d" %}selected{% endif %}
+                            value="{{date|date:"Y/m/d"}}">
+                            {{date|date:"Y/m/d"}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </form>
         </div>
         <div class="table-responsive">

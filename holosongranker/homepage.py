@@ -3,10 +3,12 @@ from django.db.models import Sum
 from datas.models import *
 from pprint import pp
 
+
 def About(request):
     template = 'about.html'
 
     return render(request, template)
+
 
 def Index(request):
     holodata, holodata_record_date = getHolodata()
@@ -28,6 +30,26 @@ def Index(request):
     }
 
     return render(request, template, context)
+
+
+def getSongRank():
+    song_record_date = Record.get_lastest_record_date()
+
+    songs = Record.objects.filter(date=song_record_date) \
+        .prefetch_related('song') \
+        .order_by('-weekly_view')[:12]
+
+    return songs, song_record_date
+
+
+def getSingerRank():
+    singer_record_date = VtuberRecord.get_lastest_record_date()
+
+    singers = VtuberRecord.objects.filter(date=singer_record_date) \
+        .prefetch_related('vtuber') \
+        .order_by('-total_view_weekly_growth')[:10]
+
+    return singers, singer_record_date
 
 
 def getHolodata():
@@ -67,23 +89,3 @@ def getHolodata():
     }
 
     return holodata, holodata_record_date
-
-
-def getSongRank():
-    song_record_date = Record.get_lastest_record_date()
-
-    songs = Record.objects.filter(date=song_record_date) \
-        .prefetch_related('song') \
-        .order_by('-weekly_view')[:6]
-
-    return songs, song_record_date
-
-
-def getSingerRank():
-    singer_record_date = VtuberRecord.get_lastest_record_date()
-
-    singers = VtuberRecord.objects.filter(date=singer_record_date) \
-        .prefetch_related('vtuber') \
-        .order_by('-total_view_weekly_growth')[:10]
-
-    return singers, singer_record_date
