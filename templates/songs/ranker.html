@@ -34,7 +34,7 @@
 {% block styles %}
 <style>
     .img-vtuber {
-        max-width: 6vw;
+        max-width: 4vw;
         min-width: 4rem;
     }
 
@@ -154,7 +154,7 @@
                                     {% for vtuber in record.song.singer.values %}
                                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                         <a class="link-dark" href="{% url 'singers:profile' id=vtuber.id %}">
-                                            <img src="{{vtuber.thumbnail_url}}"
+                                            <img src="{% static 'img/vtuber_thumbnails/'|add:vtuber.youtube_id|add:'.png' %}"
                                                 class="img-vtuber img-fluid mx-auto d-block w-100 border border-1 rounded-circle"
                                                 alt="vtuber圖片">
                                             <div class="d-none d-md-block">
