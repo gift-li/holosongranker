@@ -1,4 +1,9 @@
 from datetime import datetime
+from django.core.paginator import (
+    Paginator,
+    EmptyPage,
+    PageNotAnInteger,
+)
 from datas.models import *
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
@@ -16,6 +21,7 @@ def Ranker(request):
     rank_num_to = 10
     date_query = VtuberRecord.get_lastest_record_date()
     date_select_list = VtuberRecord.get_date_list()['date'].tolist()
+    message = ''
 
     if request.method == 'GET':
         request.session['singers_view_select'] = order_query
@@ -45,15 +51,20 @@ def Ranker(request):
             .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
             .order_by('-total_view_weekly_growth')[:rank_num_to]
 
+    message = getSearchMessage(order_query, date_query)
+
     template = 'singers/ranker.html'
     context = {
         'vtuber_record_list': vtuber_record_list,
         'date_select_list': date_select_list,
+        'message': message,
     }
 
     return render(request, template, context)
 
 # 用於排行版推播
+
+
 @require_http_methods(['GET', 'POST'])
 def Broadcast(request):
     # search querys setting
@@ -100,10 +111,7 @@ def Broadcast(request):
     return render(request, template, context)
 
 
-
 # 歌手分類選單
-
-
 def Menu(request):
     group_query = 'all'
     selected = group_query
@@ -130,22 +138,29 @@ def Menu(request):
 
 
 def Profile(request, id):
-    order_query = str('-total_view')
-    rank_num_to = 3
-
     profile = VtuberRecord.objects.filter(vtuber=id) \
         .filter(date=VtuberRecord.get_lastest_record_date()) \
         .prefetch_related('vtuber', 'vtuber__vtuber_groups').get()
 
-    songs = Record.objects.filter(date=Record.get_lastest_record_date()) \
+    total_songs = Record.objects.filter(date=Record.get_lastest_record_date()) \
         .prefetch_related('song', 'song__singer') \
         .filter(song__singer__in=[id]) \
-        .order_by(order_query)[:rank_num_to]
+        .order_by('-weekly_view')
+
+    top3_songs = total_songs[:3]
 
     template = 'singers/profile.html'
     context = {
         'profile': profile,
-        'songs': songs,
+        'top3_songs': top3_songs,
+        'total_songs': total_songs,
     }
 
     return render(request, template, context)
+
+# 搜尋條件文字訊息生成
+
+
+def getSearchMessage(order_query, date_query):
+    message = ''
+    return message

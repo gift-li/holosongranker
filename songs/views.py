@@ -7,7 +7,7 @@ from pprint import pp
 
 @require_http_methods(['GET', 'POST'])
 def Ranker(request):
-    rank_num_to = 5
+    rank_num_to = 10
     order_query = '-weekly_view'
     date_query = Record.get_lastest_record_date()
     date_select_list = Record.get_date_list()['date'].tolist()

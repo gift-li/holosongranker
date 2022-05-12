@@ -17,6 +17,7 @@ import mimetypes
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from django.views.i18n import set_language
 from . import homepage
 
 urlpatterns = [
@@ -25,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('songs/', include('songs.urls')),
     path('singers/', include('singers.urls')),
-    path('datas/', include('datas.urls')),
+    path('setlang/', set_language, name="setlang"),
 ]
 
 if settings.DEBUG:

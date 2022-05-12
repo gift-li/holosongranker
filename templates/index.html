@@ -20,16 +20,12 @@
 {% endblock %}
 
 {% block main %}
-<section id="intro" class="container-fluid text-center justify-content-center bg-secondary bg-opacity-25 pt-5 pb-3">
-    <h1 class="display-5 fw-bold">
-        <img class="img-intro" src="{% static 'img/main/shortcut_icon.png' %}" alt="intro圖片">
-        <p class="p-0">
-            Holo Song Ranker
-        </p>
+<section id="intro" class="container-fluid text-center justify-content-center bg-secondary bg-opacity-25 pt-5 pb-5">
+    <img class="img-intro" src="{% static 'img/main/shortcut_icon.png' %}" alt="intro圖片">
+    <h1 class="display-4 fw-bold pb-3">
+        Holo Song Ranker
     </h1>
-    <p class="fs-4 pt-4">
-        簡介
-    </p>
+    <a class="btn btn-primary" href="{% url 'about' %}">了解更多</a>
 </section>
 <section id="song_rank" class="container-fluid text-center justify-content-center bg-primary bg-opacity-10 p-5">
     <div class="row mx-3 mx-md-5 justify-content-center">
@@ -38,13 +34,13 @@
                 歌曲周榜
             </h2>
         </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-2 g-md-3 g-lg-4 mb-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-3 g-lg-4 mb-3">
             {% for record in songrank %}
             <div class="col">
                 <div class="card rounded-3 h-100">
                     <a href="{{record.song.youtube_url}}" target="_blank">
                         <img src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}"
-                            class="card-img-top" alt="影片縮圖">
+                            class="img-fluid card-img-top" alt="影片縮圖">
                     </a>
                     <div class="card-body d-inline-block align-middle p-4">
                         <h2 class="card-title text-info">#{{forloop.counter}}</h2>
@@ -97,12 +93,12 @@
                 <div class="card h-100 rounded-3">
                     <div class="row g-0 py-2">
                         <div class="col-2 my-auto">
-                            <h3 class="fs-2 m-0 text-center text-danger">
+                            <h3 class="fs-2 m-0 text-center text-primary">
                                 #{{forloop.counter}}
                             </h3>
                         </div>
                         <div class="col-1 col-md-2 my-auto">
-                            <a href="{% url 'singers:profile' id=record.vtuber.id %}" target="_blank">
+                            <a href="{% url 'singers:profile' id=record.vtuber.id %}">
                                 <img src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
                                     class="card-img-top img-vtuber img-fluid border border-1 rounded-circle" alt="頻道縮圖">
                             </a>
@@ -123,22 +119,6 @@
                     </div>
                 </div>
             </div>
-            {% comment %} <div class="col-12 align-items-center bg-light my-4">
-                <div class="col-1">
-                    #{{forloop.counter}}
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'singers:profile' id=record.vtuber.id %}" target="_blank">
-                        <img src="{{record.vtuber.thumbnail_url}}"
-                            class="card-img-top img-vtuber border border-1 rounded-circle" alt="頻道縮圖">
-                    </a>
-                </div>
-                <div class="col-8">
-                    <p class="text-start m-0">
-                        {{record.vtuber.name}}
-                    </p>
-                </div>
-            </div> {% endcomment %}
             {% endfor %}
         </div>
         <div class="row mb-3">
@@ -164,10 +144,10 @@
                 <div class="card h-100 rounded-pill">
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <div>
-                            <h5 class="card-title">
+                            <h5 class="card-title fw-bold">
                                 歌手數
                             </h5>
-                            <p class="card-text fs-3 text-primary">
+                            <p class="card-text fs-2 text-primary">
                                 {{holodata.singer|intcomma}}
                             </p>
                         </div>
@@ -178,10 +158,10 @@
                 <div class="card h-100 rounded-pill">
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <div>
-                            <h5 class="card-title">
+                            <h5 class="card-title fw-bold">
                                 歌曲數
                             </h5>
-                            <p class="card-text fs-3 text-primary">
+                            <p class="card-text fs-2 text-primary">
                                 {{holodata.song|intcomma}}
                             </p>
                         </div>
@@ -192,10 +172,10 @@
                 <div class="card h-100 rounded-pill">
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <div>
-                            <h5 class="card-title">
+                            <h5 class="card-title fw-bold">
                                 總觀看數
                             </h5>
-                            <p class="card-text fs-3 text-primary">
+                            <p class="card-text fs-2 text-primary">
                                 {{holodata.total_view|intcomma}}
                             </p>
                         </div>
@@ -206,10 +186,10 @@
                 <div class="card h-100 rounded-pill">
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <div>
-                            <h5 class="card-title">
+                            <h5 class="card-title fw-bold">
                                 破百萬觀看歌曲數
                             </h5>
-                            <p class="card-text fs-3 text-primary">
+                            <p class="card-text fs-2 text-primary">
                                 {{holodata.over_million_song|intcomma}}
                             </p>
                         </div>
@@ -220,10 +200,10 @@
                 <div class="card h-100 rounded-pill">
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <div>
-                            <h5 class="card-title">
+                            <h5 class="card-title fw-bold">
                                 破千萬觀看歌曲數
                             </h5>
-                            <p class="card-text fs-3 text-primary">
+                            <p class="card-text fs-2 text-primary">
                                 {{holodata.over_10_million_song|intcomma}}
                             </p>
                         </div>
@@ -234,10 +214,10 @@
                 <div class="card h-100 rounded-pill">
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <div>
-                            <h5 class="card-title">
+                            <h5 class="card-title fw-bold">
                                 本周總觀看數成長
                             </h5>
-                            <p class="card-text fs-3 text-primary">
+                            <p class="card-text fs-2 text-primary">
                                 {{holodata.total_weekly_view|intcomma}}
                             </p>
                         </div>

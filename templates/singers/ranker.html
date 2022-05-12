@@ -5,6 +5,7 @@
 {% block title %}歌手排行{% endblock %}
 
 {% block scripts %}
+<script type="text/javascript" src="{% static 'js/tooltip.js' %}"></script>
 <script>
     $(document).ready(function () {
         if ("{{request.session.singers_view_select}}" == "total_view") {
@@ -14,9 +15,9 @@
         }
 
         $("#view_select").change(function () {
+            $("#select_form").submit();
             if ($(this).val() == "total_view") {
                 $("#date_select").hide();
-                $("#select_form").submit();
             } else {
                 $("#date_select").show();
             }
@@ -43,42 +44,69 @@
 {% block main %}
 <div class="container pt-4">
     <div class="row justify-content-center">
-        <h1 class="display-5 fw-bold ps-3">歌手排行</h1>
-        <div class="col">
+        <h1 class="display-5 fw-bold ps-3">
+            歌手排行
+            <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
+                data-bs-placement="right" data-bs-html="true" title="
+                <u>Hololive 成員歌曲觀看排行</u><br />
+                <ul class='align-items-start text-start'>
+                    <li>更新時間 : 每周日</li>
+                    <li>計算方式 : 總觀看數、周觀看成長數</li>
+                    <li>不列入統計的歌曲 :<br/>
+                        <a class='link-info' href='{% url 'singers:profile' id=44 %}'>hololive ホロライブ - VTuber
+                                Group</a>中的13首歌曲。
+                    </li>
+                </ul>
+                ">
+                榜單規則 <i class="bi bi-info-circle"></i>
+            </button>
+        </h1>
+        <div class="col pb-3">
             <form id="select_form" action="{% url 'singers:ranker' %}" method="post" class="input-group">
                 {% csrf_token %}
-                <span class="input-group-text">排序條件</span>
-                <select id="view_select" name="view_select" class="form-select form-control">
-                    <option {% if request.session.singers_view_select == "total_view_weekly_growth" %} selected
-                        {% elif request.session.singers_view_select == "total_view" %} {% else %} selected {% endif %}
-                        value="total_view_weekly_growth">
-                        周觀看數
-                    </option>
-                    <option {% if request.session.singers_view_select == "total_view" %} selected {% endif %}
-                        value="total_view">
-                        總觀看數</option>
-                </select>
-                <select id="date_select" name="date_select" class="form-select form-control">
-                    {% for date in date_select_list %}
-                    <option
-                        {% if forloop.first or request.session.singers_date_select == date|date:"Y/m/d" %}selected{% endif %}
-                        value="{{date|date:"Y/m/d"}}">
-                        {{date|date:"Y/m/d"}}</option>
-                    {% endfor %}
-                </select>
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-info-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                    </svg>
+                    排序條件
+                </span>
+                <div class="col-auto me-1">
+                    <select id="view_select" name="view_select" class="form-select form-control">
+                        <option {% if request.session.singers_view_select == "total_view_weekly_growth" %} selected
+                            {% elif request.session.singers_view_select == "total_view" %} {% else %} selected
+                            {% endif %} value="total_view_weekly_growth">
+                            周觀看數
+                        </option>
+                        <option {% if request.session.singers_view_select == "total_view" %} selected {% endif %}
+                            value="total_view">
+                            累積觀看數</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select id="date_select" name="date_select" class="form-select form-control">
+                        {% for date in date_select_list %}
+                        <option
+                            {% if forloop.first or request.session.singers_date_select == date|date:"Y/m/d" %}selected{% endif %}
+                            value="{{date|date:"Y/m/d"}}">
+                            {{date|date:"Y/m/d"}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </form>
         </div>
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table table-hover align-middle justify-content-between">
                 <thead class="border-bottom">
                     <tr>
-                        <th class="col-2 col-md-1 text-center" scope="col">排名</th>
+                        <th class="col-auto text-center" scope="col">排名</th>
                         <th class="col-auto text-center" scope="col" colspan="2">頻道/姓名</th>
                         <th class="col-auto d-none d-md-table-cell text-center" scope="col">
                             {% if request.session.singers_view_select == 'total_view_weekly_growth' %}
                             周觀看數
                             {% elif  request.session.singers_view_select == 'total_view' %}
-                            總觀看數
+                            累積觀看數
                             {% else %}
                             周觀看數
                             {% endif %}
@@ -95,23 +123,23 @@
                                 #{{forloop.counter}}
                             </span>
                         </th>
-                        <td class="d-flex justify-content-center">
+                        <td class="text-end">
                             <!--頻道-->
                             <a class="link-dark" href="{% url 'singers:profile' id=record.vtuber.id %}">
-                                <img class="img-vtuber img-fluid shadow border border-1 rounded-circle"
+                                <img class="img-vtuber img-fluid shadow border border-1 rounded-circle my-auto"
                                     src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
                                     alt="頻道縮圖">
                             </a>
                         </td>
                         <td>
                             <!--姓名-->
-                            <p class="fs-4 truncate-1">
+                            <p class="fs-4 truncate-1 mb-1">
                                 {{record.vtuber.name}}
                             </p>
-                            <div class="text-warning">
+                            <div class="text-success">
                                 <i class="bi bi-tag"></i>
                                 {% for group in record.vtuber.vtuber_groups.values %}
-                                <span class="text-decoration-underline text-warning">
+                                <span class="text-decoration-underline">
                                     {{group.unit}}{% if not forloop.last %} / {% endif %}
                                 </span>
                                 {% endfor %}

@@ -1,0 +1,22 @@
+#return-to-top {
+    z-index: 100;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 3rem;
+    color: #849ec0;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover {
+    color: #466682;
+}

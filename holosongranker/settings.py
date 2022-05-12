@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from django.utils.translation import gettext_lazy as _
 from pathlib import Path
 import os
 
@@ -21,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-i$t!x0*fi+@sr#w(w)$al6&jcbi+it(p&q&pzd+i#g*#uj0+m)"
+# SECRET_KEY = "django-insecure-i$t!x0*fi+@sr#w(w)$al6&jcbi+it(p&q&pzd+i#g*#uj0+m)"
+with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -121,7 +125,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-# LANGUAGE_CODE = "zh-Hant"
+LANGUAGES = (
+    ('zh-tw', _('繁體中文')),
+    ('en',    _('English')),
+)
+
 LANGUAGE_CODE = "en"
 
 TIME_ZONE = "Asia/Taipei"
@@ -141,8 +149,17 @@ STATICFILES_DIRS = (
     BASE_DIR / "static",
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets/')
 
+# # HTTPS settings
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+
+# # HSTS settings
+# SECURE_HSTS_SECONDS = 31536000  # 1 year
+# SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
