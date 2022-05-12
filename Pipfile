@@ -11,6 +11,7 @@ google-api-python-client = "*"
 django-pandas = "*"
 gspread = "*"
 oauth2client = "*"
+tweepy = "*"
 
 [dev-packages]
 autopep8 = "*"

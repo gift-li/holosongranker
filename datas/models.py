@@ -105,7 +105,7 @@ class Record(models.Model):
         return date_df.sort_values(['date'], ascending=False).reset_index()
 
     # 取得上一筆紀錄的日期
-    def get_last_date(now_date):
+    def get_previous_date(now_date):
         last_date = Record.objects.filter(date__lt=now_date).values(
             'date').distinct().order_by('-date').first()
 
