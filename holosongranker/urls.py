@@ -17,17 +17,20 @@ import mimetypes
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from django.views.i18n import set_language
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
 from . import homepage
 
 urlpatterns = [
-    path("", homepage.Index, name='homepage'),
-    path("about/", homepage.About, name='about'),
     path('admin/', admin.site.urls),
-    path('songs/', include('songs.urls')),
-    path('singers/', include('singers.urls')),
-    path('setlang/', set_language, name="setlang"),
 ]
+
+urlpatterns += i18n_patterns(
+    path('', homepage.Index, name='homepage'),
+    path('about', homepage.About, name='about'),
+    path('songs/', include('songs.urls', namespace='songs')),
+    path('singers/', include('singers.urls', namespace='singers')),
+)
 
 if settings.DEBUG:
     import debug_toolbar

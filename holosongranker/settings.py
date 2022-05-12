@@ -74,6 +74,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -126,11 +127,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGES = (
-    ('zh-tw', _('繁體中文')),
+    ('zh-hant', _('Traditional Chinese')),
     ('en',    _('English')),
 )
 
 LANGUAGE_CODE = "en"
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 TIME_ZONE = "Asia/Taipei"
 

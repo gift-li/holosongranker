@@ -1,7 +1,5 @@
 {% load static %}
 {% load i18n %}
-{% get_current_language as LANGUAGE_CODE %}
-{% get_language_info for LANGUAGE_CODE as lang %}
 <nav class="navbar navbar-expand navbar-light bg-light py-1 sticky-top border-bottom">
     <div class="container">
         <a href="{% url 'homepage' %}" class="navbar-brand fs-4 pe-3 d-flex align-middle">
@@ -45,16 +43,25 @@
                 aria-expanded="false">
                 <i class="fs-3 bi bi-gear"></i>
             </a>
-            <form id="form_language" action="{% url 'setlang' %}" method="post"
-                class="dropdown-menu dropdown-menu-end p-3" onchange="$('#form_language').submit()">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="/" />
-                <label for="select_language" class="form-label">語言</label>
-                <select class="form-control form-select" id="select_language" name="language">
-                    <option value="zh-Hant" selected>繁體中文</option>
-                    <option value="en">英文</option>
-                </select>
-            </form>
+            <ul class="dropdown-menu dropdown-menu-end p-3">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+
+                {% for lang in languages %}
+                <li>
+                    <a class="dropdown-item {% if lang.code == LANGUAGE_CODE %} active{% endif %}" href="
+                        {% if LANGUAGE_CODE == 'en' %}
+                        /{{ lang.code }}/{{request.get_full_path|slice:"4:"}}
+                        {% else %}
+                        /{{ lang.code }}/{{request.get_full_path|slice:"9:"}}
+                        {% endif %}
+                        ">
+                        {{ lang.name_local }} ({{ lang.code }})
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
         <button class="navbar-toggler d-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
             aria-controls="sidebar">
