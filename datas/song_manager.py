@@ -11,11 +11,10 @@ from datetime import date
 import datas.google_sheet_manager as google_sheet_manager
 import datas.backup_manager as backup_manager
 import urllib.request
+import numpy
 
 ##### Songs #####
-
 class SongModelController:
-
     # 將本周新歌加入資料庫
     def insert_this_week_new_song(self):
         # new_songs_df = pd.read_csv('./datas/csv/new_songs.csv') 
@@ -150,6 +149,43 @@ class SongModelController:
                     date = date)
                 vtuber_record.save()
 
+    # 取的比賽圖所需歌曲資料
+    def get_songs_for_race_bar_chart(self,dates):
+        columns = ['title' , 'thumbnail_url']
+        videos_df = pd.DataFrame(columns = columns)
+
+        for i in range(len(dates)):
+            date = dates[i]
+            records = Record.objects.filter(date=date) \
+                .prefetch_related('song', 'song__title', 'song__thumbnail_url')
+            
+            df = pd.DataFrame(list(records.values('song__name', 'song__thumbnail_url','weekly_view')))
+            # df[date] = df['weekly_view']
+            # df[date] = df['weekly_view']
+            df.columns = ['title', 'thumbnail_url', date]
+            # 先用笨一點的方式
+            videos_df = pd.merge(videos_df, df, how="outer")
+
+        videos_df = videos_df.fillna(0)
+        print(videos_df)
+        file_name = "datas/csv/mouths.csv"
+        videos_df.to_csv(file_name )
+
+
+    def get_month_top1_songs(self,dates):
+        urls = []
+        for date in dates:
+            records = Record.objects.filter(date=date) \
+                .prefetch_related('song') \
+                .order_by('-weekly_view')[:1]
+
+            songs = list(records.values('song__name', 'song__youtube_url'))
+            url = songs[0]['song__youtube_url']
+            urls.append(url)
+        urls = numpy.unique(urls).tolist()
+
+        for url in urls:
+            print(url)
 
 
 
@@ -159,15 +195,27 @@ def test_code():
     # 去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
     this_date = '2022-5-8'
 
-    sc = SongModelController()
-    # 將本周新歌加入資料庫
-    sc.insert_this_week_new_song(this_date)
-    # 抓取本周歌曲數據 歌曲,日期,總觀看數
-    sc.insert_this_week_record(this_date)
-    # 計算周觀看數
-    sc.caculate_weekly_view_in_record(this_date)
-    # 計算本周VTuber的歌曲數據
-    sc.insert_vtuber_record(this_date)
+    # sc = SongModelController()
+    # # 將本周新歌加入資料庫
+    # sc.insert_this_week_new_song(this_date)
+    # # 抓取本周歌曲數據 歌曲,日期,總觀看數
+    # sc.insert_this_week_record(this_date)
+    # # 計算周觀看數
+    # sc.caculate_weekly_view_in_record(this_date)
+    # # 計算本周VTuber的歌曲數據
+    # sc.insert_vtuber_record(this_date)
+
+    # 取的比賽圖所需歌曲資料
+    # print(Record.get_date_list())
+    dates = ['2022-04-03', '2022-04-10', '2022-04-17', '2022-04-24', '2022-05-01']
+    
+    sm = SongModelController()
+    # 取的比賽圖所需歌曲資料
+    #sm.get_songs_for_race_bar_chart(dates)
+
+    # 取得某周排行第一的影片連結
+    # sm.get_month_top1_songs(dates)
+    # 下載器 https://www.backupmp3.com/zh/#TaskResults
 
 
             
