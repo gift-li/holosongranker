@@ -185,11 +185,11 @@ class GraphDataCreater:
 
             songs = list(records.values('song__name', 'song__youtube_url'))
             url = songs[0]['song__youtube_url']
+            name = songs[0]['song__name']
             urls.append(url)
-        urls = numpy.unique(urls).tolist()
+            print('{} : {}'.format(name, url))
 
-        for url in urls:
-            print(url)
+            
 
     # 歌曲比賽直線圖
     def get_songs_for_line_chart(self, dates):
@@ -198,7 +198,7 @@ class GraphDataCreater:
         df_ranks = pd.DataFrame(columns = df.columns)
 
         for date in dates:
-            top10_df = df.sort_values(by=[str(date)], ascending=False)[:3]
+            top10_df = df.sort_values(by=[str(date)], ascending=False)[:5]
             df_ranks = pd.concat([df_ranks,top10_df],axis=0)
 
         df_ranks = df_ranks.drop_duplicates()
@@ -272,12 +272,12 @@ def test_code():
 
     # 歌曲比賽圖
     # gc.get_songs_for_bar_chart(dates)
-    # gc.get_songs_for_line_chart(dates)
+    gc.get_songs_for_line_chart(dates)
 
 
     # 歌手比賽圖
-    gc.get_vtubers_for_bar_chart(dates)
-    gc.get_vtubers_for_line_chart(dates)
+    # gc.get_vtubers_for_bar_chart(dates)
+    # gc.get_vtubers_for_line_chart(dates)
 
     # 取得某周排行第一的影片連結
     # gc.get_top1_songs(dates)
