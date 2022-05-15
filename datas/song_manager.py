@@ -1,4 +1,5 @@
 from calendar import week
+from dataclasses import replace
 from email import message
 import this
 from traceback import print_tb
@@ -149,8 +150,11 @@ class SongModelController:
                     date = date)
                 vtuber_record.save()
 
+# 產生圖表所需資料
+class GraphDataCreater:
+
     # 取的比賽圖所需歌曲資料
-    def get_songs_for_race_bar_chart(self,dates):
+    def get_songs_for_bar_chart(self,dates):
         columns = ['title' , 'thumbnail_url']
         videos_df = pd.DataFrame(columns = columns)
 
@@ -168,11 +172,10 @@ class SongModelController:
 
         videos_df = videos_df.fillna(0)
         print(videos_df)
-        file_name = "datas/csv/mouths.csv"
+        file_name = "datas/csv/race_chart/songs_bar.csv"
         videos_df.to_csv(file_name )
 
-
-    def get_month_top1_songs(self,dates):
+    def get_top1_songs(self,dates):
         urls = []
         for date in dates:
             records = Record.objects.filter(date=date) \
@@ -187,7 +190,61 @@ class SongModelController:
         for url in urls:
             print(url)
 
+    # 歌曲比賽直線圖
+    def get_songs_for_line_chart(self, dates):
+        
+        df =  pd.read_csv('./datas/csv/race_chart/songs_bar.csv') 
+        df_ranks = pd.DataFrame(columns = df.columns)
 
+        for date in dates:
+            top10_df = df.sort_values(by=[date], ascending=False)[:3]
+            df_ranks = pd.concat([df_ranks,top10_df],axis=0)
+
+        df_ranks = df_ranks.drop_duplicates()
+
+        df_ranks = df_ranks.replace(0.0, '')
+        df_ranks = df_ranks.drop(columns= ['Unnamed: 0'])
+        file_name = "datas/csv/race_chart/songs_line.csv"
+        df_ranks.to_csv(file_name )
+        
+    # 歌手比賽長條圖
+    def get_vtubers_for_bar_chart(self,dates):
+        columns = ['title' , 'thumbnail_url']
+        videos_df = pd.DataFrame(columns = columns)
+
+        for i in range(len(dates)):
+            date = dates[i]
+            records = VtuberRecord.objects.filter(date=date) \
+                .prefetch_related('vtuber', 'vtuber__name', 'vtuber__thumbnail_url')
+            
+            df = pd.DataFrame(list(records.values('vtuber__name', 'vtuber__thumbnail_url','total_view_weekly_growth')))
+  
+            df.columns = ['title', 'thumbnail_url', date]
+            # 先用笨一點的方式
+            videos_df = pd.merge(videos_df, df, how="outer")
+
+        videos_df = videos_df.fillna(0)
+        videos_df = videos_df[videos_df['title'] != 'hololive ホロライブ - VTuber Group']
+        file_name = "datas/csv/race_chart/vtubers_bar.csv"
+        videos_df.to_csv(file_name )
+
+    # 歌曲比賽直線圖
+    def get_vtubers_for_line_chart(self, dates):
+        
+        df =  pd.read_csv('./datas/csv/race_chart/vtubers_bar.csv') 
+        df_ranks = pd.DataFrame(columns = df.columns)
+
+        for date in dates:
+            top10_df = df.sort_values(by=[date], ascending=False)
+            df_ranks = pd.concat([df_ranks,top10_df],axis=0)
+
+        df_ranks = df_ranks.drop_duplicates()
+
+        df_ranks = df_ranks.replace(0.0, '')
+        df_ranks = df_ranks.drop(columns= ['Unnamed: 0'])
+        file_name = "datas/csv/race_chart/vtubers_line.csv"
+        df_ranks.to_csv(file_name )
+        
 
 def test_code():
    
@@ -209,13 +266,19 @@ def test_code():
     # print(Record.get_date_list())
     dates = ['2022-04-03', '2022-04-10', '2022-04-17', '2022-04-24', '2022-05-01']
     
-    sm = SongModelController()
-    # 取的比賽圖所需歌曲資料
-    #sm.get_songs_for_race_bar_chart(dates)
+    gc = GraphDataCreater()
+
+    # 歌曲比賽圖
+    # gc.get_songs_fo_bar_chart(dates)
+    # gc.get_songs_for_line_chart(dates)
 
     # 取得某周排行第一的影片連結
-    # sm.get_month_top1_songs(dates)
+    # gc.get_top1_songs(dates)
     # 下載器 https://www.backupmp3.com/zh/#TaskResults
+
+    # 歌手比賽圖
+    gc.get_vtubers_for_bar_chart(dates)
+    gc.get_vtubers_for_line_chart(dates)
 
 
             
