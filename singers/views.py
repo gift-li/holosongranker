@@ -16,12 +16,11 @@ from pprint import pp
 @require_http_methods(['GET', 'POST'])
 def Ranker(request):
     # search querys setting
+    default_page = 1
     order_query = '-total_view_weekly_growth'
     exclude_group = [Group.Unit.GROUP]
-    rank_num_to = 10
     date_query = VtuberRecord.get_lastest_record_date()
     date_select_list = VtuberRecord.get_date_list()['date'].tolist()
-    message = ''
 
     if request.method == 'GET':
         request.session['singers_view_select'] = order_query
@@ -43,21 +42,31 @@ def Ranker(request):
             date=date_query) \
             .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
             .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
-            .order_by(order_query)[:rank_num_to]
+            .order_by(order_query)
     except:
         vtuber_record_list = VtuberRecord.objects.filter(
             date=VtuberRecord.get_lastest_record_date()) \
             .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
             .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
-            .order_by('-total_view_weekly_growth')[:rank_num_to]
+            .order_by('-total_view_weekly_growth')
 
-    message = getSearchMessage(order_query, date_query)
+    # 分頁
+    page = request.GET.get('page', default_page)
+    p = Paginator(vtuber_record_list, 10)
+    try:
+        vtuber_record_list = p.page(page)
+    except PageNotAnInteger:
+        vtuber_record_list = p.page(default_page)
+    except EmptyPage:
+        vtuber_record_list = p.page(p.num_pages)
+    page_range = p.get_elided_page_range(
+        page, on_each_side=2, on_ends=3)
 
     template = 'singers/ranker.html'
     context = {
         'vtuber_record_list': vtuber_record_list,
         'date_select_list': date_select_list,
-        'message': message,
+        'page_range': page_range,
     }
 
     return render(request, template, context)
@@ -138,6 +147,9 @@ def Menu(request):
 
 
 def Profile(request, id):
+    default_page = 1
+    is_select_nav_song = False
+
     profile = VtuberRecord.objects.filter(vtuber=id) \
         .filter(date=VtuberRecord.get_lastest_record_date()) \
         .prefetch_related('vtuber', 'vtuber__vtuber_groups').get()
@@ -149,18 +161,27 @@ def Profile(request, id):
 
     top3_songs = total_songs[:3]
 
+    page = request.GET.get('page', default_page)
+    p = Paginator(total_songs, 10)
+    try:
+        total_songs = p.page(page)
+    except PageNotAnInteger:
+        total_songs = p.page(default_page)
+    except EmptyPage:
+        total_songs = p.page(p.num_pages)
+    page_range = p.get_elided_page_range(
+        page, on_each_side=2, on_ends=3)
+
+    if(page != 1):
+        is_select_nav_song = True
+
     template = 'singers/profile.html'
     context = {
         'profile': profile,
         'top3_songs': top3_songs,
         'total_songs': total_songs,
+        'page_range': page_range,
+        'is_select_nav_song': is_select_nav_song,
     }
 
     return render(request, template, context)
-
-# 搜尋條件文字訊息生成
-
-
-def getSearchMessage(order_query, date_query):
-    message = ''
-    return message
