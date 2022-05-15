@@ -61,11 +61,11 @@ class SongModelController:
 
                     # 下載影片縮圖
                     url = new_songs_df['thumbnail_url'][i].replace("mqde", "sdde")
-                    thumbnails_file_name = thumbnails_path + new_songs_df['youtube_url'][i]  + '.png'
+                    thumbnails_file_name = thumbnails_path + new_songs_df['youtube_id'][i]  + '.png'
                     try:
                         urllib.request.urlretrieve(url, thumbnails_file_name)
                     except:
-                        print(url)
+                        print('{}縮圖下載失敗'.format(url))
 
             else:
                 song.singer.add(singer)
@@ -160,6 +160,7 @@ class GraphDataCreater:
 
         for i in range(len(dates)):
             date = dates[i]
+            print(date)
             records = Record.objects.filter(date=date) \
                 .prefetch_related('song', 'song__title', 'song__thumbnail_url')
             
@@ -197,7 +198,7 @@ class GraphDataCreater:
         df_ranks = pd.DataFrame(columns = df.columns)
 
         for date in dates:
-            top10_df = df.sort_values(by=[date], ascending=False)[:3]
+            top10_df = df.sort_values(by=[str(date)], ascending=False)[:3]
             df_ranks = pd.concat([df_ranks,top10_df],axis=0)
 
         df_ranks = df_ranks.drop_duplicates()
@@ -235,7 +236,7 @@ class GraphDataCreater:
         df_ranks = pd.DataFrame(columns = df.columns)
 
         for date in dates:
-            top10_df = df.sort_values(by=[date], ascending=False)
+            top10_df = df.sort_values(by=[str(date)], ascending=False)
             df_ranks = pd.concat([df_ranks,top10_df],axis=0)
 
         df_ranks = df_ranks.drop_duplicates()
@@ -250,11 +251,11 @@ def test_code():
    
     # 每週要做的事情
     # 去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-5-8'
+    this_date = '2022-5-15'
 
-    # sc = SongModelController()
+    sc = SongModelController()
     # # 將本周新歌加入資料庫
-    # sc.insert_this_week_new_song(this_date)
+    # sc.insert_this_week_new_song()
     # # 抓取本周歌曲數據 歌曲,日期,總觀看數
     # sc.insert_this_week_record(this_date)
     # # 計算周觀看數
@@ -263,22 +264,25 @@ def test_code():
     # sc.insert_vtuber_record(this_date)
 
     # 取的比賽圖所需歌曲資料
-    # print(Record.get_date_list())
-    dates = ['2022-04-03', '2022-04-10', '2022-04-17', '2022-04-24', '2022-05-01']
     
+    dates = Record.get_date_list()['date'][:5].tolist()[::-1]
+    print(dates)
+
     gc = GraphDataCreater()
 
     # 歌曲比賽圖
-    # gc.get_songs_fo_bar_chart(dates)
+    # gc.get_songs_for_bar_chart(dates)
     # gc.get_songs_for_line_chart(dates)
+
+
+    # 歌手比賽圖
+    gc.get_vtubers_for_bar_chart(dates)
+    gc.get_vtubers_for_line_chart(dates)
 
     # 取得某周排行第一的影片連結
     # gc.get_top1_songs(dates)
     # 下載器 https://www.backupmp3.com/zh/#TaskResults
 
-    # 歌手比賽圖
-    gc.get_vtubers_for_bar_chart(dates)
-    gc.get_vtubers_for_line_chart(dates)
 
 
             
