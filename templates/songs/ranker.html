@@ -119,7 +119,7 @@
                     <tr id="row_{{forloop.counter}}">
                         <th class="text-center" scope="row">
                             <span class="fs-3">
-                                #{{forloop.counter}}
+                                {% widthratio records.number 1 10 as counter %}#{{ counter|add:"-10"|add:forloop.counter }}
                             </span>
                         </th>
                         <td>
@@ -184,6 +184,10 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <div class="col">
+            {% include 'partials/pagination.html' with page_obj=records %}
+
         </div>
     </div>
 </div>

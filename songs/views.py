@@ -2,12 +2,17 @@ from datetime import datetime
 from datas.models import *
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+from django.core.paginator import (
+    Paginator,
+    EmptyPage,
+    PageNotAnInteger,
+)
 from pprint import pp
 
 
 @require_http_methods(['GET', 'POST'])
 def Ranker(request):
-    rank_num_to = 10
+    default_page = 1
     order_query = '-weekly_view'
     date_query = Record.get_lastest_record_date()
     date_select_list = Record.get_date_list()['date'].tolist()
@@ -31,16 +36,28 @@ def Ranker(request):
     try:
         records = Record.objects.filter(date=date_query) \
             .prefetch_related('song', 'song__singer', 'song__singer__vtuber_groups') \
-            .order_by(order_query)[:rank_num_to]
+            .order_by(order_query)
     except:
         records = Record.objects.filter(date=Record.get_lastest_record_date()) \
             .prefetch_related('song', 'song__singer', 'song__singer__vtuber_groups') \
-            .order_by('-weekly_view')[:rank_num_to]
+            .order_by('-weekly_view')
+
+    page = request.GET.get('page', default_page)
+    p = Paginator(records, 10)
+    try:
+        records = p.page(page)
+    except PageNotAnInteger:
+        records = p.page(default_page)
+    except EmptyPage:
+        records = p.page(p.num_pages)
+    page_range = p.get_elided_page_range(
+        page, on_each_side=2, on_ends=3)
 
     template = 'songs/ranker.html'
     context = {
         'records': records,
         'date_select_list': date_select_list,
+        'page_range': page_range
     }
 
     return render(request, template, context)

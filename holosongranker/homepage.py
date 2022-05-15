@@ -40,7 +40,7 @@ def getSongRank():
 
     songs = Record.objects.filter(date=song_record_date) \
         .prefetch_related('song') \
-        .order_by('-weekly_view')[:12]
+        .order_by('-weekly_view')[:6]
 
     return songs, song_record_date
 
