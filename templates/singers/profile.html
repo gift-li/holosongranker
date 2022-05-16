@@ -157,8 +157,7 @@
                                                     {% for vtuber in record.song.singer.values %}
                                                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                                         <a class="link-dark"
-                                                            href="{% url 'singers:profile' id=vtuber.id %}"
-                                                            >
+                                                            href="{% url 'singers:profile' id=vtuber.id %}">
                                                             <img src="{% static 'img/vtuber_thumbnails/'|add:vtuber.youtube_id|add:'.png' %}"
                                                                 class="img-song-vtuber img-fluid border border-1 rounded-circle"
                                                                 alt="vtuber圖片">
@@ -204,7 +203,7 @@
                                     <tr>
                                         <th class="col-2 col-lg-1 text-center" scope="col">排名</th>
                                         <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
-                                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">觀看數</th>
+                                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">周觀看數</th>
                                         <th class="col-2 d-none d-lg-table-cell text-center" scope="col">歌手</th>
                                     </tr>
                                 </thead>
@@ -234,7 +233,7 @@
                                         </td>
                                         <td class="d-none d-md-table-cell text-center text-primary">
                                             <span class="fs-5">
-                                                {{ record.total_view|intcomma }}
+                                                {{ record.weekly_view|intcomma }}
                                             </span>
                                         </td>
                                         <td class="d-none d-lg-table-cell text-center">
@@ -244,8 +243,7 @@
                                                     {% for vtuber in record.song.singer.values %}
                                                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                                         <a class="link-dark"
-                                                            href="{% url 'singers:profile' id=vtuber.id %}"
-                                                            >
+                                                            href="{% url 'singers:profile' id=vtuber.id %}">
                                                             <img src="{% static 'img/vtuber_thumbnails/'|add:vtuber.youtube_id|add:'.png' %}"
                                                                 class="img-song-vtuber img-fluid border border-1 rounded-circle"
                                                                 alt="vtuber圖片">

@@ -5,6 +5,21 @@
 
 {% block styles %}
 <style>
+    #intro {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0,
+                0.5)),
+        url('{% static 'img/main/banner.png' %}');
+        background-repeat: no-repeat;
+        background-attachment: inherit;
+        background-position: top;
+        background-size: cover;
+    }
+
+    .img-banner {
+        width: 100%;
+        position: relative;
+    }
+
     .img-intro {
         max-height: 10vh;
         max-width: auto;
@@ -23,10 +38,10 @@
 <div class="container">
     <section id="intro" class="container-fluid text-center justify-content-center bg-secondary bg-opacity-25 pt-5 pb-5">
         <img class="img-intro" src="{% static 'img/main/shortcut_icon.png' %}" alt="intro圖片">
-        <h1 class="display-4 fw-bold pb-3">
+        <h1 class="display-4 text-light fw-bold pb-3">
             Holo Song Ranker
         </h1>
-        <a class="btn btn-primary" href="{% url 'about' %}">了解更多</a>
+        <a class="btn btn-primary fw-bold fs-5" href="{% url 'about' %}">了解更多</a>
     </section>
     <section id="song_rank" class="container-fluid text-center justify-content-center bg-primary bg-opacity-10 p-5">
         <div class="row mx-3 mx-md-5 justify-content-center">

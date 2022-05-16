@@ -122,7 +122,11 @@ def Menu(request):
 
 
 def Profile(request, id):
+    # * var: get_records_page()
     default_page = 1
+    on_each_side = 2
+    on_ends = 3
+    # * others
     is_select_nav_song = False
 
     profile = VtuberRecord.objects.filter(vtuber=id) \
@@ -136,17 +140,11 @@ def Profile(request, id):
 
     top3_songs = total_songs[:3]
 
-    page = request.GET.get('page', default_page)
-    p = Paginator(total_songs, 10)
-    try:
-        total_songs = p.page(page)
-    except PageNotAnInteger:
-        total_songs = p.page(default_page)
-    except EmptyPage:
-        total_songs = p.page(p.num_pages)
-    page_range = p.get_elided_page_range(
-        page, on_each_side=2, on_ends=3)
+    # 分頁
+    total_songs, page_range = get_records_page(
+        request, total_songs, default_page, on_each_side, on_ends)
 
+    page = request.GET.get('page', default_page)
     if(page != 1):
         is_select_nav_song = True
 
