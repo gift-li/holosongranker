@@ -115,12 +115,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for record in vtuber_record_list %}
+                    {% for record in records %}
                     <tr id="row_{{forloop.counter}}">
                         <th class="text-center" scope="row">
                             <!--排名-->
                             <span class="fs-3">
-                                {% widthratio vtuber_record_list.number 1 10 as counter %}#{{ counter|add:"-10"|add:forloop.counter }}
+                                {% widthratio records.number 1 10 as counter %}#{{ counter|add:"-10"|add:forloop.counter }}
                             </span>
                         </th>
                         <td class="text-center">
@@ -168,7 +168,7 @@
             </table>
         </div>
         <div class="col">
-            {% include 'partials/pagination.html' with page_obj=vtuber_record_list %}
+            {% include 'partials/pagination.html' with page_obj=records %}
         </div>
     </div>
 </div>
