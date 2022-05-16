@@ -149,6 +149,17 @@ class SongModelController:
                     song_count = song_count,
                     date = date)
                 vtuber_record.save()
+            else: # 歌曲數為0
+                vtuber_record = VtuberRecord(
+                    vtuber = vtuber,
+                    total_view = 0,
+                    total_view_weekly_growth =0,
+                    average_view = 0,
+                    average_view_weekly_growth = 0,
+                    song_count = 0,
+                    date = date)
+                vtuber_record.save()
+
 
 # 產生圖表所需資料
 class GraphDataCreater:
