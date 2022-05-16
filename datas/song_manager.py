@@ -89,19 +89,19 @@ class SongModelController:
                 )
                 response = request.execute()
                 viewCount = response['items'][0]['statistics']['viewCount']
-                views_col.append(viewCount)
 
-                record = Record(song = songs[i], 
+            except Exception as e: 
+                except_video.append(video_id)
+                # 找不到資料時，抓上週資料
+                last_record = Record.objects.filter(song = songs[i]).order_by('-date')[0]
+                viewCount = last_record.total_view
+
+                print(except_video)
+
+            record = Record(song = songs[i], 
                 total_view = viewCount, 
                 date=date)
-                record.save()
-
-            except Exception as e:
-                except_video.append(video_id)
-                views_col.append(0)
-                print(e)
-            
-                print(except_video)
+            record.save()
 
     # 計算周觀看數
     def caculate_weekly_view_in_record(self, date):
@@ -150,15 +150,8 @@ class SongModelController:
                     date = date)
                 vtuber_record.save()
             else: # 歌曲數為0
-                vtuber_record = VtuberRecord(
-                    vtuber = vtuber,
-                    total_view = 0,
-                    total_view_weekly_growth =0,
-                    average_view = 0,
-                    average_view_weekly_growth = 0,
-                    song_count = 0,
-                    date = date)
-                vtuber_record.save()
+                print('錯誤:{}歌曲為0'.format(vtuber))
+
 
 
 # 產生圖表所需資料
@@ -265,6 +258,7 @@ def test_code():
     this_date = '2022-5-15'
 
     sc = SongModelController()
+
     # # 將本周新歌加入資料庫
     # sc.insert_this_week_new_song()
     # # 抓取本周歌曲數據 歌曲,日期,總觀看數
@@ -276,14 +270,14 @@ def test_code():
 
     # 取的比賽圖所需歌曲資料
     
-    dates = Record.get_date_list()['date'][:5].tolist()[::-1]
-    print(dates)
+    # dates = Record.get_date_list()['date'][:5].tolist()[::-1]
+    # print(dates)
 
-    gc = GraphDataCreater()
+    # gc = GraphDataCreater()
 
     # 歌曲比賽圖
     # gc.get_songs_for_bar_chart(dates)
-    gc.get_songs_for_line_chart(dates)
+    # gc.get_songs_for_line_chart(dates)
 
 
     # 歌手比賽圖
