@@ -13,78 +13,81 @@
 {% endblock %}
 
 {% block main %}
-<section id="about" class="container-fluid text-center bg-secondary bg-opacity-25 py-5 align-items-center">
-    <h1 class="display-5 fw-bold py-5">關於我們</h1>
-</section>
-<section id="origin" class="container text-center py-5">
-    <div class="row">
-        <div class="col-12 rounded-pill shadow p-5 bg-primary bg-opacity-10">
-            <h1 class="fs-2 fw-bold text-decoration-underline mb-4">
-                網站起源
-            </h1>
-            <p class="fs-6">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt commodi vero eum eos, asperiores beatae
-                maiores possimus animi, accusantium obcaecati labore cum doloribus nesciunt sapiente magni neque qui
-                libero in.
-            </p>
+<div class="container">
+    <section id="about" class="container-fluid text-center bg-secondary bg-opacity-25 py-5 align-items-center">
+        <h1 class="display-5 fw-bold py-5">關於我們</h1>
+    </section>
+    <section id="origin" class="container text-center py-5">
+        <div class="row">
+            <div class="col-12 rounded-pill shadow p-5 bg-primary bg-opacity-10">
+                <h1 class="fs-2 fw-bold text-decoration-underline mb-4">
+                    網站起源
+                </h1>
+                <p class="fs-6">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt commodi vero eum eos, asperiores
+                    beatae
+                    maiores possimus animi, accusantium obcaecati labore cum doloribus nesciunt sapiente magni neque qui
+                    libero in.
+                </p>
+            </div>
         </div>
-    </div>
-</section>
-<section id="author" class="container text-center py-5">
-    <div class="row py-5 px-md-3 px-lg-5 bg-success bg-opacity-10 justify-content-center">
-        <div class="col-12">
-            <h2 class="fs-2 fw-bold text-decoration-underline">
-                關於作者
-            </h2>
-        </div>
-        <div class="row row-cols-1 row-cols-xl-2 g-4">
-            <div class="col">
-                <div class="card h-100 shadow border-0 rounded-3">
-                    <div class="row g-0">
-                        <div class="col-4 d-flex justify-content-center align-items-center">
-                            <img src="{% static 'img/main/shortcut_icon.png' %}"
-                                class="img-author img-thumbnail rounded-circle rounded-start" alt="作者圖片1">
+    </section>
+    <section id="author" class="container text-center py-5">
+        <div class="row py-5 px-md-3 px-lg-5 bg-success bg-opacity-10 justify-content-center">
+            <div class="col-12">
+                <h2 class="fs-2 fw-bold text-decoration-underline">
+                    關於作者
+                </h2>
+            </div>
+            <div class="row row-cols-1 row-cols-xl-2 g-4">
+                <div class="col">
+                    <div class="card h-100 shadow border-0 rounded-3">
+                        <div class="row g-0">
+                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                <img src="{% static 'img/main/shortcut_icon.png' %}"
+                                    class="img-author img-thumbnail rounded-circle rounded-start" alt="作者圖片1">
+                            </div>
+                            <div class="col-8 text-start my-auto">
+                                <div class="card-body">
+                                    <h5 class="card-title fs-4 fw-bold">Giftli</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to
+                                        additional content. This content is a little bit longer.</p>
+                                    <p class="card-text"><small class="text-muted">
+                                            <a class="link-secondary" href="#">
+                                                <i class="fs-2 bi bi-github"></i>
+                                            </a>
+                                        </small></p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-8 text-start my-auto">
-                            <div class="card-body">
-                                <h5 class="card-title fs-4 fw-bold">Giftli</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to
-                                    additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">
-                                        <a class="link-secondary" href="#">
-                                            <i class="fs-2 bi bi-github"></i>
-                                        </a>
-                                    </small></p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow border-0 rounded-3">
+                        <div class="row g-0">
+                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                <img src="{% static 'img/main/shortcut_icon.png' %}"
+                                    class="img-author img-thumbnail rounded-circle rounded-start" alt="作者圖片1">
+                            </div>
+                            <div class="col-8 text-start my-auto">
+                                <div class="card-body">
+                                    <h5 class="card-title fs-4 fw-bold">Giftli</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to
+                                        additional content. This content is a little bit longer.</p>
+                                    <p class="card-text"><small class="text-muted">
+                                            <a class="link-secondary" href="#">
+                                                <i class="fs-2 bi bi-github"></i>
+                                            </a>
+                                        </small></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card h-100 shadow border-0 rounded-3">
-                    <div class="row g-0">
-                        <div class="col-4 d-flex justify-content-center align-items-center">
-                            <img src="{% static 'img/main/shortcut_icon.png' %}"
-                                class="img-author img-thumbnail rounded-circle rounded-start" alt="作者圖片1">
-                        </div>
-                        <div class="col-8 text-start my-auto">
-                            <div class="card-body">
-                                <h5 class="card-title fs-4 fw-bold">Giftli</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to
-                                    additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">
-                                        <a class="link-secondary" href="#">
-                                            <i class="fs-2 bi bi-github"></i>
-                                        </a>
-                                    </small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 {% endblock %}
