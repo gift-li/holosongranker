@@ -1,7 +1,10 @@
 {% extends 'partials/base.html' %}
 {% load humanize %}
+{% load i18n %}
 {% load static %}
-{% block title %}Hololive歌曲排行{% endblock title %}
+{% block title %}{% trans "Hololive歌曲排行" %}{% endblock title %}
+
+
 
 {% block scripts %}
 <script type="text/javascript" src="{% static 'js/tooltip.js' %}"></script>
@@ -46,20 +49,22 @@
 {% endblock  %}
 
 {% block main %}
+
+
 <div class="container pt-4">
     <div class="row justify-content-center">
         <div class="display-5 fw-bold ps-3 mb-2">
-            Hololive歌曲排行
+            {% trans "Hololive歌曲排行" %}
             <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-html="true" title="
-                <u>Hololive 歌曲觀看數排行</u><br/>
+                data-bs-placement="right" data-bs-html="true" 
+                title= "<u>Hololive 歌曲觀看數排行</u><br/>
                 <ul class='align-items-start text-start'>
                     <li>更新時間 : 每週日</li>
                     <li>計算方式 : 累積觀看數、週觀看數</li>
                     <li>統計歌曲 : 頻道發布歌曲，不包含歌回</li>
-                </ul>
-                ">
-                榜單規則 <i class="bi bi-info-circle"></i>
+                </ul>">
+                {% trans "榜單規則" %}
+                <i class="bi bi-info-circle"></i>
             </button>
         </div>
         <div class="col mb-3">
@@ -67,17 +72,17 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold active" id="pills-overview-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview"
-                        aria-selected="true">總覽</button>
+                        aria-selected="true">{% trans "總覽" %}</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="pills-bar-chart-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-bar-chart" type="button" role="tab" aria-controls="pills-bar-chart"
-                        aria-selected="false">長條比賽圖</button>
+                        aria-selected="false">{% trans "長條比賽圖" %}</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="pills-line-chart-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-line-chart" type="button" role="tab" aria-controls="pills-line-chart"
-                        aria-selected="false">折線比賽圖</button>
+                        aria-selected="false">{% trans "折線比賽圖" %}</button>
                 </li>
             </ul>
         </div>
@@ -93,18 +98,18 @@
                                 <path
                                     d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
                             </svg>
-                            排序條件
+                            {% trans "排序條件" %}
                         </span>
                         <div class="col-auto me-1">
                             <select id="view_select" name="view_select" class="form-select form-control">
                                 <option {% if request.session.songs_view_select == "weekly_view" %}selected
                                     {% elif request.session.songs_view_select == "total_view" %} {% else %} selected
                                     {% endif %} value="weekly_view">
-                                    週觀看數
+                                    {% trans "週觀看數" %}
                                 </option>
                                 <option {% if request.session.songs_view_select == "total_view" %} selected {% endif %}
                                     value="total_view">
-                                    累積觀看數</option>
+                                    {% trans "累積觀看數" %}</option>
                             </select>
                         </div>
                         <div class="col-auto">
@@ -123,15 +128,15 @@
                     <table class="table table-hover table-borderless align-middle">
                         <thead class="border-bottom">
                             <tr>
-                                <th class="col-2 col-md-1 text-center" scope="col">排名</th>
-                                <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
+                                <th class="col-2 col-md-1 text-center" scope="col">{% trans "" %}排名</th>
+                                <th class="col-auto text-center" scope="col" colspan="2">{% trans "" %}歌曲</th>
                                 <th class="col-auto d-none d-md-table-cell text-center" scope="col">
                                     {% if request.session.songs_view_select == 'weekly_view' %}
-                                    週觀看數
+                                    {% trans "週觀看數" %}
                                     {% elif request.session.songs_view_select == 'total_view' %}
-                                    累積觀看數
+                                    {% trans "累積觀看數" %}
                                     {% else %}
-                                    週觀看數
+                                    {% trans "週觀看數" %}
                                     {% endif %}
                                 </th>
                                 <th class="col-2 d-none d-xl-table-cell text-center" scope="col">歌手</th>
@@ -194,12 +199,12 @@
                                         <button class="carousel-control-prev" type="button"
                                             data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">前一位</span>
+                                            <span class="visually-hidden">{% trans "前一位" %}</span>
                                         </button>
                                         <button class="carousel-control-next" type="button"
                                             data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">後一位</span>
+                                            <span class="visually-hidden">{% trans "後一位" %}</span>
                                         </button>
                                         {% endif %}
                                     </div>

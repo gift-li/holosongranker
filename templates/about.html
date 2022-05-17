@@ -1,7 +1,8 @@
 {% extends 'partials/base.html' %}
+{% load i18n %}
 {% load static %}
 
-{% block title %}關於我們{% endblock %}
+{% block title %}{% trans "" %}關於我們{% endblock %}
 
 {% block styles %}
 <style>
@@ -15,13 +16,13 @@
 {% block main %}
 <div class="container">
     <section id="about" class="container-fluid text-center bg-secondary bg-opacity-25 py-5 align-items-center">
-        <h1 class="display-5 fw-bold py-5">關於我們</h1>
+        <h1 class="display-5 fw-bold py-5">{% trans "關於我們" %}</h1>
     </section>
     <section id="origin" class="container text-center py-5">
         <div class="row">
             <div class="col-12 rounded-pill shadow p-5 bg-primary bg-opacity-10">
                 <h1 class="fs-2 fw-bold text-decoration-underline mb-4">
-                    網站起源
+                    {% trans "網站起源" %}
                 </h1>
                 <p class="fs-6">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt commodi vero eum eos, asperiores
@@ -36,7 +37,7 @@
         <div class="row py-5 px-md-3 px-lg-5 bg-success bg-opacity-10 justify-content-center">
             <div class="col-12">
                 <h2 class="fs-2 fw-bold text-decoration-underline">
-                    關於作者
+                    {% trans "關於作者" %}
                 </h2>
             </div>
             <div class="row row-cols-1 row-cols-xl-2 g-4">

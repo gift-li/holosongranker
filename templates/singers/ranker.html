@@ -1,8 +1,9 @@
 {% extends 'partials/base.html' %}
 {% load humanize %}
+{% load i18n %}
 {% load static %}
 
-{% block title %}歌手排行{% endblock %}
+{% block title %}{% trans "歌手排行" %}{% endblock %}
 
 {% block scripts %}
 <script type="text/javascript" src="{% static 'js/tooltip.js' %}"></script>
@@ -45,7 +46,7 @@
 <div class="container pt-4">
     <div class="row justify-content-center">
         <h1 class="display-5 fw-bold ps-3 mb-2">
-            歌手排行
+            {% trans "歌手排行" %}
             <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
                 data-bs-placement="right" data-bs-html="true" title="
                 <u>Hololive 成員歌曲觀看排行</u><br />
@@ -59,7 +60,7 @@
                     </li>
                 </ul>
                 ">
-                榜單規則 <i class="bi bi-info-circle"></i>
+                {% trans "榜單規則" %} <i class="bi bi-info-circle"></i>
             </button>
         </h1>
         <div class="col mb-3">
@@ -67,17 +68,17 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold active" id="pills-overview-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview"
-                        aria-selected="true">總覽</button>
+                        aria-selected="true">{% trans "總覽" %}</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="pills-bar-chart-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-bar-chart" type="button" role="tab" aria-controls="pills-bar-chart"
-                        aria-selected="false">長條比賽圖</button>
+                        aria-selected="false">{% trans "長條比賽圖" %}</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="pills-line-chart-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-line-chart" type="button" role="tab" aria-controls="pills-line-chart"
-                        aria-selected="false">折線比賽圖</button>
+                        aria-selected="false">{% trans "折線比賽圖" %}</button>
                 </li>
             </ul>
         </div>
@@ -93,18 +94,18 @@
                                 <path
                                     d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
                             </svg>
-                            排序條件
+                            {% trans "排序條件" %}
                         </span>
                         <div class="col-auto me-1">
                             <select id="view_select" name="view_select" class="form-select form-control">
                                 <option {% if request.session.singers_view_select == "total_view_weekly_growth" %}
                                     selected {% elif request.session.singers_view_select == "total_view" %} {% else %}
                                     selected {% endif %} value="total_view_weekly_growth">
-                                    週觀看數
+                                    {% trans "週觀看數" %}
                                 </option>
                                 <option {% if request.session.singers_view_select == "total_view" %} selected
                                     {% endif %} value="total_view">
-                                    累積觀看數</option>
+                                    {% trans "累積觀看數" %}</option>
                             </select>
                         </div>
                         <div class="col-auto">
@@ -123,18 +124,18 @@
                     <table class="table table-hover align-middle justify-content-between">
                         <thead class="border-bottom">
                             <tr>
-                                <th class="col-auto text-center" scope="col">排名</th>
-                                <th class="col-auto text-center" scope="col" colspan="2">頻道/姓名</th>
+                                <th class="col-auto text-center" scope="col">{% trans "排名" %}</th>
+                                <th class="col-auto text-center" scope="col" colspan="2">{% trans "頻道/姓名" %}</th>
                                 <th class="col-auto d-none d-md-table-cell text-center" scope="col">
                                     {% if request.session.singers_view_select == 'total_view_weekly_growth' %}
-                                    週觀看數
+                                    {% trans "週觀看數" %}
                                     {% elif  request.session.singers_view_select == 'total_view' %}
-                                    累積觀看數
+                                    {% trans "累積觀看數" %}
                                     {% else %}
-                                    週觀看數
+                                    {% trans "週觀看數" %}
                                     {% endif %}
                                 </th>
-                                <th class="col-auto d-none d-xl-table-cell text-center" scope="col">歌曲數量</th>
+                                <th class="col-auto d-none d-xl-table-cell text-center" scope="col">{% trans "歌曲數量" %}</th>
                             </tr>
                         </thead>
                         <tbody>

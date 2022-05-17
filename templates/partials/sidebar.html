@@ -1,3 +1,4 @@
+{% load i18n %}
 <div id="sidebar" class="offcanvas offcanvas-end col-auto px-0 px-sm-2 bg-dark" tabindex="-1" data-bs-scroll="true">
     <div class="offcanvas-header text-white d-block">
         <button type="button" class="btn-close text-reset bg-white float-end" data-bs-dismiss="offcanvas"
@@ -15,44 +16,44 @@
                 <a href="{% url 'homepage' %}"
                     class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-house"></i>
-                    <span class="ms-2">首頁</span>
+                    <span class="ms-2">{% trans "首頁" %}</span>
                 </a>
             </li>
             <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'songs:ranker' %}"
                     class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-file-music"></i>
-                    <span class="ms-2">歌曲</span></a>
+                    <span class="ms-2">{% trans "歌曲" %}</span></a>
             </li>
             <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'singers:ranker' %}"
                     class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-mic"></i>
-                    <span class="ms-2">歌手</span></a>
+                    <span class="ms-2">{% trans "歌手" %}</span></a>
             </li>
             <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'singers:menu' %}"
                     class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-file-person"></i>
-                    <span class="ms-2">介紹</span></a>
+                    <span class="ms-2">{% trans "介紹" %}</span></a>
             </li>
             {% comment %} <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'datas:index' %}"
                     class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-bar-chart-line"></i>
-                    <span class="ms-2">綜合</span></a>
+                    <span class="ms-2">{% trans "綜合" %}</span></a>
             </li> {% endcomment %}
             <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'about' %}"
                     class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-info-circle"></i>
-                    <span class="ms-2">關於</span></a>
+                    <span class="ms-2">{% trans "關於" %}</span></a>
             </li>
             <li class="nav-item btn btn-outline-secondary border-0">
                 <a href="{% url 'admin:index' %}"
                     class="nav-link p-0 link-light d-flex justify-content-center align-items-center">
                     <i class="fs-3 bi bi-speedometer2"></i>
-                    <div class="ms-2">控制台</div>
+                    <div class="ms-2">{% trans "控制台" %}</div>
                 </a>
             </li>
         </ul>
