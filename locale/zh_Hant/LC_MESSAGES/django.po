@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-12 22:53+0800\n"
+"POT-Creation-Date: 2022-05-17 17:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,3 +25,67 @@ msgstr "繁體中文"
 #: .\holosongranker\settings.py:131
 msgid "English"
 msgstr ""
+
+#: .\templates\index.html:50
+msgid "了解更多"
+msgstr "了解更多"
+
+#. Translators: View verb
+#: .\templates\index.html:57
+msgid "歌曲週榜"
+msgstr "歌曲週榜"
+
+#: .\templates\index.html:78 .\templates\index.html:139
+msgid "週觀看數:"
+msgstr "週觀看數"
+
+#: .\templates\index.html:85
+msgid "發行日期:"
+msgstr "發行日期"
+
+#: .\templates\index.html:98 .\templates\index.html:153
+#: .\templates\index.html:257
+msgid "統計時間:"
+msgstr "統計時間:"
+
+#: .\templates\index.html:112
+msgid "歌手週榜"
+msgstr "歌手週榜"
+
+#: .\templates\index.html:156
+msgid "查看完整榜單"
+msgstr ""
+
+#: .\templates\index.html:166
+msgid "HoloLive 全社資料"
+msgstr "HoloLive 全社資料"
+
+#: .\templates\index.html:175
+#, fuzzy
+#| msgid "歌手週榜"
+msgid "歌手數"
+msgstr "歌手週榜"
+
+#: .\templates\index.html:189
+#, fuzzy
+#| msgid "歌曲週榜"
+msgid "歌曲數"
+msgstr "歌曲週榜"
+
+#: .\templates\index.html:203
+msgid "累積觀看數"
+msgstr "累積觀看數"
+
+#: .\templates\index.html:217
+msgid "破百萬觀看歌曲數"
+msgstr "破百萬觀看歌曲數"
+
+#: .\templates\index.html:231
+msgid "破千萬觀看歌曲數"
+msgstr "破千萬觀看歌曲數"
+
+#: .\templates\index.html:245
+#, fuzzy
+#| msgid "週觀看數:"
+msgid "本週觀看數"
+msgstr "週觀看數"

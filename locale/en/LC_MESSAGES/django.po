@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-12 22:53+0800\n"
+"POT-Creation-Date: 2022-05-17 17:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,3 +25,67 @@ msgstr ""
 #: .\holosongranker\settings.py:131
 msgid "English"
 msgstr ""
+
+#: .\templates\index.html:50
+msgid "了解更多"
+msgstr "More About"
+
+#. Translators: View verb
+#: .\templates\index.html:57
+msgid "歌曲週榜"
+msgstr "Song Weekly Ranker"
+
+#: .\templates\index.html:78 .\templates\index.html:139
+msgid "週觀看數:"
+msgstr "Weekly Views:"
+
+#: .\templates\index.html:85
+msgid "發行日期:"
+msgstr "Publish Date:"
+
+#: .\templates\index.html:98 .\templates\index.html:153
+#: .\templates\index.html:257
+msgid "統計時間:"
+msgstr "Statistics Time:"
+
+#: .\templates\index.html:112
+msgid "歌手週榜"
+msgstr "Singer Weekly Ranker"
+
+#: .\templates\index.html:156
+msgid "查看完整榜單"
+msgstr ""
+
+#: .\templates\index.html:166
+msgid "HoloLive 全社資料"
+msgstr ""
+
+#: .\templates\index.html:175
+#, fuzzy
+#| msgid "歌手週榜"
+msgid "歌手數"
+msgstr "Singer Weekly Ranker"
+
+#: .\templates\index.html:189
+#, fuzzy
+#| msgid "歌曲週榜"
+msgid "歌曲數"
+msgstr "Song Weekly Ranker"
+
+#: .\templates\index.html:203
+msgid "累積觀看數"
+msgstr ""
+
+#: .\templates\index.html:217
+msgid "破百萬觀看歌曲數"
+msgstr ""
+
+#: .\templates\index.html:231
+msgid "破千萬觀看歌曲數"
+msgstr ""
+
+#: .\templates\index.html:245
+#, fuzzy
+#| msgid "週觀看數:"
+msgid "本週觀看數"
+msgstr "Weekly Views:"

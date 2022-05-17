@@ -1,9 +1,12 @@
 {% extends 'partials/base.html' %}
 {% load humanize %}
 {% load static %}
+{% load i18n %}
 {% block title %}首頁{% endblock %}
 
 {% block styles %}
+
+
 <style>
     #intro {
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0,
@@ -35,19 +38,23 @@
 {% endblock %}
 
 {% block main %}
+
+
+
 <div class="container">
     <section id="intro" class="container-fluid text-center justify-content-center bg-secondary bg-opacity-25 pt-5 pb-5">
         <img class="img-intro" src="{% static 'img/main/shortcut_icon.png' %}" alt="intro圖片">
         <h1 class="display-4 text-light fw-bold pb-3">
             Holo Song Ranker
         </h1>
-        <a class="btn btn-primary fw-bold fs-5" href="{% url 'about' %}">了解更多</a>
+        <a class="btn btn-primary fw-bold fs-5" href="{% url 'about' %}">{% trans "了解更多" %}</a>
     </section>
     <section id="song_rank" class="container-fluid text-center justify-content-center bg-primary bg-opacity-10 p-5">
         <div class="row mx-3 mx-md-5 justify-content-center">
             <div class="col-12 border border-1 border-dark py-3 mb-3">
                 <h2 class="fs-3 fw-bold m-0">
-                    歌曲週榜
+                    {% comment %}Translators: View verb{% endcomment %}
+                    {% trans "歌曲週榜" %}
                 </h2>
             </div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 g-md-3 gx-xl-5 mb-3 mt-lg-2">
@@ -68,14 +75,15 @@
                             <p class="text-muted m-0">
                                 <i class="bi bi-eye"></i>
                                 <small>
-                                    週觀看數:
+                                    {% trans "週觀看數:" %}
                                     {{record.weekly_view|intcomma}}
                                 </small>
                             </p>
                             <p class="text-muted m-0">
                                 <i class="bi bi-calendar-event"></i>
                                 <small>
-                                    發行日期:
+                                    {% trans "發行日期:" %}
+                                    
                                     {{record.song.publish_at|date:"Y/m/d"|naturaltime}}
                                 </small>
                             </p>
@@ -87,7 +95,8 @@
             <div class="row mb-3">
                 <div class="col-12">
                     <p class="float-start">
-                        統計時間:{{record_date.song|date:"Y/m/d"|naturaltime}}
+                        {% trans "統計時間:" %}
+                        {{record_date.song|date:"Y/m/d"|naturaltime}}
                     </p>
                     <a class="link btn btn-outline-primary float-end" href="{% url 'songs:ranker' %}">查看完整榜單
                     </a>
@@ -100,7 +109,7 @@
         <div class="row mx-3 mx-md-5 justify-content-center mt-3">
             <div class="col-12 border border-1 border-dark py-3 mb-3">
                 <h2 class="fs-3 fw-bold m-0">
-                    歌手週榜
+                    {% trans "歌手週榜" %}
                 </h2>
             </div>
             <div class="row row-cols-1 row-cols-xl-2 g-3 mb-3">
@@ -127,7 +136,7 @@
                                     </h3>
                                     <p class="text-end m-0">
                                         <small class="text-muted">
-                                            週觀看數:
+                                            {% trans "週觀看數:" %}
                                             {{record.total_view_weekly_growth|intcomma}}
                                         </small>
                                     </p>
@@ -141,9 +150,10 @@
             <div class="row mb-3">
                 <div class="col-12">
                     <p class="float-start">
-                        統計時間:{{record_date.singer|date:"Y/m/d"|naturaltime}}
+                        {% trans "統計時間:" %}
+                        {{record_date.singer|date:"Y/m/d"|naturaltime}}
                     </p>
-                    <a class="link btn btn-outline-primary float-end" href="{% url 'singers:ranker' %}">查看完整榜單
+                    <a class="link btn btn-outline-primary float-end" href="{% url 'singers:ranker' %}">{% trans "查看完整榜單" %}
                     </a>
                 </div>
             </div>
@@ -153,7 +163,7 @@
         <div class="row mx-3 mx-md-5 justify-content-center my-3 pb-3">
             <div class="border border-1 border-dark py-3">
                 <h2 class="col-12 fs-3 fw-bold m-0">
-                    HoloLive 全社資料
+                    {% trans "HoloLive 全社資料" %}
                 </h2>
             </div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 g-md-3 g-lg-4 mb-3">
@@ -162,7 +172,7 @@
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <div>
                                 <h5 class="card-title fw-bold">
-                                    歌手數
+                                    {% trans "歌手數" %}
                                 </h5>
                                 <p class="card-text fs-2 text-primary">
                                     {{holodata.singer|intcomma}}
@@ -176,7 +186,7 @@
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <div>
                                 <h5 class="card-title fw-bold">
-                                    歌曲數
+                                    {% trans "歌曲數" %}
                                 </h5>
                                 <p class="card-text fs-2 text-primary">
                                     {{holodata.song|intcomma}}
@@ -190,7 +200,7 @@
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <div>
                                 <h5 class="card-title fw-bold">
-                                    累積觀看數
+                                    {% trans "累積觀看數" %}
                                 </h5>
                                 <p class="card-text fs-2 text-primary">
                                     {{holodata.total_view|intcomma}}
@@ -204,7 +214,7 @@
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <div>
                                 <h5 class="card-title fw-bold">
-                                    破百萬觀看歌曲數
+                                    {% trans "破百萬觀看歌曲數" %}
                                 </h5>
                                 <p class="card-text fs-2 text-primary">
                                     {{holodata.over_million_song|intcomma}}
@@ -218,7 +228,7 @@
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <div>
                                 <h5 class="card-title fw-bold">
-                                    破千萬觀看歌曲數
+                                    {% trans "破千萬觀看歌曲數" %}
                                 </h5>
                                 <p class="card-text fs-2 text-primary">
                                     {{holodata.over_10_million_song|intcomma}}
@@ -232,7 +242,7 @@
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <div>
                                 <h5 class="card-title fw-bold">
-                                    本週觀看數
+                                    {% trans "本週觀看數" %}
                                 </h5>
                                 <p class="card-text fs-2 text-primary">
                                     {{holodata.total_weekly_view|intcomma}}
@@ -244,7 +254,8 @@
             </div>
             <div class="row">
                 <div class="col text-end">
-                    統計時間:{{record_date.holodata|date:"Y/m/d"|naturaltime}}
+                    {% trans "統計時間:" %}
+                    {{record_date.holodata|date:"Y/m/d"|naturaltime}}
                 </div>
             </div>
         </div>
