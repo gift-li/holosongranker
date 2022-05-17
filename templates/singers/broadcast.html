@@ -52,11 +52,11 @@
                 <option {% if request.session.singers_view_select == "total_view_weekly_growth" %} selected
                     {% elif request.session.singers_view_select == "total_view" %} {% else %} selected {% endif %}
                     value="total_view_weekly_growth">
-                    周觀看數
+                    週觀看數
                 </option>
                 <option {% if request.session.singers_view_select == "total_view" %} selected {% endif %}
                     value="total_view">
-                    總觀看數</option>
+                    累積觀看數</option>
             </select>
             <select id="date_select" name="date_select" class="form-select form-control">
                 {% for date in date_select_list %}
@@ -89,9 +89,9 @@
                             {% if request.session.singers_view_select == 'total_view_weekly_growth' %}
                             Weekly view
                             {% elif  request.session.singers_view_select == 'total_view' %}
-                            總觀看數
+                            累積觀看數
                             {% else %}
-                            周觀看數
+                            週觀看數
                             {% endif %}
                         </th>
                     </tr>

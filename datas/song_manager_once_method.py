@@ -129,7 +129,7 @@ def add_weekly_view_to_record(now_record):
         weekly_view = now_record.total_view
         previous_date =  ''
 
-    print('{} \n在 {} ~ {} 的周觀看數成長為{}'
+    print('{} \n在 {} ~ {} 的週觀看數成長為{}'
         .format(now_record.song, previous_date , now_record.date, weekly_view))
 
     now_record.weekly_view = weekly_view

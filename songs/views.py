@@ -44,7 +44,7 @@ def get_records_search_query(request):
     date_query = Record.get_lastest_record_date()
     pp(request.session)
     if request.method == 'GET':
-        # * 沒快取: 設定為"周觀看"+"最新日期"
+        # * 沒快取: 設定為"週觀看"+"最新日期"
         if 'songs_view_select' not in request.session:
             request.session['songs_view_select'] = order_query
             request.session['songs_date_select'] = datetime.strftime(

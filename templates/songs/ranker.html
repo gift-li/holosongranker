@@ -54,8 +54,8 @@
                 data-bs-placement="right" data-bs-html="true" title="
                 <u>Hololive 歌曲觀看數排行</u><br/>
                 <ul class='align-items-start text-start'>
-                    <li>更新時間 : 每周日</li>
-                    <li>計算方式 : 總觀看數、周觀看成長數</li>
+                    <li>更新時間 : 每週日</li>
+                    <li>計算方式 : 累積觀看數、週觀看數</li>
                     <li>統計歌曲 : 頻道發布歌曲，不包含歌回</li>
                 </ul>
                 ">
@@ -72,12 +72,12 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="pills-bar-chart-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-bar-chart" type="button" role="tab" aria-controls="pills-bar-chart"
-                        aria-selected="false">長條圖</button>
+                        aria-selected="false">長條比賽圖</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="pills-line-chart-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-line-chart" type="button" role="tab" aria-controls="pills-line-chart"
-                        aria-selected="false">折線圖</button>
+                        aria-selected="false">折線比賽圖</button>
                 </li>
             </ul>
         </div>
@@ -100,11 +100,11 @@
                                 <option {% if request.session.songs_view_select == "weekly_view" %}selected
                                     {% elif request.session.songs_view_select == "total_view" %} {% else %} selected
                                     {% endif %} value="weekly_view">
-                                    周觀看數
+                                    週觀看數
                                 </option>
                                 <option {% if request.session.songs_view_select == "total_view" %} selected {% endif %}
                                     value="total_view">
-                                    總觀看數</option>
+                                    累積觀看數</option>
                             </select>
                         </div>
                         <div class="col-auto">
@@ -127,11 +127,11 @@
                                 <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
                                 <th class="col-auto d-none d-md-table-cell text-center" scope="col">
                                     {% if request.session.songs_view_select == 'weekly_view' %}
-                                    周觀看數
+                                    週觀看數
                                     {% elif request.session.songs_view_select == 'total_view' %}
-                                    總觀看數
+                                    累積觀看數
                                     {% else %}
-                                    周觀看數
+                                    週觀看數
                                     {% endif %}
                                 </th>
                                 <th class="col-2 d-none d-xl-table-cell text-center" scope="col">歌手</th>
