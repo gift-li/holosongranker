@@ -1,0 +1,90 @@
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+<table class="table table-hover table-borderless align-middle">
+    <thead class="border-top border-bottom">
+        <tr>
+            <th class="col-2 col-lg-1 text-center" scope="col">排名</th>
+            <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
+            <th class="col-auto d-none d-md-table-cell text-center" scope="col">
+                {% if request.session.profile_view_select == 'weekly_view' %}
+                周觀看數
+                {% elif request.session.profile_view_select == 'total_view' %}
+                累積觀看數
+                {% else %}
+                周觀看數
+                {% endif %}
+            </th>
+            <th class="col-2 d-none d-lg-table-cell text-center" scope="col">歌手</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in song_records %}
+        <tr id="row_{{forloop.counter}}">
+            <th class="text-center" scope="row">
+                <span class="fs-3">
+                    {% widthratio song_records.number 1 10 as counter %}#{{ counter|add:"-10"|add:forloop.counter }}
+                </span>
+            </th>
+            <td>
+                <a href="{{record.song.youtube_url}}" target="_blank">
+                    <img class="img-song img-fluid shadow"
+                        src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}" alt="歌曲縮圖">
+                </a>
+            </td>
+            <td class="ps-2 px-md-4">
+                <p class="fs-5 truncate-2">
+                    {{record.song.name}}
+                </p>
+                <p class="fs-6 text-secondary mb-0">
+                    <i class="bi bi-calendar-event"></i>
+                    {{record.song.publish_at|date:"Y/m/d"|naturaltime}}
+                </p>
+            </td>
+            <td class="d-none d-md-table-cell text-center text-primary">
+                <span class="fs-5">
+                    {% if request.session.profile_view_select == 'total_view' %}
+                    {{ record.total_view|intcomma }}
+                    {% elif request.session.profile_view_select == 'weekly_view' %}
+                    {{ record.weekly_view|intcomma }}
+                    {% else %}
+                    {{ record.weekly_view|intcomma }}
+                    {% endif %}
+                </span>
+            </td>
+            <td class="d-none d-lg-table-cell text-center">
+                <div id="carousel_vtuber_{{forloop.counter}}" class="carousel carousel-dark slide"
+                    data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for vtuber in record.song.singer.values %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <a class="link-dark" href="{% url 'singers:profile' id=vtuber.id %}">
+                                <img src="{% static 'img/vtuber_thumbnails/'|add:vtuber.youtube_id|add:'.png' %}"
+                                    class="img-song-vtuber img-fluid border border-1 rounded-circle" alt="vtuber圖片">
+                                <div class="d-none d-md-block">
+                                    <p class="mt-2 truncate-1">
+                                        {{vtuber.name}}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if record.song.singer.values.count > 1 %}
+                    <button class="carousel-control-prev" type="button"
+                        data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">前一位</span>
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                        data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">後一位</span>
+                    </button>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
