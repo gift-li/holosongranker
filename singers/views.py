@@ -169,29 +169,49 @@ def Profile(request, id):
 
 def get_records_search_query(request, type):
     order_query = 'weekly_view'
+
     if type == VtuberRecord:
         date_query = VtuberRecord.get_lastest_record_date()
+
+        if request.method == 'GET':
+            # * 沒快取: 設定為"周觀看"+"最新日期"
+            if 'singers_view_select' not in request.session:
+                request.session['singers_view_select'] = order_query
+                request.session['singers_data_select'] = datetime.strftime(
+                    date_query, "%Y/%m/%d")
+
+        if request.method == 'POST':
+            # * 取得POST的搜尋條件
+            request.session['singers_view_select'] = request.POST.get(
+                'view_select')
+            request.session['singers_data_select'] = request.POST.get(
+                'date_select')
+
+        # * 用Session賦值
+        order_query = request.session['singers_view_select']
+        date_query = datetime.strptime(
+            request.session['singers_data_select'], "%Y/%m/%d").date()
     else:
         date_query = Record.get_lastest_record_date()
 
-    if request.method == 'GET':
-        # * 沒快取: 設定為"周觀看"+"最新日期"
-        if 'profile_view_select' not in request.session:
-            request.session['profile_view_select'] = order_query
-            request.session['profile_data_select'] = datetime.strftime(
-                date_query, "%Y/%m/%d")
+        if request.method == 'GET':
+            # * 沒快取: 設定為"周觀看"+"最新日期"
+            if 'profile_view_select' not in request.session:
+                request.session['profile_view_select'] = order_query
+                request.session['profile_data_select'] = datetime.strftime(
+                    date_query, "%Y/%m/%d")
 
-    if request.method == 'POST':
-        # * 取得POST的搜尋條件
-        request.session['profile_view_select'] = request.POST.get(
-            'view_select')
-        request.session['profile_data_select'] = request.POST.get(
-            'date_select')
+        if request.method == 'POST':
+            # * 取得POST的搜尋條件
+            request.session['profile_view_select'] = request.POST.get(
+                'view_select')
+            request.session['profile_data_select'] = request.POST.get(
+                'date_select')
 
-    # * 用Session賦值
-    order_query = request.session['profile_view_select']
-    date_query = datetime.strptime(
-        request.session['profile_data_select'], "%Y/%m/%d").date()
+        # * 用Session賦值
+        order_query = request.session['profile_view_select']
+        date_query = datetime.strptime(
+            request.session['profile_data_select'], "%Y/%m/%d").date()
 
     return order_query, date_query
 
