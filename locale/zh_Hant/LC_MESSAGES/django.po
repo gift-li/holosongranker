@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: .\templates\about.html:5 .\templates\songs\ranker.html:131
-#: .\templates\songs\ranker.html:132
+#: .\templates\about.html:5 .\templates\songs\ranker.html:126
+#: .\templates\songs\ranker.html:127
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-17 23:51+0800\n"
+"POT-Creation-Date: 2022-05-18 15:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,8 +83,8 @@ msgid "歌曲數"
 msgstr "歌曲數"
 
 #: .\templates\index.html:203 .\templates\singers\profile.html:67
-#: .\templates\singers\ranker.html:108 .\templates\singers\ranker.html:133
-#: .\templates\songs\ranker.html:112 .\templates\songs\ranker.html:137
+#: .\templates\singers\ranker.html:100 .\templates\singers\ranker.html:125
+#: .\templates\songs\ranker.html:107 .\templates\songs\ranker.html:132
 msgid "累積觀看數"
 msgstr "累積觀看數"
 
@@ -138,12 +138,12 @@ msgstr "歌手專頁"
 msgid "平均觀看數"
 msgstr "平均觀看數"
 
-#: .\templates\singers\profile.html:83 .\templates\singers\ranker.html:138
+#: .\templates\singers\profile.html:83 .\templates\singers\ranker.html:130
 msgid "歌曲數量"
 msgstr "歌曲數量"
 
-#: .\templates\singers\profile.html:98 .\templates\singers\ranker.html:71
-#: .\templates\songs\ranker.html:75
+#: .\templates\singers\profile.html:98 .\templates\singers\ranker.html:63
+#: .\templates\songs\ranker.html:70
 msgid "總覽"
 msgstr "總覽"
 
@@ -152,7 +152,7 @@ msgid "歌曲週榜前三名"
 msgstr "歌曲週榜前三名"
 
 #: .\templates\singers\profile.html:117 .\templates\singers\profile.html:205
-#: .\templates\singers\ranker.html:127
+#: .\templates\singers\ranker.html:119
 msgid "排名"
 msgstr "排名"
 
@@ -161,12 +161,12 @@ msgid "觀看數"
 msgstr "觀看數"
 
 #: .\templates\singers\profile.html:179 .\templates\singers\profile.html:265
-#: .\templates\songs\ranker.html:202
+#: .\templates\songs\ranker.html:197
 msgid "前一位"
 msgstr "前一位"
 
 #: .\templates\singers\profile.html:185 .\templates\singers\profile.html:271
-#: .\templates\songs\ranker.html:207
+#: .\templates\songs\ranker.html:202
 msgid "後一位"
 msgstr "後一位"
 
@@ -175,37 +175,64 @@ msgstr "後一位"
 msgid "歌曲排行總榜"
 msgstr "歌曲排行總榜"
 
-#: .\templates\singers\profile.html:207 .\templates\singers\ranker.html:104
-#: .\templates\singers\ranker.html:131 .\templates\singers\ranker.html:135
-#: .\templates\songs\ranker.html:108 .\templates\songs\ranker.html:135
-#: .\templates\songs\ranker.html:139
+#: .\templates\singers\profile.html:207 .\templates\singers\ranker.html:96
+#: .\templates\singers\ranker.html:123 .\templates\singers\ranker.html:127
+#: .\templates\songs\ranker.html:103 .\templates\songs\ranker.html:130
+#: .\templates\songs\ranker.html:134
 msgid "週觀看數"
 msgstr "週觀看數"
 
-#: .\templates\singers\ranker.html:6 .\templates\singers\ranker.html:49
+#: .\templates\singers\ranker.html:6 .\templates\singers\ranker.html:52
 msgid "歌手排行"
 msgstr "歌手排行"
 
-#: .\templates\singers\ranker.html:63 .\templates\songs\ranker.html:66
+#: .\templates\singers\ranker.html:46
+#, fuzzy
+#| msgid "榜單規則"
+msgid "歌手榜單規則內文"
+msgstr ""
+"<u>Hololive 成員歌曲觀看排行</u><br />                 <ul class='align-"
+"items-start text-start'>                     <li>更新時間 : 每週日</"
+"li>                     <li>計算方式 : 累積觀看數、週觀看數</"
+"li>                     <li>統計歌曲 : 頻道發布歌曲(Cover、原創曲)，不包含歌"
+"回</li>                     <li>不列入統計的歌曲 :<br/"
+">                         <a class='link-info' href='{% url 'singers:"
+"profile' id=44 %}'>hololive ホロライブ - "
+"VTuber                                 Group</a>中的13首歌"
+"曲。                     </li>                 </ul> "
+
+#: .\templates\singers\ranker.html:55 .\templates\songs\ranker.html:61
 msgid "榜單規則"
 msgstr "榜單規則"
 
-#: .\templates\singers\ranker.html:76 .\templates\songs\ranker.html:80
+#: .\templates\singers\ranker.html:68 .\templates\songs\ranker.html:75
 msgid "長條比賽圖"
 msgstr "長條比賽圖"
 
-#: .\templates\singers\ranker.html:81 .\templates\songs\ranker.html:85
+#: .\templates\singers\ranker.html:73 .\templates\songs\ranker.html:80
 msgid "折線比賽圖"
 msgstr "折線比賽圖"
 
-#: .\templates\singers\ranker.html:97 .\templates\songs\ranker.html:101
+#: .\templates\singers\ranker.html:89 .\templates\songs\ranker.html:96
 msgid "排序條件"
 msgstr "排序條件"
 
-#: .\templates\singers\ranker.html:128
+#: .\templates\singers\ranker.html:120
 msgid "頻道/姓名"
 msgstr "頻道/姓名"
 
 #: .\templates\songs\ranker.html:5 .\templates\songs\ranker.html:57
 msgid "Hololive歌曲排行"
 msgstr "Hololive歌曲排行"
+
+#: .\templates\songs\ranker.html:52
+msgid "歌曲榜單規則內文"
+msgstr ""
+"<u>Hololive 歌曲觀看數排行</u><br/>                 <ul class='align-items-"
+"start text-start'>                     <li>更新時間 : 每週日</"
+"li>                     <li>計算方式 : 累積觀看數、週觀看數</"
+"li>                     <li>統計歌曲 : 頻道發布歌曲，不包含歌回</"
+"li>                 </ul>"
+
+#~ msgid "所有歌曲"
+#~ msgstr "所有歌曲"

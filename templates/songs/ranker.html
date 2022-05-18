@@ -49,7 +49,7 @@
 {% endblock  %}
 
 {% block main %}
-
+{% trans "歌曲榜單規則內文" as song_rule %}
 
 <div class="container pt-4">
     <div class="row justify-content-center">
@@ -57,12 +57,7 @@
             {% trans "Hololive歌曲排行" %}
             <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
                 data-bs-placement="right" data-bs-html="true" 
-                title= "<u>Hololive 歌曲觀看數排行</u><br/>
-                <ul class='align-items-start text-start'>
-                    <li>更新時間 : 每週日</li>
-                    <li>計算方式 : 累積觀看數、週觀看數</li>
-                    <li>統計歌曲 : 頻道發布歌曲，不包含歌回</li>
-                </ul>">
+                title= "{{ song_rule }}">
                 {% trans "榜單規則" %}
                 <i class="bi bi-info-circle"></i>
             </button>

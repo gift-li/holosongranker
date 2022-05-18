@@ -43,23 +43,15 @@
 {% endblock  %}
 
 {% block main %}
+{% trans "歌手榜單規則內文" as singer_rule %}
+
+
 <div class="container pt-4">
     <div class="row justify-content-center">
         <h1 class="display-5 fw-bold ps-3 mb-2">
             {% trans "歌手排行" %}
             <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-html="true" title="
-                <u>Hololive 成員歌曲觀看排行</u><br />
-                <ul class='align-items-start text-start'>
-                    <li>更新時間 : 每週日</li>
-                    <li>計算方式 : 累積觀看數、週觀看數</li>
-                    <li>統計歌曲 : 頻道發布歌曲，不包含歌回</li>
-                    <li>不列入統計的歌曲 :<br/>
-                        <a class='link-info' href='{% url 'singers:profile' id=44 %}'>hololive ホロライブ - VTuber
-                                Group</a>中的13首歌曲。
-                    </li>
-                </ul>
-                ">
+                data-bs-placement="right" data-bs-html="true" title="{{ singer_rule }}">
                 {% trans "榜單規則" %} <i class="bi bi-info-circle"></i>
             </button>
         </h1>

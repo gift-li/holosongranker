@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: .\templates\about.html:5 .\templates\songs\ranker.html:131
-#: .\templates\songs\ranker.html:132
+#: .\templates\about.html:5 .\templates\songs\ranker.html:126
+#: .\templates\songs\ranker.html:127
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-17 23:34+0800\n"
+"POT-Creation-Date: 2022-05-18 15:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,11 +22,11 @@ msgstr ""
 
 #: .\holosongranker\settings.py:130
 msgid "Traditional Chinese"
-msgstr ""
+msgstr "繁體中文"
 
 #: .\holosongranker\settings.py:131
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: .\templates\about.html:19
 msgid "關於我們"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: .\templates\index.html:50
 msgid "了解更多"
-msgstr "More About"
+msgstr "Learn more"
 
 #. Translators: View verb
 #: .\templates\index.html:57
@@ -68,7 +68,7 @@ msgstr "Singer Weekly Ranker"
 
 #: .\templates\index.html:156
 msgid "查看完整榜單"
-msgstr ""
+msgstr "View full content"
 
 #: .\templates\index.html:166
 msgid "HoloLive 全社資料"
@@ -87,8 +87,8 @@ msgid "歌曲數"
 msgstr "Song Weekly Ranker"
 
 #: .\templates\index.html:203 .\templates\singers\profile.html:67
-#: .\templates\singers\ranker.html:108 .\templates\singers\ranker.html:133
-#: .\templates\songs\ranker.html:112 .\templates\songs\ranker.html:137
+#: .\templates\singers\ranker.html:100 .\templates\singers\ranker.html:125
+#: .\templates\songs\ranker.html:107 .\templates\songs\ranker.html:132
 msgid "累積觀看數"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr "Weekly Views:"
 
 #: .\templates\partials\sidebar.html:19
 msgid "首頁"
-msgstr ""
+msgstr "Home"
 
 #: .\templates\partials\sidebar.html:26 .\templates\singers\profile.html:104
 #: .\templates\singers\profile.html:118 .\templates\singers\profile.html:206
@@ -126,101 +126,128 @@ msgstr "Singer Weekly Ranker"
 
 #: .\templates\partials\sidebar.html:38
 msgid "介紹"
-msgstr ""
+msgstr "Intro"
 
 #: .\templates\partials\sidebar.html:51
 msgid "關於"
-msgstr ""
+msgstr "About"
 
 #: .\templates\partials\sidebar.html:57
 msgid "控制台"
-msgstr ""
+msgstr "Control"
 
 #: .\templates\singers\menu.html:6
 msgid "歌手分類選單"
-msgstr ""
+msgstr "Singer Category Menu"
 
 #: .\templates\singers\profile.html:6
 msgid "歌手專頁"
-msgstr ""
+msgstr "Singer"
 
 #: .\templates\singers\profile.html:75
 msgid "平均觀看數"
-msgstr ""
+msgstr "Average views"
 
-#: .\templates\singers\profile.html:83 .\templates\singers\ranker.html:138
+#: .\templates\singers\profile.html:83 .\templates\singers\ranker.html:130
 msgid "歌曲數量"
-msgstr ""
+msgstr "Song count"
 
-#: .\templates\singers\profile.html:98 .\templates\singers\ranker.html:71
-#: .\templates\songs\ranker.html:75
+#: .\templates\singers\profile.html:98 .\templates\singers\ranker.html:63
+#: .\templates\songs\ranker.html:70
 msgid "總覽"
-msgstr ""
+msgstr "Overview"
 
 #: .\templates\singers\profile.html:112
 #, fuzzy
 #| msgid "歌曲週榜"
 msgid "歌曲週榜前三名"
-msgstr "Song Weekly Ranker"
+msgstr "Top 3 Song Weekly Rank"
 
 #: .\templates\singers\profile.html:117 .\templates\singers\profile.html:205
-#: .\templates\singers\ranker.html:127
+#: .\templates\singers\ranker.html:119
 msgid "排名"
-msgstr ""
+msgstr "Rank"
 
 #: .\templates\singers\profile.html:120
 #, fuzzy
 #| msgid "週觀看數:"
 msgid "觀看數"
-msgstr "Weekly Views:"
+msgstr "Views:"
 
 #: .\templates\singers\profile.html:179 .\templates\singers\profile.html:265
-#: .\templates\songs\ranker.html:202
+#: .\templates\songs\ranker.html:197
 msgid "前一位"
-msgstr ""
+msgstr "Previous"
 
 #: .\templates\singers\profile.html:185 .\templates\singers\profile.html:271
-#: .\templates\songs\ranker.html:207
+#: .\templates\songs\ranker.html:202
 msgid "後一位"
-msgstr ""
+msgstr "Next"
 
 #: .\templates\singers\profile.html:200
+#, fuzzy
+#| msgid "Hololive歌曲排行"
 msgid "歌曲排行總榜"
-msgstr ""
+msgstr "Hololive Song Rank"
 
-#: .\templates\singers\profile.html:207 .\templates\singers\ranker.html:104
-#: .\templates\singers\ranker.html:131 .\templates\singers\ranker.html:135
-#: .\templates\songs\ranker.html:108 .\templates\songs\ranker.html:135
-#: .\templates\songs\ranker.html:139
+#: .\templates\singers\profile.html:207 .\templates\singers\ranker.html:96
+#: .\templates\singers\ranker.html:123 .\templates\singers\ranker.html:127
+#: .\templates\songs\ranker.html:103 .\templates\songs\ranker.html:130
+#: .\templates\songs\ranker.html:134
 #, fuzzy
 #| msgid "週觀看數:"
 msgid "週觀看數"
-msgstr "Weekly Views:"
+msgstr "Weekly Views"
 
-#: .\templates\singers\ranker.html:6 .\templates\singers\ranker.html:49
+#: .\templates\singers\ranker.html:6 .\templates\singers\ranker.html:52
 msgid "歌手排行"
-msgstr ""
+msgstr "Singer Rank"
 
-#: .\templates\singers\ranker.html:63 .\templates\songs\ranker.html:66
+#: .\templates\singers\ranker.html:46
+msgid "歌手榜單規則內文"
+msgstr ""
+"<u>Hololive 成員歌曲觀看排行</u><br />                 <ul class='align-"
+"items-start text-start'>                     <li>更新時間 : 每週日</"
+"li>                     <li>計算方式 : 累積觀看數、週觀看數</"
+"li>                     <li>統計歌曲 : 頻道發布歌曲(Cover、原創曲)，不包含歌"
+"回</li>                     <li>不列入統計的歌曲 :<br/"
+">                         <a class='link-info' href='{% url 'singers:"
+"profile' id=44 %}'>hololive ホロライブ - "
+"VTuber                                 Group</a>中的13首歌"
+"曲。                     </li>                 </ul> "
+
+#: .\templates\singers\ranker.html:55 .\templates\songs\ranker.html:61
 msgid "榜單規則"
-msgstr ""
+msgstr "Rank rule"
 
-#: .\templates\singers\ranker.html:76 .\templates\songs\ranker.html:80
+#: .\templates\singers\ranker.html:68 .\templates\songs\ranker.html:75
 msgid "長條比賽圖"
-msgstr ""
+msgstr "Bar Chart Race"
 
-#: .\templates\singers\ranker.html:81 .\templates\songs\ranker.html:85
+#: .\templates\singers\ranker.html:73 .\templates\songs\ranker.html:80
 msgid "折線比賽圖"
-msgstr ""
+msgstr "Line Chart Race"
 
-#: .\templates\singers\ranker.html:97 .\templates\songs\ranker.html:101
+#: .\templates\singers\ranker.html:89 .\templates\songs\ranker.html:96
 msgid "排序條件"
-msgstr ""
+msgstr "Sort condition"
 
-#: .\templates\singers\ranker.html:128
+#: .\templates\singers\ranker.html:120
 msgid "頻道/姓名"
-msgstr ""
+msgstr "Channel/Name"
 
 #: .\templates\songs\ranker.html:5 .\templates\songs\ranker.html:57
 msgid "Hololive歌曲排行"
+msgstr "Hololive Song Rank"
+
+#: .\templates\songs\ranker.html:52
+msgid "歌曲榜單規則內文"
 msgstr ""
+"<u>Hololive 歌曲觀看數排行</u><br/>                 <ul class='align-items-"
+"start text-start'>                     <li>更新時間 : 每週日</"
+"li>                     <li>計算方式 : 累積觀看數、週觀看數</"
+"li>                     <li>統計歌曲 : 頻道發布歌曲，不包含歌回</"
+"li>                 </ul>"
+
+#~ msgid "所有歌曲"
+#~ msgstr "All Songs"
