@@ -66,8 +66,8 @@ def backup_vtuber_record_to_google_sheet():
 
     for record in records:
         data = {'vtuber' : record.vtuber.name , 'vtuber_id': record.vtuber.youtube_id, 'date': str(record.date), 
-                'total_view' : record.total_view, 'total_view_weekly_growth': record.total_view_weekly_growth, 
-                'average_view' : record.average_view, 'average_view_weekly_growth':record.average_view_weekly_growth,
+                'total_view' : record.total_view, 'weekly_view': record.weekly_view, 
+                'average_view' : record.average_view, 'average_weekly_view':record.average_weekly_view,
                 'song_count' : record.song_count}
 
         record_df = pd.concat([record_df, pd.DataFrame.from_records([data])], ignore_index=True)

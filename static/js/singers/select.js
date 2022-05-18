@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
     });
     $("#date_select").change(function () {
-        if ($("#view_select").val() == "total_view_weekly_growth") {
+        if ($("#view_select").val() == "weekly_view") {
             $("#select_form").submit();
         }
     });

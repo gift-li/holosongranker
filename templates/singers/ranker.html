@@ -24,7 +24,7 @@
             }
         });
         $("#date_select").change(function () {
-            if ($("#view_select").val() == "total_view_weekly_growth") {
+            if ($("#view_select").val() == "weekly_view") {
                 $("#select_form").submit();
             }
         });
@@ -90,9 +90,9 @@
                         </span>
                         <div class="col-auto me-1">
                             <select id="view_select" name="view_select" class="form-select form-control">
-                                <option {% if request.session.singers_view_select == "total_view_weekly_growth" %}
+                                <option {% if request.session.singers_view_select == "weekly_view" %}
                                     selected {% elif request.session.singers_view_select == "total_view" %} {% else %}
-                                    selected {% endif %} value="total_view_weekly_growth">
+                                    selected {% endif %} value="weekly_view">
                                     {% trans "週觀看數" %}
                                 </option>
                                 <option {% if request.session.singers_view_select == "total_view" %} selected
@@ -119,7 +119,7 @@
                                 <th class="col-auto text-center" scope="col">{% trans "排名" %}</th>
                                 <th class="col-auto text-center" scope="col" colspan="2">{% trans "頻道/姓名" %}</th>
                                 <th class="col-auto d-none d-md-table-cell text-center" scope="col">
-                                    {% if request.session.singers_view_select == 'total_view_weekly_growth' %}
+                                    {% if request.session.singers_view_select == 'weekly_view' %}
                                     {% trans "週觀看數" %}
                                     {% elif  request.session.singers_view_select == 'total_view' %}
                                     {% trans "累積觀看數" %}
@@ -166,10 +166,10 @@
                                     <span class="fs-5 text-primary">
                                         {% if request.session.singers_view_select == 'total_view' %}
                                         {{ record.total_view|intcomma }}
-                                        {% elif request.session.singers_view_select == 'total_view_weekly_growth' %}
-                                        {{ record.total_view_weekly_growth|intcomma }}
+                                        {% elif request.session.singers_view_select == 'weekly_view' %}
+                                        {{ record.weekly_view|intcomma }}
                                         {% else %}
-                                        {{ record.total_view_weekly_growth|intcomma }}
+                                        {{ record.weekly_view|intcomma }}
                                         {% endif %}
                                     </span>
                                 </td>

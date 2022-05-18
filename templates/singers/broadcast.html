@@ -22,7 +22,7 @@
             }
         });
         $("#date_select").change(function () {
-            if ($("#view_select").val() == "total_view_weekly_growth") {
+            if ($("#view_select").val() == "weekly_view") {
                 $("#select_form").submit();
             }
         });
@@ -49,9 +49,9 @@
             {% csrf_token %}
             <span class="input-group-text">排序條件</span>
             <select id="view_select" name="view_select" class="form-select form-control">
-                <option {% if request.session.singers_view_select == "total_view_weekly_growth" %} selected
+                <option {% if request.session.singers_view_select == "weekly_view" %} selected
                     {% elif request.session.singers_view_select == "total_view" %} {% else %} selected {% endif %}
-                    value="total_view_weekly_growth">
+                    value="weekly_view">
                     週觀看數
                 </option>
                 <option {% if request.session.singers_view_select == "total_view" %} selected {% endif %}
@@ -86,7 +86,7 @@
                         <!-- <th></th> -->
                         <th class="col-auto d-none d-md-table-cell text-center" scope="col">
                             
-                            {% if request.session.singers_view_select == 'total_view_weekly_growth' %}
+                            {% if request.session.singers_view_select == 'weekly_view' %}
                             Weekly view
                             {% elif  request.session.singers_view_select == 'total_view' %}
                             累積觀看數
@@ -133,10 +133,10 @@
                                 
                                 {% if request.session.singers_view_select == 'total_view' %}
                                 {{ record.total_view|intcomma }}
-                                {% elif request.session.singers_view_select == 'total_view_weekly_growth' %}
-                                {{ record.total_view_weekly_growth|intcomma }}
+                                {% elif request.session.singers_view_select == 'weekly_view' %}
+                                {{ record.weekly_view|intcomma }}
                                 {% else %}
-                                {{ record.total_view_weekly_growth|intcomma }}
+                                {{ record.weekly_view|intcomma }}
                                 {% endif %}
                             </span>
                         </td>

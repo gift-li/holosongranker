@@ -50,7 +50,7 @@ def Ranker(request):
 @require_http_methods(['GET', 'POST'])
 def Broadcast(request):
     # search querys setting
-    order_query = '-total_view_weekly_growth'
+    order_query = '-weekly_view'
     exclude_group = [Group.Unit.GROUP]
     rank_num_to = 10
     date_query = VtuberRecord.get_lastest_record_date()
@@ -82,7 +82,7 @@ def Broadcast(request):
             date=VtuberRecord.get_lastest_record_date()) \
             .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
             .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
-            .order_by('-total_view_weekly_growth')[:rank_num_to]
+            .order_by('-weekly_view')[:rank_num_to]
 
     template = 'singers/broadcast.html'
     context = {
@@ -171,7 +171,7 @@ def get_records_search_query(request, type):
     order_query = ''
 
     if type == VtuberRecord:
-        order_query = 'total_view_weekly_growth'
+        order_query = 'weekly_view'
         date_query = VtuberRecord.get_lastest_record_date()
         trans_date = datetime.strftime(date_query, "%Y-%m-%d")
 
@@ -253,7 +253,7 @@ def get_records_list(date_query, order_query, exclude_group, order_by='DSC'):
             date=VtuberRecord.get_lastest_record_date()) \
             .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
             .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
-            .order_by('-total_view_weekly_growth')
+            .order_by('-weekly_view')
 
     return records
 

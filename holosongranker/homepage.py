@@ -50,7 +50,7 @@ def getSingerRank():
 
     singers = VtuberRecord.objects.filter(date=singer_record_date) \
         .prefetch_related('vtuber') \
-        .order_by('-total_view_weekly_growth')[:10]
+        .order_by('-weekly_view')[:10]
 
     return singers, singer_record_date
 

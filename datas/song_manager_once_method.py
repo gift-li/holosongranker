@@ -155,16 +155,16 @@ def add_init_vtuber_record():
                 average_view  = int(total_view/ song_count)
 
                 weekly_view_df = df[df['song_records__weekly_view'] != 0] # 篩掉觀看數為0
-                total_view_weekly_growth = weekly_view_df['song_records__weekly_view'].sum()
+                weekly_view = weekly_view_df['song_records__weekly_view'].sum()
                 weekly_song_count = len(weekly_view_df)
-                average_view_weekly_growth = int(total_view_weekly_growth /weekly_song_count)
+                average_weekly_view = int(weekly_view /weekly_song_count)
 
                 vtuber_record = VtuberRecord(
                     vtuber = vtuber,
                     total_view = total_view,
-                    total_view_weekly_growth = total_view_weekly_growth,
+                    weekly_view = weekly_view,
                     average_view = average_view,
-                    average_view_weekly_growth = average_view_weekly_growth,
+                    average_weekly_view = average_weekly_view,
                     song_count = song_count,
                     date = now_date)
                 vtuber_record.save()

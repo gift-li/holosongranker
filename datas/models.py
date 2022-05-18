@@ -86,9 +86,9 @@ class Record(models.Model):
     date = models.DateField("資料取得日期", default=timezone.now)
 
     total_view = models.IntegerField(
-        '總觀看數', blank=True, editable=True, default=0)
+        '累積觀看數', blank=True, editable=True, default=0)
     weekly_view = models.IntegerField(
-        '周觀看數成長', blank=True, editable=True, default=0)
+        '周觀看數', blank=True, editable=True, default=0)
 
     def __str__(self):
         return self.song.name
@@ -126,13 +126,13 @@ class VtuberRecord(models.Model):
     vtuber = models.ForeignKey(
         Vtuber, on_delete=models.CASCADE, related_name="vtuber_record", verbose_name="Vtuber姓名")
     total_view = models.IntegerField(
-        '總觀看數', blank=True, editable=True, default=0)
-    total_view_weekly_growth = models.IntegerField(
-        '周總觀看數成長', blank=True, editable=True, default=0)
+        '累積觀看數', blank=True, editable=True, default=0)
+    weekly_view = models.IntegerField(
+        '周觀看數', blank=True, editable=True, default=0)
     average_view = models.IntegerField(
         '平均觀看數', blank=True, editable=True, default=0)
-    average_view_weekly_growth = models.IntegerField(
-        '平均觀看數週成長', blank=True, editable=True, default=0)
+    average_weekly_view = models.IntegerField(
+        '平均周觀看數', blank=True, editable=True, default=0)
 
     song_count = models.IntegerField(
         '歌曲數量', blank=True, editable=True, default=0)

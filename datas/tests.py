@@ -16,10 +16,10 @@ import datas.twitter_manager as twitter_manager
 # tm.upload_media(text, file_name)
 
 
-datas.song_manager.test_code()
+# datas.song_manager.test_code()
 
 # datas.song_manager_once_method.test_code()
 
-# datas.backup_manager.test_code()
+datas.backup_manager.test_code()
 
 # datas.google_sheet_manager.test()
