@@ -4,18 +4,18 @@
 <table class="table table-hover table-borderless align-middle">
     <thead class="border-top border-bottom">
         <tr>
-            <th class="col-2 col-lg-1 text-center" scope="col">排名</th>
-            <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
+            <th class="col-2 col-lg-1 text-center" scope="col">{% translate "排名" %}</th>
+            <th class="col-auto text-center" scope="col" colspan="2">{% translate "歌曲" %}</th>
             <th class="col-auto d-none d-md-table-cell text-center" scope="col">
                 {% if request.session.profile_view_select == 'weekly_view' %}
-                周觀看數
+                {% translate "周觀看數" %}
                 {% elif request.session.profile_view_select == 'total_view' %}
-                累積觀看數
+                {% translate "累積觀看數" %}
                 {% else %}
-                周觀看數
+                {% translate "周觀看數" %}
                 {% endif %}
             </th>
-            <th class="col-2 d-none d-lg-table-cell text-center" scope="col">歌手</th>
+            <th class="col-2 d-none d-lg-table-cell text-center" scope="col">{% translate "歌手" %}</th>
         </tr>
     </thead>
     <tbody>

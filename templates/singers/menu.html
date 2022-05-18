@@ -9,13 +9,13 @@
 <div class="container pt-4">
     <div class="row justify-content-center">
         <h1 class="display-5 fw-bold ps-3">
-            歌手分類選單
+            {% translate "歌手分類選單" %}
         </h1>
         <div class="col-12">
             <form action={% url 'singers:menu' %} method="post">
                 {% csrf_token %}
                 <select name="group_query" class="form-select" onChange="form.submit();" aria-label="group_unit_select">
-                    <option {% if selected == 'all' %}selected{% endif %} value="all">全選</option>
+                    <option {% if selected == 'all' %}selected{% endif %} value="all">{% translate "全選" %}</option>
                     {% for unit in units %}
                     <option {% if selected == unit %}selected{% endif %} value="{{unit}}">{{unit}}</option>
                     {% endfor %}

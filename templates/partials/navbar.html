@@ -11,31 +11,32 @@
             <li class="nav-item btn-outline-light border-0 p-0">
                 <a href="{% url 'songs:ranker' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-file-music"></i>
-                    <span class="ms-2">歌曲</span></a>
+                    <span class="ms-2">{% translate "歌曲" %}</span></a>
             </li>
             <li class="nav-item btn-outline-light border-0 p-0">
                 <a href="{% url 'singers:ranker' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-mic"></i>
-                    <span class="ms-2">歌手</span></a>
+                    <span class="ms-2">{% translate "歌手" %}</span></a>
             </li>
             <li class="nav-item btn btn-outline-light border-0 p-0">
                 <a href="{% url 'singers:menu' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-file-person"></i>
-                    <span class="ms-2">介紹</span></a>
+                    <span class="ms-2">{% translate "介紹" %}</span></a>
             </li>
             <li class="nav-item btn btn-outline-light border-0 p-0">
                 <a href="{% url 'about' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-info-circle"></i>
-                    <span class="ms-2">關於</span></a>
+                    <span class="ms-2">{% translate "關於" %}</span></a>
             </li>
             <li class="nav-item btn btn-outline-light border-0 p-0">
                 <a href="{% url 'admin:index' %}" class="nav-link d-flex align-items-center">
                     <i class="fs-3 bi bi-speedometer2"></i>
-                    <span class="ms-2">控制台</span>
+                    <span class="ms-2">{% translate "控制台" %}</span>
                 </a>
             </li>
         </ul>
-        <a class="nav-link d-none d-sm-flex align-items-center ms-auto" href="#">
+        <a class="nav-link d-none d-sm-flex align-items-center ms-auto" href="https://twitter.com/holosongranker"
+            target="_blank">
             <i class="fs-3 bi bi-twitter"></i>
         </a>
         <div class="dropdown ms-auto ms-sm-0">

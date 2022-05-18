@@ -3,14 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: .\templates\about.html:5 .\templates\songs\ranker.html:126
-#: .\templates\songs\ranker.html:127
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-18 15:27+0800\n"
+"POT-Creation-Date: 2022-05-18 23:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,9 +26,9 @@ msgstr "繁體中文"
 msgid "English"
 msgstr "English"
 
-#: .\templates\about.html:19
-msgid "關於我們"
-msgstr "關於我們"
+#: .\templates\about.html:5 .\templates\about.html:19
+msgid "關於開發人員"
+msgstr "關於開發人員"
 
 #: .\templates\about.html:25
 msgid "網站起源"
@@ -82,9 +80,10 @@ msgstr "歌手數"
 msgid "歌曲數"
 msgstr "歌曲數"
 
-#: .\templates\index.html:203 .\templates\singers\profile.html:67
-#: .\templates\singers\ranker.html:100 .\templates\singers\ranker.html:125
-#: .\templates\songs\ranker.html:107 .\templates\songs\ranker.html:132
+#: .\templates\index.html:203 .\templates\partials\song_table.html:13
+#: .\templates\singers\profile.html:90 .\templates\singers\ranker.html:100
+#: .\templates\singers\ranker.html:125 .\templates\songs\ranker.html:106
+#: .\templates\songs\ranker.html:131
 msgid "累積觀看數"
 msgstr "累積觀看數"
 
@@ -100,31 +99,42 @@ msgstr "破千萬觀看歌曲數"
 msgid "本週觀看數"
 msgstr "本週觀看數"
 
+#: .\templates\partials\navbar.html:14 .\templates\partials\sidebar.html:26
+#: .\templates\partials\song_table.html:8 .\templates\singers\profile.html:127
+#: .\templates\singers\profile.html:141 .\templates\songs\ranker.html:126
+msgid "歌曲"
+msgstr "歌曲"
+
+#: .\templates\partials\navbar.html:19 .\templates\partials\sidebar.html:32
+#: .\templates\partials\song_table.html:18 .\templates\songs\ranker.html:136
+msgid "歌手"
+msgstr "歌手"
+
+#: .\templates\partials\navbar.html:24 .\templates\partials\sidebar.html:38
+msgid "介紹"
+msgstr "介紹"
+
+#: .\templates\partials\navbar.html:29 .\templates\partials\sidebar.html:51
+msgid "關於"
+msgstr "關於"
+
+#: .\templates\partials\navbar.html:34 .\templates\partials\sidebar.html:57
+msgid "控制台"
+msgstr "控制台"
+
 #: .\templates\partials\sidebar.html:19
 msgid "首頁"
 msgstr "首頁"
 
-#: .\templates\partials\sidebar.html:26 .\templates\singers\profile.html:104
-#: .\templates\singers\profile.html:118 .\templates\singers\profile.html:206
-msgid "歌曲"
-msgstr "歌曲"
+#: .\templates\partials\song_table.html:7 .\templates\singers\profile.html:140
+#: .\templates\singers\ranker.html:119 .\templates\songs\ranker.html:125
+msgid "排名"
+msgstr "排名"
 
-#: .\templates\partials\sidebar.html:32 .\templates\singers\profile.html:121
-#: .\templates\singers\profile.html:208
-msgid "歌手"
-msgstr "歌手"
-
-#: .\templates\partials\sidebar.html:38
-msgid "介紹"
-msgstr "介紹"
-
-#: .\templates\partials\sidebar.html:51
-msgid "關於"
-msgstr "關於"
-
-#: .\templates\partials\sidebar.html:57
-msgid "控制台"
-msgstr "控制台"
+#: .\templates\partials\song_table.html:11
+#: .\templates\partials\song_table.html:15
+msgid "周觀看數"
+msgstr "周觀看數"
 
 #: .\templates\singers\menu.html:6
 msgid "歌手分類選單"
@@ -134,53 +144,30 @@ msgstr "歌手分類選單"
 msgid "歌手專頁"
 msgstr "歌手專頁"
 
-#: .\templates\singers\profile.html:75
+#: .\templates\singers\profile.html:98
 msgid "平均觀看數"
 msgstr "平均觀看數"
 
-#: .\templates\singers\profile.html:83 .\templates\singers\ranker.html:130
+#: .\templates\singers\profile.html:106 .\templates\singers\ranker.html:130
 msgid "歌曲數量"
 msgstr "歌曲數量"
 
-#: .\templates\singers\profile.html:98 .\templates\singers\ranker.html:63
-#: .\templates\songs\ranker.html:70
+#: .\templates\singers\profile.html:121 .\templates\singers\ranker.html:63
+#: .\templates\songs\ranker.html:69
 msgid "總覽"
 msgstr "總覽"
 
-#: .\templates\singers\profile.html:112
+#: .\templates\singers\profile.html:135
 msgid "歌曲週榜前三名"
 msgstr "歌曲週榜前三名"
 
-#: .\templates\singers\profile.html:117 .\templates\singers\profile.html:205
-#: .\templates\singers\ranker.html:119
-msgid "排名"
-msgstr "排名"
-
-#: .\templates\singers\profile.html:120
-msgid "觀看數"
-msgstr "觀看數"
-
-#: .\templates\singers\profile.html:179 .\templates\singers\profile.html:265
-#: .\templates\songs\ranker.html:197
+#: .\templates\singers\profile.html:202 .\templates\songs\ranker.html:197
 msgid "前一位"
 msgstr "前一位"
 
-#: .\templates\singers\profile.html:185 .\templates\singers\profile.html:271
-#: .\templates\songs\ranker.html:202
+#: .\templates\singers\profile.html:208 .\templates\songs\ranker.html:202
 msgid "後一位"
 msgstr "後一位"
-
-#: .\templates\singers\profile.html:200
-#, fuzzy
-msgid "歌曲排行總榜"
-msgstr "歌曲排行總榜"
-
-#: .\templates\singers\profile.html:207 .\templates\singers\ranker.html:96
-#: .\templates\singers\ranker.html:123 .\templates\singers\ranker.html:127
-#: .\templates\songs\ranker.html:103 .\templates\songs\ranker.html:130
-#: .\templates\songs\ranker.html:134
-msgid "週觀看數"
-msgstr "週觀看數"
 
 #: .\templates\singers\ranker.html:6 .\templates\singers\ranker.html:52
 msgid "歌手排行"
@@ -201,21 +188,27 @@ msgstr ""
 "VTuber                                 Group</a>中的13首歌"
 "曲。                     </li>                 </ul> "
 
-#: .\templates\singers\ranker.html:55 .\templates\songs\ranker.html:61
+#: .\templates\singers\ranker.html:55 .\templates\songs\ranker.html:60
 msgid "榜單規則"
 msgstr "榜單規則"
 
-#: .\templates\singers\ranker.html:68 .\templates\songs\ranker.html:75
+#: .\templates\singers\ranker.html:68 .\templates\songs\ranker.html:74
 msgid "長條比賽圖"
 msgstr "長條比賽圖"
 
-#: .\templates\singers\ranker.html:73 .\templates\songs\ranker.html:80
+#: .\templates\singers\ranker.html:73 .\templates\songs\ranker.html:79
 msgid "折線比賽圖"
 msgstr "折線比賽圖"
 
-#: .\templates\singers\ranker.html:89 .\templates\songs\ranker.html:96
+#: .\templates\singers\ranker.html:89 .\templates\songs\ranker.html:95
 msgid "排序條件"
 msgstr "排序條件"
+
+#: .\templates\singers\ranker.html:96 .\templates\singers\ranker.html:123
+#: .\templates\singers\ranker.html:127 .\templates\songs\ranker.html:102
+#: .\templates\songs\ranker.html:129 .\templates\songs\ranker.html:133
+msgid "週觀看數"
+msgstr "週觀看數"
 
 #: .\templates\singers\ranker.html:120
 msgid "頻道/姓名"
@@ -233,6 +226,13 @@ msgstr ""
 "li>                     <li>計算方式 : 累積觀看數、週觀看數</"
 "li>                     <li>統計歌曲 : 頻道發布歌曲，不包含歌回</"
 "li>                 </ul>"
+
+#~ msgid "觀看數"
+#~ msgstr "觀看數"
+
+#, fuzzy
+#~ msgid "歌曲排行總榜"
+#~ msgstr "歌曲排行總榜"
 
 #~ msgid "所有歌曲"
 #~ msgstr "所有歌曲"

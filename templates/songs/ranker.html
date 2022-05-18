@@ -56,8 +56,7 @@
         <div class="display-5 fw-bold ps-3 mb-2">
             {% trans "Hololive歌曲排行" %}
             <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-html="true" 
-                title= "{{ song_rule }}">
+                data-bs-placement="right" data-bs-html="true" title="{{ song_rule }}">
                 {% trans "榜單規則" %}
                 <i class="bi bi-info-circle"></i>
             </button>
@@ -123,8 +122,8 @@
                     <table class="table table-hover table-borderless align-middle">
                         <thead class="border-bottom">
                             <tr>
-                                <th class="col-2 col-md-1 text-center" scope="col">{% trans "" %}排名</th>
-                                <th class="col-auto text-center" scope="col" colspan="2">{% trans "" %}歌曲</th>
+                                <th class="col-2 col-md-1 text-center" scope="col">{% trans "排名" %}</th>
+                                <th class="col-auto text-center" scope="col" colspan="2">{% trans "歌曲" %}</th>
                                 <th class="col-auto d-none d-md-table-cell text-center" scope="col">
                                     {% if request.session.songs_view_select == 'weekly_view' %}
                                     {% trans "週觀看數" %}
@@ -134,7 +133,8 @@
                                     {% trans "週觀看數" %}
                                     {% endif %}
                                 </th>
-                                <th class="col-2 d-none d-xl-table-cell text-center" scope="col">歌手</th>
+                                <th class="col-2 d-none d-xl-table-cell text-center" scope="col">{% translate "歌手" %}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -190,7 +190,7 @@
                                             </div>
                                             {% endfor %}
                                         </div>
-                                        {% if record.song.singer.values.count != 1 %}
+                                        {% if record.song.singer.values.count > 1 %}
                                         <button class="carousel-control-prev" type="button"
                                             data-bs-target="#carousel_vtuber_{{forloop.counter}}" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

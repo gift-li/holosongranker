@@ -168,38 +168,41 @@ def Profile(request, id):
 
 
 def get_records_search_query(request, type):
-    order_query = 'weekly_view'
+    order_query = ''
 
     if type == VtuberRecord:
+        order_query = 'total_view_weekly_growth'
         date_query = VtuberRecord.get_lastest_record_date()
+        trans_date = datetime.strftime(date_query, "%Y-%m-%d")
 
         if request.method == 'GET':
             # * 沒快取: 設定為"周觀看"+"最新日期"
-            if 'singers_view_select' not in request.session:
+            if 'singers_view_select' not in request.session \
+                    or 'singers_date_select' not in request.session:
                 request.session['singers_view_select'] = order_query
-                request.session['singers_data_select'] = datetime.strftime(
-                    date_query, "%Y/%m/%d")
+                request.session['singers_date_select'] = trans_date
 
         if request.method == 'POST':
             # * 取得POST的搜尋條件
             request.session['singers_view_select'] = request.POST.get(
                 'view_select')
-            request.session['singers_data_select'] = request.POST.get(
+            request.session['singers_date_select'] = request.POST.get(
                 'date_select')
 
         # * 用Session賦值
         order_query = request.session['singers_view_select']
-        date_query = datetime.strptime(
-            request.session['singers_data_select'], "%Y/%m/%d").date()
+        date_query = request.session['singers_date_select']
+
     else:
+        order_query = 'weekly_view'
         date_query = Record.get_lastest_record_date()
+        trans_date = datetime.strftime(date_query, "%Y-%m-%d")
 
         if request.method == 'GET':
             # * 沒快取: 設定為"周觀看"+"最新日期"
             if 'profile_view_select' not in request.session:
                 request.session['profile_view_select'] = order_query
-                request.session['profile_data_select'] = datetime.strftime(
-                    date_query, "%Y/%m/%d")
+                request.session['profile_data_select'] = trans_date
 
         if request.method == 'POST':
             # * 取得POST的搜尋條件
@@ -210,8 +213,7 @@ def get_records_search_query(request, type):
 
         # * 用Session賦值
         order_query = request.session['profile_view_select']
-        date_query = datetime.strptime(
-            request.session['profile_data_select'], "%Y/%m/%d").date()
+        date_query = request.session['profile_data_select']
 
     return order_query, date_query
 
@@ -242,8 +244,7 @@ def get_records_list(date_query, order_query, exclude_group, order_by='DSC'):
         order_by = ''
 
     try:
-        records = VtuberRecord.objects.filter(
-            date=date_query) \
+        records = VtuberRecord.objects.filter(date=date_query) \
             .prefetch_related('vtuber', 'vtuber__vtuber_groups') \
             .exclude(vtuber__vtuber_groups__unit__in=exclude_group) \
             .order_by(order_by + order_query)
