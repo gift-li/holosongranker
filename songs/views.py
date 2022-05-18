@@ -42,7 +42,7 @@ def Ranker(request):
 def get_records_search_query(request):
     order_query = 'weekly_view'
     date_query = Record.get_lastest_record_date()
-    pp(request.session)
+
     if request.method == 'GET':
         # * 沒快取: 設定為"周觀看"+"最新日期"
         if 'songs_view_select' not in request.session:

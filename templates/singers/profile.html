@@ -6,6 +6,29 @@
 
 {% block scripts %}
 <script type="text/javascript" src="{% static 'js/singers/select.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        if ("{{request.session.profile_view_select}}" == "total_view") {
+            $("#date_select").hide();
+        } else {
+            $("#date_select").show();
+        }
+
+        $("#view_select").change(function () {
+            $("#select_form").submit();
+            if ($(this).val() == "total_view") {
+                $("#date_select").hide();
+            } else {
+                $("#date_select").show();
+            }
+        });
+        $("#date_select").change(function () {
+            if ($("#view_select").val() == "weekly_view") {
+                $("#select_form").submit();
+            }
+        });
+    });
+</script>
 {% endblock %}
 
 {% block styles %}
@@ -116,7 +139,7 @@
                                         <th class="col-2 col-lg-1 text-center" scope="col">排名</th>
                                         <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
                                         <th class="col-auto d-none d-md-table-cell text-center" scope="col">
-                                            觀看數</th>
+                                            周觀看數</th>
                                         <th class="col-2 d-none d-lg-table-cell text-center" scope="col">歌手
                                         </th>
                                     </tr>
@@ -197,89 +220,48 @@
                     role="tabpanel" aria-labelledby="pills-song-tab">
                     <section id="song" class="container pt-4 mb-3 bg-primary bg-opacity-10">
                         <h1 class="fs-2 fw-bold text-decoration-underline py-4">歌曲排行總榜</h1>
+                        <div class="col pb-3">
+                            <form id="select_form" action="{% url 'singers:profile' id=profile.vtuber.id %}"
+                                method="post" class="input-group">
+                                {% csrf_token %}
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-info-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                    </svg>
+                                    排序條件
+                                </span>
+                                <div class="col-auto me-1">
+                                    <select id="view_select" name="view_select" class="form-select form-control">
+                                        <option {% if request.session.profile_view_select == "weekly_view" %} selected
+                                            {% elif request.session.profile_view_select == "total_view" %} {% else %}
+                                            selected {% endif %} value="weekly_view">
+                                            周觀看數
+                                        </option>
+                                        <option {% if request.session.profile_view_select == "total_view" %} selected
+                                            {% endif %} value="total_view">
+                                            累積觀看數</option>
+                                    </select>
+                                </div>
+                                <div class="col-auto">
+                                    <select id="date_select" name="date_select" class="form-select form-control">
+                                        {% for date in date_select_list %}
+                                        <option
+                                            {% if forloop.first or request.session.profile_date_select == date|date:"Y/m/d" %}selected{% endif %}
+                                            value="{{date|date:"Y/m/d"}}">
+                                            {{date|date:"Y/m/d"}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
                         <div class="table-responsive">
-                            <table class="table table-hover table-borderless align-middle">
-                                <thead class="border-top border-bottom">
-                                    <tr>
-                                        <th class="col-2 col-lg-1 text-center" scope="col">排名</th>
-                                        <th class="col-auto text-center" scope="col" colspan="2">歌曲</th>
-                                        <th class="col-auto d-none d-md-table-cell text-center" scope="col">周觀看數</th>
-                                        <th class="col-2 d-none d-lg-table-cell text-center" scope="col">歌手</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for record in total_songs %}
-                                    <tr id="row_{{forloop.counter}}">
-                                        <th class="text-center" scope="row">
-                                            <span class="fs-3">
-                                                {% widthratio total_songs.number 1 10 as counter %}#{{ counter|add:"-10"|add:forloop.counter }}
-                                            </span>
-                                        </th>
-                                        <td>
-                                            <a href="{{record.song.youtube_url}}" target="_blank">
-                                                <img class="img-song img-fluid shadow"
-                                                    src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}"
-                                                    alt="歌曲縮圖">
-                                            </a>
-                                        </td>
-                                        <td class="ps-2 px-md-4">
-                                            <p class="fs-5 truncate-2">
-                                                {{record.song.name}}
-                                            </p>
-                                            <p class="fs-6 text-secondary mb-0">
-                                                <i class="bi bi-calendar-event"></i>
-                                                {{record.song.publish_at|date:"Y/m/d"|naturaltime}}
-                                            </p>
-                                        </td>
-                                        <td class="d-none d-md-table-cell text-center text-primary">
-                                            <span class="fs-5">
-                                                {{ record.weekly_view|intcomma }}
-                                            </span>
-                                        </td>
-                                        <td class="d-none d-lg-table-cell text-center">
-                                            <div id="carousel_vtuber_{{forloop.counter}}"
-                                                class="carousel carousel-dark slide" data-bs-ride="carousel">
-                                                <div class="carousel-inner">
-                                                    {% for vtuber in record.song.singer.values %}
-                                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                                        <a class="link-dark"
-                                                            href="{% url 'singers:profile' id=vtuber.id %}">
-                                                            <img src="{% static 'img/vtuber_thumbnails/'|add:vtuber.youtube_id|add:'.png' %}"
-                                                                class="img-song-vtuber img-fluid border border-1 rounded-circle"
-                                                                alt="vtuber圖片">
-                                                            <div class="d-none d-md-block">
-                                                                <p class="mt-2 truncate-1">
-                                                                    {{vtuber.name}}
-                                                                </p>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    {% endfor %}
-                                                </div>
-                                                {% if record.song.singer.values.count != 1 %}
-                                                <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#carousel_vtuber_{{forloop.counter}}"
-                                                    data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">前一位</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#carousel_vtuber_{{forloop.counter}}"
-                                                    data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">後一位</span>
-                                                </button>
-                                                {% endif %}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                            {% include 'partials/song_table.html' with song_records=song_records date_select_list=date_select_list %}
                         </div>
                     </section>
                     <div class="col">
-                        {% include 'partials/pagination.html' with page_obj=total_songs %}
+                        {% include 'partials/pagination.html' with page_obj=song_records %}
                     </div>
                 </div>
             </div>
