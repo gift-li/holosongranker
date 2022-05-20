@@ -98,7 +98,7 @@
                         {% trans "統計時間:" %}
                         {{record_date.song|date:"Y/m/d"|naturaltime}}
                     </p>
-                    <a class="link btn btn-outline-primary float-end" href="{% url 'songs:ranker' %}">查看完整榜單
+                    <a class="link btn btn-outline-primary float-end" href="{% url 'songs:ranker' %}">{% trans "查看完整榜單" %}
                     </a>
                 </div>
             </div>

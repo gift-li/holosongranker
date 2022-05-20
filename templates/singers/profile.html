@@ -220,7 +220,7 @@
                 <div class="tab-pane fade {% if is_select_nav_song %}show active{% endif %}" id="pills-song"
                     role="tabpanel" aria-labelledby="pills-song-tab">
                     <section id="song" class="container pt-4 mb-3 bg-primary bg-opacity-10">
-                        <h1 class="fs-2 fw-bold text-decoration-underline py-4">歌曲排行總榜</h1>
+                        <h1 class="fs-2 fw-bold text-decoration-underline py-4">{% trans "歌曲排行總榜" %}</h1>
                         <div class="col pb-3">
                             <form id="select_form" action="{% url 'singers:profile' id=profile.vtuber.id %}"
                                 method="post" class="input-group">
@@ -231,18 +231,18 @@
                                         <path
                                             d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
                                     </svg>
-                                    排序條件
+                                    {% trans "排序條件" %}
                                 </span>
                                 <div class="col-auto me-1">
                                     <select id="view_select" name="view_select" class="form-select form-control">
                                         <option {% if request.session.profile_view_select == "weekly_view" %} selected
                                             {% elif request.session.profile_view_select == "total_view" %} {% else %}
                                             selected {% endif %} value="weekly_view">
-                                            周觀看數
+                                            {% trans "周觀看數" %}
                                         </option>
                                         <option {% if request.session.profile_view_select == "total_view" %} selected
                                             {% endif %} value="total_view">
-                                            累積觀看數</option>
+                                            {% trans "累積觀看數" %}</option>
                                     </select>
                                 </div>
                                 <div class="col-auto">
