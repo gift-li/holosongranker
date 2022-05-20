@@ -10,6 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField('VtuberRecord', 'total_view_weekly_growth ', 'weekly_view'),
+        migrations.RenameField('VtuberRecord', 'total_view_weekly_growth', 'weekly_view'),
         migrations.RenameField('VtuberRecord', 'average_view_weekly_growth', 'average_weekly_view'),
     ]
