@@ -180,8 +180,8 @@ def download_vtuber_img_to_media():
     youtube = y_api.set_api_key(2) # 使用分帳
 
     vtuber_df = pd.read_csv('./datas/csv/vtuber.csv') 
-    thumbnails_path = 'img/vtuber_thumbnails/'
-    banners_path = 'img/vtuber_banners/'
+    thumbnails_path = 'static/img/vtuber_thumbnails/'
+    banners_path = 'static/img/vtuber_banners/'
 
     start = 0
     # end = 1
@@ -245,6 +245,7 @@ def test_code():
     # 備份
     # backup_songs_to_google_sheet()
     # backup_record_to_google_sheet()
+    download_vtuber_img_to_media()
 
 
     

@@ -16,10 +16,13 @@ import datas.twitter_manager as twitter_manager
 # tm.upload_media(text, file_name)
 
 
-datas.song_manager.test_code()
+## 每周方法
+# datas.song_manager.test_code()
 
+## 一次性方法
 # datas.song_manager_once_method.test_code()
 
+## 備份
 # datas.backup_manager.test_code()
 
 # datas.google_sheet_manager.test()

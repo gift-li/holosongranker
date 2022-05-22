@@ -270,23 +270,24 @@ def test_code():
 
     # 取的比賽圖所需歌曲資料
     
-    dates = Record.get_date_list()['date'][:5].tolist()[::-1]
-    print(dates)
+    # dates = Record.get_date_list()['date'][:5].tolist()[::-1]
+    # print(dates)
 
-    gc = GraphDataCreater()
+    # gc = GraphDataCreater()
 
-    # 歌曲比賽圖
-    gc.get_songs_for_bar_chart(dates)
-    gc.get_songs_for_line_chart(dates)
+    # # 歌曲比賽圖
+    # gc.get_songs_for_bar_chart(dates)
+    # gc.get_songs_for_line_chart(dates)
 
 
-    # 歌手比賽圖
-    gc.get_vtubers_for_bar_chart(dates)
-    gc.get_vtubers_for_line_chart(dates)
+    # # 歌手比賽圖
+    # gc.get_vtubers_for_bar_chart(dates)
+    # gc.get_vtubers_for_line_chart(dates)
 
     ## 取得某周排行第一的影片連結
     # gc.get_top1_songs(dates)
     # 下載器 https://www.backupmp3.com/zh/#TaskResults
+
 
 
 
