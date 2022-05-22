@@ -4,13 +4,13 @@ from email import message
 import this
 from traceback import print_tb
 from unicodedata import name
-import datas.youtube_api as y_api
+import datas.manager.youtube_api as y_api
 import pandas as pd
 from datas.models import Group, Record, Vtuber, Song, VtuberRecord
 from django_pandas.io import read_frame
 from datetime import date
-import datas.google_sheet_manager as google_sheet_manager
-import datas.backup_manager as backup_manager
+import datas.manager.google_sheet_manager as google_sheet_manager
+import datas.manager.backup_manager as backup_manager
 import urllib.request
 import numpy
 
@@ -151,8 +151,6 @@ class SongModelController:
             else: # 歌曲數為0
                 print('錯誤:{}歌曲為0'.format(vtuber))
 
-
-
 # 產生圖表所需資料
 class GraphDataCreater:
 
@@ -248,7 +246,9 @@ class GraphDataCreater:
         df_ranks = df_ranks.drop(columns= ['Unnamed: 0'])
         file_name = "datas/csv/race_chart/vtubers_line.csv"
         df_ranks.to_csv(file_name )
-        
+
+
+
 
 def test_code():
    

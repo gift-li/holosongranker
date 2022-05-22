@@ -5,12 +5,12 @@ from traceback import print_tb
 from unicodedata import name
 
 from numpy import record
-import datas.youtube_api as y_api
+import datas.manager.youtube_api as y_api
 import pandas as pd
 from datas.models import Group, Record, Vtuber, Song, VtuberRecord
 from django_pandas.io import read_frame
 from datetime import date
-import datas.google_sheet_manager as google_sheet_manager
+import datas.manager.google_sheet_manager as google_sheet_manager
 import urllib.request
 
 ########## 一次性方法 #################
