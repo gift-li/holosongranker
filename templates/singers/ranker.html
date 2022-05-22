@@ -45,13 +45,12 @@
 {% block main %}
 {% trans "歌手榜單規則內文" as singer_rule %}
 
-
 <div class="container pt-4">
     <div class="row justify-content-center">
         <h1 class="display-5 fw-bold ps-3 mb-2">
             {% trans "歌手排行" %}
             <button type="button" class="btn text-decoration-underline" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-html="true" title="{{ singer_rule }}">
+                data-bs-placement="bottom" data-bs-html="true" title="{{ singer_rule }}">
                 {% trans "榜單規則" %} <i class="bi bi-info-circle"></i>
             </button>
         </h1>
@@ -90,9 +89,9 @@
                         </span>
                         <div class="col-auto me-1">
                             <select id="view_select" name="view_select" class="form-select form-control">
-                                <option {% if request.session.singers_view_select == "weekly_view" %}
-                                    selected {% elif request.session.singers_view_select == "total_view" %} {% else %}
-                                    selected {% endif %} value="weekly_view">
+                                <option {% if request.session.singers_view_select == "weekly_view" %} selected
+                                    {% elif request.session.singers_view_select == "total_view" %} {% else %} selected
+                                    {% endif %} value="weekly_view">
                                     {% trans "週觀看數" %}
                                 </option>
                                 <option {% if request.session.singers_view_select == "total_view" %} selected
