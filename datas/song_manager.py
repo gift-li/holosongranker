@@ -43,7 +43,6 @@ class SongModelController:
                     message = '已經有：' + song_name
                     print(message)
 
-                    
                 else:
                     skip = False
                     if(new_songs_df['Skip'][i] == 'TRUE'):
@@ -61,7 +60,7 @@ class SongModelController:
 
                     # 下載影片縮圖
                     url = new_songs_df['thumbnail_url'][i].replace("mqde", "sdde")
-                    thumbnails_file_name = thumbnails_path + new_songs_df['youtube_id'][i]  + '.png'
+                    thumbnails_file_name = thumbnails_path + new_songs_df['videoId'][i]  + '.png'
                     try:
                         urllib.request.urlretrieve(url, thumbnails_file_name)
                     except:
@@ -255,7 +254,7 @@ def test_code():
    
     # 每週要做的事情
     # 去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-5-15'
+    this_date = '2022-5-22'
 
     sc = SongModelController()
 
@@ -268,23 +267,24 @@ def test_code():
     # # 計算本周VTuber的歌曲數據
     # sc.insert_vtuber_record(this_date)
 
+
     # 取的比賽圖所需歌曲資料
     
-    # dates = Record.get_date_list()['date'][:5].tolist()[::-1]
-    # print(dates)
+    dates = Record.get_date_list()['date'][:5].tolist()[::-1]
+    print(dates)
 
-    # gc = GraphDataCreater()
+    gc = GraphDataCreater()
 
     # 歌曲比賽圖
-    # gc.get_songs_for_bar_chart(dates)
-    # gc.get_songs_for_line_chart(dates)
+    gc.get_songs_for_bar_chart(dates)
+    gc.get_songs_for_line_chart(dates)
 
 
     # 歌手比賽圖
-    # gc.get_vtubers_for_bar_chart(dates)
-    # gc.get_vtubers_for_line_chart(dates)
+    gc.get_vtubers_for_bar_chart(dates)
+    gc.get_vtubers_for_line_chart(dates)
 
-    # 取得某周排行第一的影片連結
+    ## 取得某周排行第一的影片連結
     # gc.get_top1_songs(dates)
     # 下載器 https://www.backupmp3.com/zh/#TaskResults
 
