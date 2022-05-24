@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-20 10:03+0800\n"
+"POT-Creation-Date: 2022-05-25 00:24+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,17 +26,59 @@ msgstr "繁體中文"
 msgid "English"
 msgstr "English"
 
-#: .\templates\about.html:5 .\templates\about.html:19
+#: .\templates\about.html:5 .\templates\about.html:25
 msgid "關於我們"
 msgstr "About Us"
 
-#: .\templates\about.html:25
+#: .\templates\about.html:15
+#, fuzzy
+#| msgid "網站起源"
+msgid "網站起源內容"
+msgstr "The Origin of this website"
+
+#: .\templates\about.html:16
+msgid "資料蒐集內容"
+msgstr ""
+
+#: .\templates\about.html:17
+msgid "網站功能內容"
+msgstr ""
+
+#: .\templates\about.html:18
+msgid "李自傳內容"
+msgstr ""
+
+#: .\templates\about.html:19
+msgid "聯繫我們內容"
+msgstr ""
+
+#: .\templates\about.html:20
+msgid "網站聲明內容"
+msgstr ""
+
+#: .\templates\about.html:31
 msgid "網站起源"
 msgstr "The Origin of this website"
 
-#: .\templates\about.html:40
+#: .\templates\about.html:43
+msgid "資料蒐集"
+msgstr ""
+
+#: .\templates\about.html:55
+msgid "網站功能"
+msgstr ""
+
+#: .\templates\about.html:67
 msgid "關於開發人員"
 msgstr "About Developers"
+
+#: .\templates\about.html:122
+msgid "聯繫我們"
+msgstr ""
+
+#: .\templates\about.html:134
+msgid "版權聲明"
+msgstr ""
 
 #: .\templates\index.html:50
 msgid "了解更多"
@@ -87,7 +129,7 @@ msgstr "Song"
 
 #: .\templates\index.html:204 .\templates\partials\song_table.html:13
 #: .\templates\singers\profile.html:90 .\templates\singers\profile.html:245
-#: .\templates\singers\ranker.html:100 .\templates\singers\ranker.html:125
+#: .\templates\singers\ranker.html:99 .\templates\singers\ranker.html:124
 #: .\templates\songs\ranker.html:106 .\templates\songs\ranker.html:131
 msgid "累積觀看數"
 msgstr "Total View"
@@ -131,7 +173,7 @@ msgid "首頁"
 msgstr "Home"
 
 #: .\templates\partials\song_table.html:7 .\templates\singers\profile.html:140
-#: .\templates\singers\ranker.html:119 .\templates\songs\ranker.html:125
+#: .\templates\singers\ranker.html:118 .\templates\songs\ranker.html:125
 msgid "排名"
 msgstr "Rank"
 
@@ -156,11 +198,11 @@ msgstr "Singer"
 msgid "平均觀看數"
 msgstr "Average views"
 
-#: .\templates\singers\profile.html:106 .\templates\singers\ranker.html:130
+#: .\templates\singers\profile.html:106 .\templates\singers\ranker.html:129
 msgid "歌曲數量"
 msgstr "Song count"
 
-#: .\templates\singers\profile.html:121 .\templates\singers\ranker.html:63
+#: .\templates\singers\profile.html:121 .\templates\singers\ranker.html:62
 #: .\templates\songs\ranker.html:69
 msgid "總覽"
 msgstr "Overview"
@@ -181,48 +223,44 @@ msgstr "Next"
 msgid "歌曲排行總榜"
 msgstr "Hololive Song Rank"
 
-#: .\templates\singers\profile.html:234 .\templates\singers\ranker.html:89
+#: .\templates\singers\profile.html:234 .\templates\singers\ranker.html:88
 #: .\templates\songs\ranker.html:95
 msgid "排序條件"
 msgstr "Sort condition"
 
-#: .\templates\singers\ranker.html:6 .\templates\singers\ranker.html:52
+#: .\templates\singers\ranker.html:6 .\templates\singers\ranker.html:51
 msgid "歌手排行"
 msgstr "Singer Rank"
 
 #: .\templates\singers\ranker.html:46
 msgid "歌手榜單規則內文"
 msgstr ""
-"<u>Hololive member's ranking by song views</u><br />"
-"<ul class='align-items-start text-start'>"
-"<li>Update : every Sunday</li>"
-"<li>Sort condition : total view、weekly view</li>"
-"<li>Song include : released by channel(Cover、Origin), excluding singing stram."
-"</li>"
-"<li>Song exclude : 13-songs released by <br/>"
-"<a class='link-info' href='{% url 'singers:profile' id=44 %}'>"
-"hololive ホロライブ - VTuber Group</a>"
-"</li></ul> "
+"<u>Hololive member's ranking by song views</u><br /><ul class='align-items-"
+"start text-start'><li>Update : every Sunday</li><li>Sort condition : total "
+"view、weekly view</li><li>Song include : released by channel(Cover、Origin), "
+"excluding singing stram.</li><li>Song exclude : 13-songs released by <br/><a "
+"class='link-info' href='{% url 'singers:profile' id=44 %}'>hololive ホロライ"
+"ブ - VTuber Group</a></li></ul> "
 
-#: .\templates\singers\ranker.html:55 .\templates\songs\ranker.html:60
+#: .\templates\singers\ranker.html:54 .\templates\songs\ranker.html:60
 msgid "榜單規則"
 msgstr "Rank rule"
 
-#: .\templates\singers\ranker.html:68 .\templates\songs\ranker.html:74
+#: .\templates\singers\ranker.html:67 .\templates\songs\ranker.html:74
 msgid "長條比賽圖"
 msgstr "Bar Chart Race"
 
-#: .\templates\singers\ranker.html:73 .\templates\songs\ranker.html:79
+#: .\templates\singers\ranker.html:72 .\templates\songs\ranker.html:79
 msgid "折線比賽圖"
 msgstr "Line Chart Race"
 
-#: .\templates\singers\ranker.html:96 .\templates\singers\ranker.html:123
-#: .\templates\singers\ranker.html:127 .\templates\songs\ranker.html:102
+#: .\templates\singers\ranker.html:95 .\templates\singers\ranker.html:122
+#: .\templates\singers\ranker.html:126 .\templates\songs\ranker.html:102
 #: .\templates\songs\ranker.html:129 .\templates\songs\ranker.html:133
 msgid "週觀看數"
 msgstr "Weekly View"
 
-#: .\templates\singers\ranker.html:120
+#: .\templates\singers\ranker.html:119
 msgid "頻道/姓名"
 msgstr "Channel/Name"
 
@@ -233,11 +271,10 @@ msgstr "Hololive Song Rank"
 #: .\templates\songs\ranker.html:52
 msgid "歌曲榜單規則內文"
 msgstr ""
-"<u>Hololive songs' ranking by song views</u><br/>"
-"<ul class='align-items-start text-start'>"
-"<li>Update：every Sunday</li>"
-"<li>Sort condition : total view / weekly view</li>"
-"<li>Song include : released by channel, not include singing stream</li></ul>"
+"<u>Hololive songs' ranking by song views</u><br/><ul class='align-items-"
+"start text-start'><li>Update：every Sunday</li><li>Sort condition : total "
+"view / weekly view</li><li>Song include : released by channel, not include "
+"singing stream</li></ul>"
 
 #, fuzzy
 #~| msgid "歌手週榜"

@@ -12,6 +12,12 @@
     }
 </style>
 {% endblock %}
+{% trans "網站起源內容" as website_origin %}
+{% trans "資料蒐集內容" as data_collect %}
+{% trans "網站功能內容" as website_function %}
+{% trans "李自傳內容" as Giftli_text %}
+{% trans "聯繫我們內容" as contact_us %}
+{% trans "網站聲明內容" as copyright %}
 
 {% block main %}
 <div class="container">
@@ -25,10 +31,31 @@
                     {% trans "網站起源" %}
                 </h1>
                 <p class="fs-6">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt commodi vero eum eos, asperiores
-                    beatae
-                    maiores possimus animi, accusantium obcaecati labore cum doloribus nesciunt sapiente magni neque qui
-                    libero in.
+                    {{ website_origin }}
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="data_source" class="container text-center py-5">
+        <div class="row">
+            <div class="col-12 shadow p-5 bg-secondary bg-opacity-10">
+                <h1 class="fs-2 fw-bold text-decoration-underline mb-4">
+                    {% trans "資料蒐集" %}
+                </h1>
+                <p class="fs-6">
+                    {{ data_collect }}
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="function" class="container text-center py-5">
+        <div class="row">
+            <div class="col-12 shadow p-5 bg-warning bg-opacity-10">
+                <h1 class="fs-2 fw-bold text-decoration-underline mb-4">
+                    {% trans "網站功能" %}
+                </h1>
+                <p class="fs-6">
+                    {{ website_function }}
                 </p>
             </div>
         </div>
@@ -51,11 +78,9 @@
                             <div class="col-8 text-start my-auto">
                                 <div class="card-body">
                                     <h5 class="card-title fs-4 fw-bold">Giftli</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in to
-                                        additional content. This content is a little bit longer.</p>
+                                    <p class="card-text">{{ Giftli_text }}</p>
                                     <p class="card-text"><small class="text-muted">
-                                            <a class="link-secondary" href="#">
+                                            <a class="link-secondary" href="https://github.com/gift-li" target="_blank">
                                                 <i class="fs-2 bi bi-github"></i>
                                             </a>
                                         </small></p>
@@ -87,6 +112,30 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="container text-center py-5">
+        <div class="row">
+            <div class="col-12 shadow p-5 bg-warning bg-opacity-10">
+                <h1 class="fs-2 fw-bold text-decoration-underline mb-4">
+                    {% trans "聯繫我們" %}
+                </h1>
+                <p class="fs-6">
+                    {{ contact_us }}
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="copyright" class="container text-center py-5">
+        <div class="row">
+            <div class="col-12 shadow p-5 bg-warning bg-opacity-10">
+                <h1 class="fs-2 fw-bold text-decoration-underline mb-4">
+                    {% trans "版權聲明" %}
+                </h1>
+                <p class="fs-6">
+                    {{ copyright }}
+                </p>
             </div>
         </div>
     </section>
