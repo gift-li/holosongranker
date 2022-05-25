@@ -262,8 +262,7 @@ msgstr ""
 "start text-start'><li>Update : every Sunday</li><li>Sort condition : total "
 "view、weekly view</li><li>Song include : released by channel(Cover、Origin), "
 "excluding singing stram.</li><li>Song exclude : 13-songs released by <br/>"
-"<a class='link-info' href='{% url 'singers:profile' id=44 %}'>"
-"hololive ホロライブ - VTuber Group</a></li></ul> "
+"hololive ホロライブ - VTuber Group</li></ul> "
 
 #: .\templates\singers\ranker.html:54 .\templates\songs\ranker.html:60
 msgid "榜單規則"

@@ -252,8 +252,7 @@ msgstr ""
 "<u>Hololive 成員歌曲觀看排行</u><br /><ul class='align-items-start text-"
 "start'><li>更新時間 : 每週日</li><li>排序方式 : 累積觀看數、週觀看數</li><li>"
 "統計歌曲 : 頻道發布歌曲(Cover、原創曲)，不包含歌回</li><li>不列入統計的歌曲 :"
-"<br/><a class='link-info' href='{% url 'singers:profile' id=44 %}'>hololive "
-"ホロライブ - VTuber Group</a>中的13首歌曲。</li></ul> "
+"<br/>hololive ホロライブ - VTuber Group中的13首歌曲。</li></ul> "
 
 #: .\templates\singers\ranker.html:54 .\templates\songs\ranker.html:60
 msgid "榜單規則"
