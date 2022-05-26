@@ -30,4 +30,4 @@ ALLOWED_HOSTS = ['holosongranker.herokuapp.com', '127.0.0.1']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Turn off DEBUG mode.
-DEBUG = False
+DEBUG = True
