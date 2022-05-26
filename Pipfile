@@ -16,6 +16,7 @@ whitenoise = "*"
 dj-database-url = "*"
 gunicorn = "*"
 dj-static = "*"
+django-on-heroku = "*"
 
 [dev-packages]
 autopep8 = "*"
