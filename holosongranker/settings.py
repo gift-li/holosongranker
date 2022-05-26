@@ -163,38 +163,38 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-if DEBUG:
-    import mimetypes
+# if DEBUG:
+#     import mimetypes
 
-    mimetypes.add_type("application/javascript", ".js", True)
+#     mimetypes.add_type("application/javascript", ".js", True)
 
-    INSTALLED_APPS += [
-        'debug_toolbar',
-    ]
+#     INSTALLED_APPS += [
+#         'debug_toolbar',
+#     ]
 
-    MIDDLEWARE += [
-        "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ]
+#     MIDDLEWARE += [
+#         "debug_toolbar.middleware.DebugToolbarMiddleware",
+#     ]
 
-    INTERNAL_IPS = ('127.0.0.1',)
+#     INTERNAL_IPS = ('127.0.0.1',)
 
-    DEBUG_TOOLBAR_PANELS = [
-        'debug_toolbar.panels.versions.VersionsPanel',
-        'debug_toolbar.panels.timer.TimerPanel',
-        'debug_toolbar.panels.settings.SettingsPanel',
-        'debug_toolbar.panels.headers.HeadersPanel',
-        'debug_toolbar.panels.request.RequestPanel',
-        'debug_toolbar.panels.sql.SQLPanel',
-        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-        'debug_toolbar.panels.templates.TemplatesPanel',
-        'debug_toolbar.panels.cache.CachePanel',
-        'debug_toolbar.panels.signals.SignalsPanel',
-        'debug_toolbar.panels.logging.LoggingPanel',
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-    ]
+#     DEBUG_TOOLBAR_PANELS = [
+#         'debug_toolbar.panels.versions.VersionsPanel',
+#         'debug_toolbar.panels.timer.TimerPanel',
+#         'debug_toolbar.panels.settings.SettingsPanel',
+#         'debug_toolbar.panels.headers.HeadersPanel',
+#         'debug_toolbar.panels.request.RequestPanel',
+#         'debug_toolbar.panels.sql.SQLPanel',
+#         'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+#         'debug_toolbar.panels.templates.TemplatesPanel',
+#         'debug_toolbar.panels.cache.CachePanel',
+#         'debug_toolbar.panels.signals.SignalsPanel',
+#         'debug_toolbar.panels.logging.LoggingPanel',
+#         'debug_toolbar.panels.redirects.RedirectsPanel',
+#     ]
 
-    DEBUG_TOOLBAR_CONFIG = {
-        'JQUERY_URL': 'https://code.jquery.com/jquery-3.6.0.min.js"',
-        'SHOW_COLLAPSED': True,
-        'SHOW_TOOLBAR_CALLBACK': lambda x: True,
-    }
+#     DEBUG_TOOLBAR_CONFIG = {
+#         'JQUERY_URL': 'https://code.jquery.com/jquery-3.6.0.min.js"',
+#         'SHOW_COLLAPSED': True,
+#         'SHOW_TOOLBAR_CALLBACK': lambda x: True,
+#     }
