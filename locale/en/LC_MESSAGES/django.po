@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-25 00:24+0800\n"
+"POT-Creation-Date: 2022-05-25 22:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,72 +26,80 @@ msgstr "繁體中文"
 msgid "English"
 msgstr "English"
 
-#: .\templates\about.html:5 .\templates\about.html:25
+#: .\templates\about.html:5 .\templates\about.html:26
 msgid "關於我們"
 msgstr "About Us"
 
-#: .\templates\about.html:15
+#: .\templates\about.html:17
 msgid "網站起源內容"
 msgstr ""
-"Hololive has many outstanding songs and talented singers, and we believe "  "lots of fans curious about the ranking and data of Hololive songs.<br/>"
-"Hence, we build 'Hololive Song Ranker' to show the popularity ranking "
-"of Hololive songs by song views."
-
-#: .\templates\about.html:16
-msgid "資料蒐集內容"
-msgstr ""
-"We use <a href='https://holodex.stoplight.io/' target='_blank'>"
-"HoloDex API</a> to find new song(Cover, Origin Song) weekly on every Sunday"
-", and use YouTube Data API to get cumulative views of all of the Hololive songs."
-
-#: .\templates\about.html:17
-msgid "網站功能內容"
-msgstr ""
-"In HoloSongRanker, you can know:"
-"<ul class='text-start'><li>Who's the best singer in Hololive?</li>"
-"<li>The weekly / total ranking by Hololive songs views</li>"
-"<li>The weekly / total ranking by Hololive members' total songs views</li></ul>"
+"Hololive has many outstanding songs and talented singers, and we believe "
+"lots of fans curious about the ranking and data of Hololive songs.<br/"
+">Hence, we build 'Hololive Song Ranker' to show the popularity ranking of "
+"Hololive songs by song views."
 
 #: .\templates\about.html:18
-msgid "Giftli自傳內容"
-msgstr "A web developer who appreciate the voice of Hololive singers.<br/>"
-"Wish I could call myself a 'competent DD'."
+msgid "資料蒐集內容"
+msgstr ""
+"We use <a href='https://holodex.stoplight.io/' target='_blank'>HoloDex API</"
+"a> to find new song(Cover, Origin Song) weekly on every Sunday, and use "
+"YouTube Data API to get cumulative views of all of the Hololive songs."
 
 #: .\templates\about.html:19
-msgid "聯繫我們內容"
+msgid "網站功能內容"
 msgstr ""
-"If you find missing song, bug or give us feedback, please don't "
-"hesitate to contact us or report errors by Twitter.<br/>"
-"Twitter：<a href='https://twitter.com/holosongranker' target='_blank'>"
-"https://twitter.com/holosongranker</a>"
+"In HoloSongRanker, you can know:<ul class='text-start'><li>Who's the best "
+"singer in Hololive?</li><li>The weekly / total ranking by Hololive songs "
+"views</li><li>The weekly / total ranking by Hololive members' total songs "
+"views</li></ul>"
 
 #: .\templates\about.html:20
+msgid "Giftli自傳內容"
+msgstr ""
+"A web developer who appreciate the voice of Hololive singers.<br/>Wish I "
+"could call myself a 'competent DD'."
+
+#: .\templates\about.html:21
+msgid "Cobra自傳內容"
+msgstr ""
+"A software engineer who likes anime.<br/>"
+"Enjoy making games in my free time."
+
+#: .\templates\about.html:22
+msgid "聯繫我們內容"
+msgstr ""
+"If you find missing song, bug or give us feedback, please don't hesitate to "
+"contact us or report errors by Twitter.<br/>Twitter：<a href='https://"
+"twitter.com/holosongranker' target='_blank'>https://twitter.com/"
+"holosongranker</a>"
+
+#: .\templates\about.html:23
 msgid "網站聲明內容"
 msgstr ""
-"HoloSongRanker is fan-made. All content's copyrights(included but "
-"not limited to songs, Vtubers' information, etc.) belong to COVER Corp."
+"HoloSongRanker is fan-made. All content's copyrights(included but not "
+"limited to songs, Vtubers' information, etc.) belong to COVER Corp."
 
-#: .\templates\about.html:31
+#: .\templates\about.html:32
 msgid "網站起源"
 msgstr "The Origin of HoloSongRanker"
 
-#: .\templates\about.html:43
+#: .\templates\about.html:46
 msgid "資料蒐集"
 msgstr "How We Collect Data"
 
-#: .\templates\about.html:55
+#: .\templates\about.html:60
 msgid "網站功能"
 msgstr "Website Features"
 
-#: .\templates\about.html:67
+#: .\templates\about.html:74
 msgid "關於開發人員"
 msgstr "About Developers"
 
-#: .\templates\about.html:122
+#: .\templates\about.html:140
 msgid "聯繫我們"
 msgstr "Contact Us"
 
-#: .\templates\about.html:134
+#: .\templates\about.html:154
 msgid "版權聲明"
 msgstr "About Copyrights"
 
@@ -253,9 +261,8 @@ msgstr ""
 "<u>Hololive member's ranking by song views</u><br /><ul class='align-items-"
 "start text-start'><li>Update : every Sunday</li><li>Sort condition : total "
 "view、weekly view</li><li>Song include : released by channel(Cover、Origin), "
-"excluding singing stram.</li><li>Song exclude : 13-songs released by <br/><a "
-"class='link-info' href='{% url 'singers:profile' id=44 %}'>hololive ホロライ"
-"ブ - VTuber Group</a></li></ul> "
+"excluding singing stram.</li><li>Song exclude : 13-songs released by <br/>"
+"hololive ホロライブ - VTuber Group</li></ul> "
 
 #: .\templates\singers\ranker.html:54 .\templates\songs\ranker.html:60
 msgid "榜單規則"

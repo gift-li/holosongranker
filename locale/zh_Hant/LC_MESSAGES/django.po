@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-25 00:25+0800\n"
+"POT-Creation-Date: 2022-05-25 22:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,66 +26,71 @@ msgstr "繁體中文"
 msgid "English"
 msgstr "English"
 
-#: .\templates\about.html:5 .\templates\about.html:25
+#: .\templates\about.html:5 .\templates\about.html:26
 msgid "關於我們"
 msgstr "關於我們"
 
-#: .\templates\about.html:15
+#: .\templates\about.html:17
 msgid "網站起源內容"
 msgstr ""
-"Hololive 有許多出色的歌曲與歌手，我們相信很多粉絲很好奇Hololive歌曲的排名與數據。<br/>"
-"因此，我們製作'Hololive Song Ranker'網站，藉由歌曲觀看數來呈現Hololive歌曲的人氣排名"
-
-#: .\templates\about.html:16
-msgid "資料蒐集內容"
-msgstr ""
-"我們每周日透過<a href='https://holodex.stoplight.io/' target='_blank'>"
-"HoloDex API</a>找出當周新歌曲(Cover, Origin Song)，"
-"並以YouTube Data API取得Hololive所有歌曲的累積觀看數。"
-
-#: .\templates\about.html:17
-msgid "網站功能內容"
-msgstr ""
-"在這個網站，你可以知道："
-"<ul class='text-start'><li>誰是Hololive最強的歌手?</li>"
-"<li>Hololive歌曲觀看數的周榜、總榜</li>"
-"<li>Hololive成員的歌曲總觀看數周榜、總榜</li></ul>"
+"Hololive 有許多出色的歌曲與歌手，我們相信很多粉絲很好奇Hololive歌曲的排名與數"
+"據。<br/>因此，我們製作'Hololive Song Ranker'網站，藉由歌曲觀看數來呈現"
+"Hololive歌曲的人氣排名"
 
 #: .\templates\about.html:18
+msgid "資料蒐集內容"
+msgstr ""
+"我們每周日透過<a href='https://holodex.stoplight.io/' "
+"target='_blank'>HoloDex API</a>找出當周新歌曲(Cover, Origin Song)，並以"
+"YouTube Data API取得Hololive所有歌曲的累積觀看數。"
+
+#: .\templates\about.html:19
+msgid "網站功能內容"
+msgstr ""
+"在這個網站，你可以知道：<ul class='text-start'><li>誰是Hololive最強的歌手?</"
+"li><li>Hololive歌曲觀看數的周榜、總榜</li><li>Hololive成員的歌曲總觀看數周"
+"榜、總榜</li></ul>"
+
+#: .\templates\about.html:20
 msgid "Giftli自傳內容"
 msgstr "欣賞Hololive歌手歌聲的網站工程師，希望我能自稱為'稱職的DD'。"
 
-#: .\templates\about.html:19
-msgid "聯繫我們內容"
-msgstr "如果發現我們有什麼缺漏的歌曲、Bug或是意見回饋，都可以透過Twitter告知或連繫我們。<br/>"
-"Twitter：<a href='https://twitter.com/holosongranker' target='_blank'>"
-"https://twitter.com/holosongranker</a>"
+#: .\templates\about.html:21
+msgid "Cobra自傳內容"
+msgstr "喜歡動漫的工程師，空閒時間會做一些小遊戲。"
 
-#: .\templates\about.html:20
+#: .\templates\about.html:22
+msgid "聯繫我們內容"
+msgstr ""
+"如果發現我們有什麼缺漏的歌曲、Bug或是意見回饋，都可以透過Twitter告知或連繫我"
+"們。<br/>Twitter：<a href='https://twitter.com/holosongranker' "
+"target='_blank'>https://twitter.com/holosongranker</a>"
+
+#: .\templates\about.html:23
 msgid "網站聲明內容"
 msgstr "本站為粉絲創作，所有出現的內容版權皆由COVER株式會社所有。"
 
-#: .\templates\about.html:31
+#: .\templates\about.html:32
 msgid "網站起源"
 msgstr "網站起源"
 
-#: .\templates\about.html:43
+#: .\templates\about.html:46
 msgid "資料蒐集"
 msgstr "資料蒐集"
 
-#: .\templates\about.html:55
+#: .\templates\about.html:60
 msgid "網站功能"
 msgstr "網站功能"
 
-#: .\templates\about.html:67
+#: .\templates\about.html:74
 msgid "關於開發人員"
 msgstr "關於開發人員"
 
-#: .\templates\about.html:122
+#: .\templates\about.html:140
 msgid "聯繫我們"
 msgstr "聯繫我們"
 
-#: .\templates\about.html:134
+#: .\templates\about.html:154
 msgid "版權聲明"
 msgstr "版權聲明"
 
@@ -247,8 +252,7 @@ msgstr ""
 "<u>Hololive 成員歌曲觀看排行</u><br /><ul class='align-items-start text-"
 "start'><li>更新時間 : 每週日</li><li>排序方式 : 累積觀看數、週觀看數</li><li>"
 "統計歌曲 : 頻道發布歌曲(Cover、原創曲)，不包含歌回</li><li>不列入統計的歌曲 :"
-"<br/><a class='link-info' href='{% url 'singers:profile' id=44 %}'>hololive "
-"ホロライブ - VTuber Group</a>中的13首歌曲。</li></ul> "
+"<br/>hololive ホロライブ - VTuber Group中的13首歌曲。</li></ul> "
 
 #: .\templates\singers\ranker.html:54 .\templates\songs\ranker.html:60
 msgid "榜單規則"
