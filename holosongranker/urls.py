@@ -32,11 +32,11 @@ urlpatterns += i18n_patterns(
     path('singers/', include('singers.urls', namespace='singers')),
 )
 
-if settings.DEBUG:
-    import debug_toolbar
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
-    urlpatterns += [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ]
+# if settings.DEBUG:
+#     import debug_toolbar
+#     DEBUG_TOOLBAR_CONFIG = {
+#         'INTERCEPT_REDIRECTS': False,
+#     }
+#     urlpatterns += [
+#         path('__debug__/', include(debug_toolbar.urls)),
+#     ]
