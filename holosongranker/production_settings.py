@@ -23,11 +23,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers.
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['holosongranker.herokuapp.com', '127.0.0.1']
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Turn off DEBUG mode.
-DEBUG = False
+DEBUG = True
