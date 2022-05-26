@@ -12,6 +12,10 @@ django-pandas = "*"
 gspread = "*"
 oauth2client = "*"
 tweepy = "*"
+whitenoise = "*"
+dj-database-url = "*"
+gunicorn = "*"
+dj-static = "*"
 
 [dev-packages]
 autopep8 = "*"

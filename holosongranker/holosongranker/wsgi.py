@@ -11,10 +11,11 @@ import os
 from django.conf import settings
 from django.contrib.staticfiles.handlers import StaticFilesHandler
 from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'holosongranker.settings')
 
 if settings.DEBUG:
     application = StaticFilesHandler(get_wsgi_application())
 else:
-    application = get_wsgi_application()
+    application = Cling(get_wsgi_application())
