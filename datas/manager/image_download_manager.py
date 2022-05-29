@@ -5,7 +5,7 @@ from unicodedata import name
 
 import datas.manager.youtube_api as y_api
 import pandas as pd
-from datas.models import  Song
+from datas.models import  Song, Vtuber
 import datas.manager.google_sheet_manager as google_sheet_manager
 import urllib.request
 
@@ -13,7 +13,7 @@ import urllib.request
 # 抓取圖片方法
 class ImageDownloader:
     # 抓取Vtuber頻道縮圖、封面
-    def download_vtuber_image():
+    def download_vtuber_image(self):
         youtube = y_api.set_api_key(2) # 使用分帳
 
         # vtuber_df = pd.read_csv('./datas/csv/vtuber.csv') 
@@ -38,6 +38,10 @@ class ImageDownloader:
             thumbnails_file_name = thumbnails_path + channel_id + '.png'
             urllib.request.urlretrieve(thumbnails_url, thumbnails_file_name)
 
+            # 更新資料庫縮圖連結
+            vtuber = Vtuber.objects.filter(youtube_id = channel_id)[0]
+            vtuber.thumbnail_url = thumbnails_url
+
             # 頻道封面
             try:
                 banners_url = response['items'][0]['brandingSettings']['image']['bannerExternalUrl']
@@ -49,11 +53,13 @@ class ImageDownloader:
                 banners_file_name = banners_path + channel_id + '.png'
                 print(banners_yt3_url)
                 urllib.request.urlretrieve(banners_yt3_url, banners_file_name)
+
+
             except:
                 print('No Banner: ' + vtuber_df['Chanel Name'][i])
             
     # 抓取Vtuber歌曲縮圖
-    def download_songs_image():
+    def download_songs_image(self):
         thumbnails_path = 'static/img/song_thumbnails/'
         songs = Song.objects.all()
         except_ids = []
@@ -73,4 +79,11 @@ class ImageDownloader:
 
         print(except_ids)
 
-
+    def download_song_image(self, id):
+        url =  'https://i.ytimg.com/vi/' + id  + '/sddefault.jpg'
+        thumbnails_path = 'static/img/song_thumbnails/'
+        thumbnails_file_name = thumbnails_path + id  + '.png'
+        try:
+            urllib.request.urlretrieve(url, thumbnails_file_name)
+        except:
+            print('{}縮圖下載失敗'.format(url))

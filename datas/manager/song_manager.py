@@ -199,7 +199,7 @@ class GraphDataCreater:
         df_ranks = pd.DataFrame(columns = df.columns)
 
         for date in dates:
-            top10_df = df.sort_values(by=[str(date)], ascending=False)[:5]
+            top10_df = df.sort_values(by=[str(date)], ascending=False)[:10]
             df_ranks = pd.concat([df_ranks,top10_df],axis=0)
 
         df_ranks = df_ranks.drop_duplicates()
