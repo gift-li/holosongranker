@@ -10,7 +10,7 @@ from datas.models import Group, Record, Vtuber, Song, VtuberRecord
 def weekly_work():
     
     # 1.去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-5-29'
+    this_date = '2022-06-05'
 
     
 
@@ -28,7 +28,7 @@ def weekly_work():
 
     # 2.5. 更新VT頭像、頻道縮圖
     # imgdownloader = ImageDownloader()
-    # 抓取Vtuber頻道縮圖、封面
+    # # 抓取Vtuber頻道縮圖、封面
     # imgdownloader.download_vtuber_image()
     # # 抓取Vtuber歌曲縮圖
     # imgdownloader.download_songs_image()
@@ -48,7 +48,15 @@ def weekly_work():
     # gc.get_vtubers_for_line_chart(dates)
 
     # 4. 備份資料
-    # backup_manager.backup_all()
+    backup_manager.backup_all()
     
+    
+    # 5.輸出sql檔案
 
-    # 6.輸出sql檔案
+    # 2. 每月
+    # 1.抓取Top1連結
+    # gc = GraphDataCreater()
+    # dates = Record.get_date_list()['date'][:5].tolist()[::-1]
+    # print(dates)
+    # gc.get_top1_songs(dates)
+
