@@ -25,7 +25,7 @@ def Ranker(request):
     date_select_list = VtuberRecord.get_date_list()['date'].tolist()
 
     # 取得搜尋條件
-    order_query, date_query = get_records_search_query(request, VtuberRecord)
+    order_query, date_query = get_search_query(request, VtuberRecord)
 
     # 取得資料
     records = get_records_list(
@@ -40,6 +40,8 @@ def Ranker(request):
         'records': records,
         'date_select_list': date_select_list,
         'page_range': page_range,
+        'old_date_query': date_query,
+        'old_order_query': order_query,
     }
 
     return render(request, template, context)
@@ -141,7 +143,7 @@ def Profile(request, id):
     top3_songs = total_records[:3]
 
     # 取得搜尋條件
-    order_query, date_query = get_records_search_query(request, Record)
+    order_query, date_query = get_search_query(request, Record)
 
     # 取得資料
     song_records = get_song_records_list(
@@ -167,53 +169,24 @@ def Profile(request, id):
     return render(request, template, context)
 
 
-def get_records_search_query(request, type):
-    order_query = ''
+def get_search_query(request, type):
+    if request.method == 'GET':
+        order_query = request.GET.get('view_select')
+        date_query = request.GET.get('date_select')
 
-    if type == VtuberRecord:
-        order_query = 'weekly_view'
-        date_query = VtuberRecord.get_lastest_record_date()
-        trans_date = datetime.strftime(date_query, "%Y-%m-%d")
+        if order_query is None:
+            order_query = 'weekly_view'
+        if date_query is None:
+            if type == VtuberRecord:
+                latest_date = VtuberRecord.get_lastest_record_date()
+            else:
+                latest_date = Record.get_lastest_record_date()
+            date_query = datetime.strftime(latest_date, "%Y-%m-%d")
 
-        if request.method == 'GET':
-            # * 沒快取: 設定為"周觀看"+"最新日期"
-            if 'singers_view_select' not in request.session \
-                    or 'singers_date_select' not in request.session:
-                request.session['singers_view_select'] = order_query
-                request.session['singers_date_select'] = trans_date
-
-        if request.method == 'POST':
-            # * 取得POST的搜尋條件
-            request.session['singers_view_select'] = request.POST.get(
-                'view_select')
-            request.session['singers_date_select'] = request.POST.get(
-                'date_select')
-
-        # * 用Session賦值
-        order_query = request.session['singers_view_select']
-        date_query = request.session['singers_date_select']
-
-    else:
-        order_query = 'weekly_view'
-        date_query = Record.get_lastest_record_date()
-        trans_date = datetime.strftime(date_query, "%Y-%m-%d")
-
-        if request.method == 'GET':
-            # * 沒快取: 設定為"周觀看"+"最新日期"
-            if 'profile_view_select' not in request.session:
-                request.session['profile_view_select'] = order_query
-                request.session['profile_data_select'] = trans_date
-
-        if request.method == 'POST':
-            # * 取得POST的搜尋條件
-            request.session['profile_view_select'] = request.POST.get(
-                'view_select')
-            request.session['profile_data_select'] = request.POST.get(
-                'date_select')
-
-        # * 用Session賦值
-        order_query = request.session['profile_view_select']
-        date_query = request.session['profile_data_select']
+    if request.method == 'POST':
+        # * POST: 更新order_query和date_query
+        order_query = request.POST.get('view_select')
+        date_query = request.POST.get('date_select')
 
     return order_query, date_query
 
@@ -235,7 +208,7 @@ def get_records_page(request, data, default_page=1, on_each_side=2, on_ends=3):
 
 def get_records_list(date_query, order_query, exclude_group, order_by='DSC'):
     # * 預設日期: 最新更新日期
-    if (date_query == None):
+    if date_query is None:
         date_query = VtuberRecord.get_lastest_record_date()
     # * 順序: 正號 / 逆序: 負號
     if order_by == 'DSC':

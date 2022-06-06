@@ -9,7 +9,7 @@
 <script type="text/javascript" src="{% static 'js/tooltip.js' %}"></script>
 <script>
     $(document).ready(function () {
-        if ("{{request.session.singers_view_select}}" == "total_view") {
+        if ("{{old_order_query}}" == "total_view") {
             $("#date_select").hide();
         } else {
             $("#date_select").show();
@@ -54,7 +54,7 @@
                 {% trans "榜單規則" %} <i class="bi bi-info-circle"></i>
             </button>
 
-            
+
         </h1>
         <div class="col mb-3">
             <ul class="nav nav-pills nav-fill pe-0 pt-3 pt-lg-0" id="pills-tab" role="tablist">
@@ -91,22 +91,21 @@
                         </span>
                         <div class="col-auto me-1">
                             <select id="view_select" name="view_select" class="form-select form-control">
-                                <option {% if request.session.singers_view_select == "weekly_view" %} selected
-                                    {% elif request.session.singers_view_select == "total_view" %} {% else %} selected
-                                    {% endif %} value="weekly_view">
+                                <option {% if old_order_query == 'total_view' %} {% else %} selected {% endif %}
+                                    value="weekly_view">
                                     {% trans "週觀看數" %}
                                 </option>
-                                <option {% if request.session.singers_view_select == "total_view" %} selected
-                                    {% endif %} value="total_view">
-                                    {% trans "累積觀看數" %}</option>
+                                <option {% if old_order_query == 'total_view' %} selected {% endif %}
+                                    value="total_view">
+                                    {% trans "累積觀看數" %}
+                                </option>
                             </select>
                         </div>
                         <div class="col-auto">
                             <select id="date_select" name="date_select" class="form-select form-control">
                                 {% for date in date_select_list %}
-                                {{ request.session.singers_date_select }}
-                                <option {% if request.session.singers_date_select == date|date:"Y-m-d" %} selected
-                                    {% endif %} value="{{date|date:"Y-m-d"}}">
+                                <option {% if old_date_query == date|date:"Y-m-d" %} selected {% endif %}
+                                    value="{{date|date:"Y-m-d"}}">
                                     {{date|date:"Y-m-d"}}</option>
                                 {% endfor %}
                             </select>
@@ -114,76 +113,7 @@
                     </form>
                 </div>
                 <div class="table-responsive mb-3">
-                    <table class="table table-hover align-middle justify-content-between">
-                        <thead class="border-bottom">
-                            <tr>
-                                <th class="col-auto text-center" scope="col">{% trans "排名" %}</th>
-                                <th class="col-auto text-center" scope="col" colspan="2">{% trans "頻道/姓名" %}</th>
-                                <th class="col-auto d-none d-md-table-cell text-center" scope="col">
-                                    {% if request.session.singers_view_select == 'weekly_view' %}
-                                    {% trans "週觀看數" %}
-                                    {% elif  request.session.singers_view_select == 'total_view' %}
-                                    {% trans "累積觀看數" %}
-                                    {% else %}
-                                    {% trans "週觀看數" %}
-                                    {% endif %}
-                                </th>
-                                <th class="col-auto d-none d-xl-table-cell text-center" scope="col">{% trans "歌曲數量" %}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for record in records %}
-                            <tr id="row_{{forloop.counter}}">
-                                <th class="text-center" scope="row">
-                                    <!--排名-->
-                                    <span class="fs-3">
-                                        {% widthratio records.number 1 10 as counter %}#{{ counter|add:"-10"|add:forloop.counter }}
-                                    </span>
-                                </th>
-                                <td class="text-center">
-                                    <!--頻道-->
-                                    <a class="link-dark" href="{% url 'singers:profile' id=record.vtuber.id %}">
-                                        <img class="img-vtuber img-fluid shadow border border-1 rounded-circle my-auto"
-                                            src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
-                                            alt="頻道縮圖">
-                                    </a>
-                                </td>
-                                <td>
-                                    <!--姓名-->
-                                    <p class="fs-4 truncate-1 mb-1">
-                                        {{record.vtuber.name}}
-                                    </p>
-                                    <div class="text-success">
-                                        <i class="bi bi-tag"></i>
-                                        {% for group in record.vtuber.vtuber_groups.values %}
-                                        <span class="text-decoration-underline">
-                                            {{group.unit}}{% if not forloop.last %} / {% endif %}
-                                        </span>
-                                        {% endfor %}
-                                    </div>
-                                </td>
-                                <td class="d-none d-md-table-cell text-center">
-                                    <span class="fs-5 text-primary">
-                                        {% if request.session.singers_view_select == 'total_view' %}
-                                        {{ record.total_view|intcomma }}
-                                        {% elif request.session.singers_view_select == 'weekly_view' %}
-                                        {{ record.weekly_view|intcomma }}
-                                        {% else %}
-                                        {{ record.weekly_view|intcomma }}
-                                        {% endif %}
-                                    </span>
-                                </td>
-                                <td class="d-none d-xl-table-cell text-center">
-                                    <!--歌曲數量-->
-                                    <span class="fs-5 text-info">
-                                        {{record.song_count|intcomma}}
-                                    </span>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    {% include 'partials/singer_table.html' with records=records                    old_order_query=old_order_query %}
                 </div>
                 <div class="col">
                     {% include 'partials/pagination.html' with page_obj=records %}

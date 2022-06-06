@@ -175,7 +175,7 @@
                                             </span>
                                         </td>
                                         <td class="d-none d-lg-table-cell text-center">
-                                            <div id="carousel_vtuber_{{forloop.counter}}"
+                                            <div id="carousel_overview_{{forloop.counter}}"
                                                 class="carousel carousel-dark slide" data-bs-ride="carousel">
                                                 <div class="carousel-inner">
                                                     {% for vtuber in record.song.singer.values %}
@@ -194,15 +194,15 @@
                                                     </div>
                                                     {% endfor %}
                                                 </div>
-                                                {% if record.song.singer.values.count != 1 %}
+                                                {% if record.song.singer.values.count > 1 %}
                                                 <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#carousel_vtuber_{{forloop.counter}}"
+                                                    data-bs-target="#carousel_overview_{{forloop.counter}}"
                                                     data-bs-slide="prev">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">{% trans "前一位" %}</span>
                                                 </button>
                                                 <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#carousel_vtuber_{{forloop.counter}}"
+                                                    data-bs-target="#carousel_overview_{{forloop.counter}}"
                                                     data-bs-slide="next">
                                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">{% trans "後一位" %}</span>
