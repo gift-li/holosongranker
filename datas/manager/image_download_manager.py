@@ -41,7 +41,7 @@ class ImageDownloader:
             # 更新資料庫縮圖連結
             vtuber = Vtuber.objects.filter(youtube_id = channel_id)[0]
             vtuber.thumbnail_url = thumbnails_url
-
+            vtuber.save()
             # 頻道封面
             try:
                 banners_url = response['items'][0]['brandingSettings']['image']['bannerExternalUrl']
@@ -51,7 +51,7 @@ class ImageDownloader:
                 banners_yt3_url = 'https://yt3.ggpht.com/' + banners_id + '=w2560-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj'
 
                 banners_file_name = banners_path + channel_id + '.png'
-                print(banners_yt3_url)
+                # print(banners_yt3_url)
                 urllib.request.urlretrieve(banners_yt3_url, banners_file_name)
 
 
