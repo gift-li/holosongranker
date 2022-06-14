@@ -190,7 +190,6 @@ class GraphDataCreater:
             urls.append(url)
             print('{} : {}'.format(name, url))
 
-            
 
     # 歌曲比賽直線圖
     def get_songs_for_line_chart(self, dates):
@@ -247,6 +246,60 @@ class GraphDataCreater:
         file_name = "datas/csv/race_chart/vtubers_line.csv"
         df_ranks.to_csv(file_name )
 
+    # 歌曲在某區間(月)的觀看數總和
+    def get_songs_sum(self, dates):
+        columns = ['title' , 'thumbnail_url']
+        videos_df = pd.DataFrame(columns = columns)
+
+        for i in range(len(dates)):
+            date = dates[i]
+            print(date)
+            records = Record.objects.filter(date=date) \
+                .prefetch_related('song', 'song__title', 'song__thumbnail_url')
+            
+            df = pd.DataFrame(list(records.values('song__name', 'song__thumbnail_url','weekly_view')))
+            # df[date] = df['weekly_view']
+            # df[date] = df['weekly_view']
+            df.columns = ['title', 'thumbnail_url', date]
+            # 先用笨一點的方式
+            videos_df = pd.merge(videos_df, df, how="outer")
+
+        videos_df = videos_df.fillna(0)
+
+        videos_df ['sum'] = videos_df[dates].sum(axis=1)
+
+        # print(videos_df['sum'])
+
+        videos_df = videos_df[['title' , 'thumbnail_url', 'sum']]
+
+        file_name = "datas/csv/race_chart/songs_sum.csv"
+        videos_df.to_csv(file_name )
+
+    # 歌手在某區間(月)的觀看數總和
+    def get_vtubers_sum(self,dates):
+        columns = ['title' , 'thumbnail_url']
+        videos_df = pd.DataFrame(columns = columns)
+
+        for i in range(len(dates)):
+            date = dates[i]
+            records = VtuberRecord.objects.filter(date=date) \
+                .prefetch_related('vtuber', 'vtuber__name', 'vtuber__thumbnail_url')
+            
+            df = pd.DataFrame(list(records.values('vtuber__name', 'vtuber__thumbnail_url','weekly_view')))
+  
+            df.columns = ['title', 'thumbnail_url', date]
+            # 先用笨一點的方式
+            videos_df = pd.merge(videos_df, df, how="outer")
+
+        videos_df = videos_df.fillna(0)
+        videos_df = videos_df[videos_df['title'] != 'hololive ホロライブ - VTuber Group']
+
+
+        videos_df ['sum'] = videos_df[dates].sum(axis=1)
+        videos_df = videos_df[['title' , 'thumbnail_url', 'sum']]
+
+        file_name = "datas/csv/race_chart/vtubers_sum.csv"
+        videos_df.to_csv(file_name )
 
 
 
