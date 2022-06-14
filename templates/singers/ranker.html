@@ -9,7 +9,7 @@
 <script type="text/javascript" src="{% static 'js/tooltip.js' %}"></script>
 <script>
     $(document).ready(function () {
-        if ("{{old_order_query}}" == "total_view") {
+        if ("{{request.session.singers_view_select}}" == "total_view") {
             $("#date_select").hide();
         } else {
             $("#date_select").show();
@@ -91,12 +91,13 @@
                         </span>
                         <div class="col-auto me-1">
                             <select id="view_select" name="view_select" class="form-select form-control">
-                                <option {% if old_order_query == 'total_view' %} {% else %} selected {% endif %}
-                                    value="weekly_view">
+                                <option {% if request.session.singers_view_select == "weekly_view" %}selected
+                                    {% elif request.session.singers_view_select == "total_view" %} {% else %} selected
+                                    {% endif %} value="weekly_view">
                                     {% trans "週觀看數" %}
                                 </option>
-                                <option {% if old_order_query == 'total_view' %} selected {% endif %}
-                                    value="total_view">
+                                <option {% if request.session.singers_view_select == "total_view" %} selected
+                                    {% endif %} value="total_view">
                                     {% trans "累積觀看數" %}
                                 </option>
                             </select>
@@ -104,7 +105,8 @@
                         <div class="col-auto">
                             <select id="date_select" name="date_select" class="form-select form-control">
                                 {% for date in date_select_list %}
-                                <option {% if old_date_query == date|date:"Y-m-d" %} selected {% endif %}
+                                <option
+                                    {% if forloop.first or request.session.singers_date_select == date|date:"Y-m-d" %}selected{% endif %}
                                     value="{{date|date:"Y-m-d"}}">
                                     {{date|date:"Y-m-d"}}</option>
                                 {% endfor %}

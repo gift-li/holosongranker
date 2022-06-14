@@ -110,9 +110,9 @@
                             <select id="date_select" name="date_select" class="form-select form-control">
                                 {% for date in date_select_list %}
                                 <option
-                                    {% if forloop.first or request.session.songs_date_select == date|date:"Y/m/d" %}selected{% endif %}
-                                    value="{{date|date:"Y/m/d"}}">
-                                    {{date|date:"Y/m/d"}}</option>
+                                    {% if forloop.first or request.session.songs_date_select == date|date:"Y-m-d" %}selected{% endif %}
+                                    value="{{date|date:"Y-m-d"}}">
+                                    {{date|date:"Y-m-d"}}</option>
                                 {% endfor %}
                             </select>
                         </div>

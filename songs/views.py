@@ -48,7 +48,7 @@ def get_records_search_query(request):
         if 'songs_view_select' not in request.session:
             request.session['songs_view_select'] = order_query
             request.session['songs_date_select'] = datetime.strftime(
-                date_query, "%Y/%m/%d")
+                date_query, "%Y-%m-%d")
 
     if request.method == 'POST':
         # * 取得POST的搜尋條件
@@ -60,7 +60,7 @@ def get_records_search_query(request):
     # * 用Session賦值
     order_query = request.session['songs_view_select']
     date_query = datetime.strptime(
-        request.session['songs_date_select'], "%Y/%m/%d").date()
+        request.session['songs_date_select'], "%Y-%m-%d").date()
 
     return order_query, date_query
 

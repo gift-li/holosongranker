@@ -249,16 +249,16 @@
                                     <select id="date_select" name="date_select" class="form-select form-control">
                                         {% for date in date_select_list %}
                                         <option
-                                            {% if forloop.first or request.session.profile_date_select == date|date:"Y/m/d" %}selected{% endif %}
-                                            value="{{date|date:"Y/m/d"}}">
-                                            {{date|date:"Y/m/d"}}</option>
+                                            {% if forloop.first or request.session.profile_date_select == date|date:"Y-m-d" %}selected{% endif %}
+                                            value="{{date|date:"Y-m-d"}}">
+                                            {{date|date:"Y-m-d"}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                             </form>
                         </div>
                         <div class="table-responsive">
-                            {% include 'partials/song_table.html' with song_records=song_records date_select_list=date_select_list %}
+                            {% include 'partials/profile_table.html' with song_records=song_records date_select_list=date_select_list %}
                         </div>
                     </section>
                     <div class="col">

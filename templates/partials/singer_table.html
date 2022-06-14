@@ -7,9 +7,9 @@
             <th class="col-auto text-center" scope="col">{% trans "排名" %}</th>
             <th class="col-auto text-center" scope="col" colspan="2">{% trans "頻道/姓名" %}</th>
             <th class="col-auto d-none d-md-table-cell text-center" scope="col">
-                {% if old_order_query == 'weekly_view' %}
+                {% if request.session.singers_view_select == 'weekly_view' %}
                 {% trans "週觀看數" %}
-                {% elif  old_order_query == 'total_view' %}
+                {% elif request.session.singers_view_select == 'total_view' %}
                 {% trans "累積觀看數" %}
                 {% else %}
                 {% trans "週觀看數" %}
@@ -51,9 +51,9 @@
             </td>
             <td class="d-none d-md-table-cell text-center">
                 <span class="fs-5 text-primary">
-                    {% if old_order_query == 'total_view' %}
+                    {% if request.session.singers_view_select == 'total_view' %}
                     {{ record.total_view|intcomma }}
-                    {% elif old_order_queryt == 'weekly_view' %}
+                    {% elif request.session.singers_view_select == 'weekly_view' %}
                     {{ record.weekly_view|intcomma }}
                     {% else %}
                     {{ record.weekly_view|intcomma }}
