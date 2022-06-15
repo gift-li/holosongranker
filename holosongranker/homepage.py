@@ -4,7 +4,7 @@ from django.utils.translation import (
     get_language, activate, gettext
 )
 from datas.models import *
-from pprint import pp
+# from pprint import pp
 
 
 def About(request):

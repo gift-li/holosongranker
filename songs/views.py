@@ -7,7 +7,7 @@ from django.core.paginator import (
     EmptyPage,
     PageNotAnInteger,
 )
-from pprint import pp
+# from pprint import pp
 
 
 @require_http_methods(['GET', 'POST'])

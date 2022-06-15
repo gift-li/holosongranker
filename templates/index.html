@@ -49,15 +49,15 @@
         </h1>
         <a class="btn btn-primary fw-bold fs-5" href="{% url 'about' %}">{% trans "了解更多" %}</a>
     </section>
-    <section id="song_rank" class="container-fluid text-center justify-content-center bg-primary bg-opacity-10 p-5">
+    <section id="song_rank"
+        class="container-fluid text-center justify-content-center bg-primary bg-opacity-10 py-5 px-1 px-md-2 px-lg-3 px-xl-5">
         <div class="row mx-3 mx-md-5 justify-content-center">
             <div class="col-12 border border-1 border-dark py-3 mb-3">
                 <h2 class="fs-3 fw-bold m-0">
-                    {% comment %}Translators: View verb{% endcomment %}
                     {% trans "歌曲週榜" %}
                 </h2>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 g-md-3 gx-xl-5 mb-3 mt-lg-2">
+            <div class="row row-cols-2 row-cols-lg-3 g-2 g-md-3 gx-xl-5 mb-3 mt-lg-2">
                 {% for record in songrank %}
                 <div class="col">
                     <div class="card rounded-3 h-100">
@@ -98,14 +98,15 @@
                         {% trans "統計時間:" %}
                         {{record_date.song|date:"Y/m/d"|naturaltime}}
                     </p>
-                    <a class="link btn btn-outline-primary float-end" href="{% url 'songs:ranker' %}">{% trans "查看完整榜單" %}
+                    <a class="link btn btn-outline-primary float-end"
+                        href="{% url 'songs:ranker' %}">{% trans "查看完整榜單" %}
                     </a>
                 </div>
             </div>
         </div>
     </section>
-    <section id="singer_rank"
-        class="container-fluid text-center justify-content-center bg-info bg-gradient bg-opacity-10 p-5">
+    <section id="singer_rank" class="container-fluid text-center justify-content-center bg-info bg-gradient bg-opacity-10 py-5 px-1 px-md-2
+        px-lg-3 px-xl-5">
         <div class="row mx-3 mx-md-5 justify-content-center mt-3">
             <div class="col-12 border border-1 border-dark py-3 mb-3">
                 <h2 class="fs-3 fw-bold m-0">

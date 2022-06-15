@@ -2,3 +2,5 @@
 __pycache__
 staticfiles
 db.sqlite3
+secret_key.txt
+sql_pwd.txt

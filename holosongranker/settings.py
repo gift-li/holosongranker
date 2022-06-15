@@ -27,10 +27,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+with open(os.path.join(BASE_DIR, 'sql_pwd.txt')) as f:
+    SQL_PWD = f.read().strip()
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ["holosongranker.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -87,22 +90,34 @@ WSGI_APPLICATION = "holosongranker.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-    # ? Mysql setting
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        'NAME': 'holosongranker',  # 資料庫名字
-        'USER': "root",  # mysql 使用者名稱稱
-        'PASSWORD': '',  # 資料庫的密碼
-        'HOST': "127.0.0.1",  # 資料庫服務地址， 這裡我們是測試開發 填本地地址
-        'PORT': 3306,   # mysql 對應的埠號
-        'default-character-set': "UTF8",  # 設定編碼規則 utf8
+if os.getenv('GAE_APPLICATION', None):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'ranker-db',
+            'HOST': '/cloudsql/holosongranker-353313:asia-east1:ranker-db',
+            'USER': 'root',
+            'PASSWORD': str(SQL_PWD),
+            'default-character-set': "UTF8",  # 設定編碼規則 utf8
+        }
     }
-}
+else:
+    DATABASES = {
+        # "default": {
+        #     "ENGINE": "django.db.backends.sqlite3",
+        #     "NAME": BASE_DIR / "db.sqlite3",
+        # }
+        # ? Mysql setting
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            'NAME': 'holosongranker',  # 資料庫名字
+            'USER': "root",  # mysql 使用者名稱稱
+            'PASSWORD': '',  # 資料庫的密碼
+            'HOST': "127.0.0.1",  # 資料庫服務地址， 這裡我們是測試開發 填本地地址
+            'PORT': 3306,   # mysql 對應的埠號
+            'default-character-set': "UTF8",  # 設定編碼規則 utf8
+        }
+    }
 
 
 # Password validation
@@ -152,7 +167,7 @@ USE_THOUSAND_SEPARATOR = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    BASE_DIR / "static",
+    BASE_DIR / "static/",
 )
 
 # Static asset configuration.
@@ -163,7 +178,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-django_on_heroku.settings(locals())
+# django_on_heroku.settings(locals())
 
 # if DEBUG:
 #     import mimetypes

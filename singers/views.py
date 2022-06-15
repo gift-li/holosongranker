@@ -8,7 +8,7 @@ from datas.models import *
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
-from pprint import pp
+# from pprint import pp
 
 # 歌手排名
 

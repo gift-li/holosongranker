@@ -147,7 +147,8 @@
                                 </th>
                                 <td>
                                     <a href="{{record.song.youtube_url}}" target="_blank">
-                                        <img class="img-song img-fluid shadow" src="{{record.song.thumbnail_url}}"
+                                        <img class="img-song img-fluid shadow"
+                                            src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}"
                                             alt="歌曲縮圖">
                                     </a>
                                 </td>
