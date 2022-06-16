@@ -1,6 +1,6 @@
 runtime: python37
 
-entrypoint: gunicorn main:app --preload -b 0.0.0.0:8080
+entrypoint: gunicorn main:app --preload -b :$PORT
 
 handlers:
 - url: /static
