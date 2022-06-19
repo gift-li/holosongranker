@@ -10,12 +10,12 @@ from datas.models import Group, Record, Vtuber, Song, VtuberRecord
 def weekly_work():
     
     # 1.去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-06-12'
+    this_date = '2022-06-19'
 
     
 
     # 2.更新歌曲資料進資料庫
-    # sc = SongModelController()
+    sc = SongModelController()
     # # 將本周新歌加入資料庫
     # sc.insert_this_week_new_song()
     # # 抓取本周歌曲數據 歌曲,日期,總觀看數
@@ -62,13 +62,13 @@ def weekly_work():
 
 
     # 2. 抓取月觀看數資料
-    gc = GraphDataCreater()
-    dates = Record.get_date_list()['date'][1:6].tolist()[::-1]
-    print(dates)
-    # gc.get_songs_sum(dates)
-    # gc.get_vtubers_sum(dates)
+    # gc = GraphDataCreater()
+    # dates = Record.get_date_list()['date'][1:6].tolist()[::-1]
+    # print(dates)
+    # # gc.get_songs_sum(dates)
+    # # gc.get_vtubers_sum(dates)
 
-    gc.get_vtubers_for_bar_chart(dates)
-    gc.get_vtubers_for_line_chart(dates)
+    # gc.get_vtubers_for_bar_chart(dates)
+    # gc.get_vtubers_for_line_chart(dates)
     
 
