@@ -29,6 +29,7 @@ with open(os.path.join(BASE_DIR, 'sql_pwd.txt')) as f:
     SQL_PWD = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 DEBUG = False
 
 ALLOWED_HOSTS = ["holosongranker.com", "127.0.0.1", "localhost"]

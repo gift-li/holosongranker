@@ -9,8 +9,10 @@ from datas.models import Group, Record, Vtuber, Song, VtuberRecord
 # 每週要做的事情
 def weekly_work():
     
+    # 先將setting 設為的 DEBUG = True(32)
+
     # 1.去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-06-19'
+    this_date = '2022-06-26'
 
     
 
@@ -34,7 +36,7 @@ def weekly_work():
     # imgdownloader.download_songs_image()
 
     # 3.取的比賽圖所需歌曲資料
-    # 連結: https://hackmd.io/@Cobra3279/S1qr2Rnb5/%2FdovRAXcHTMWpr3eSlAKvYQ
+    # 連結: https://hackmd.io/@Cobra3279/S1qr2Rnb5/%2F5kM-oz_STe22hhlu2YUzvQ
     # gc = GraphDataCreater()
     # dates = Record.get_date_list()['date'][:5].tolist()[::-1]
     # print(dates)
@@ -47,11 +49,14 @@ def weekly_work():
     # gc.get_vtubers_for_bar_chart(dates)
     # gc.get_vtubers_for_line_chart(dates)
 
-    # 4. 備份資料
+    # # 4. 備份資料
     # backup_manager.backup_all()
     
     
     # 5.輸出sql檔案
+    ## https://hackmd.io/@Cobra3279/S1qr2Rnb5/%2FjLpyCY0YReOe9ddjFgsaJg
+
+    # ˊ6. 將setting 設為的 DEBUG = False
 
     # 2. 每月
     # 1.抓取Top1連結
