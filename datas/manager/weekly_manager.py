@@ -59,19 +59,19 @@ def weekly_work():
     # ˊ6. 將setting 設為的 DEBUG = False
 
     # 2. 每月
-    # 1.抓取Top1連結
+    # # 1.抓取Top1連結
     # gc = GraphDataCreater()
     # dates = Record.get_date_list()['date'][:5].tolist()[::-1]
     # print(dates)
     # gc.get_top1_songs(dates)
 
 
-    # 2. 抓取月觀看數資料
+    # # 2. 抓取月觀看數資料
     # gc = GraphDataCreater()
-    # dates = Record.get_date_list()['date'][1:6].tolist()[::-1]
+    # dates = Record.get_date_list()['date'][:5].tolist()[::-1]
     # print(dates)
-    # # gc.get_songs_sum(dates)
-    # # gc.get_vtubers_sum(dates)
+    # gc.get_songs_sum(dates)
+    # gc.get_vtubers_sum(dates)
 
     # gc.get_vtubers_for_bar_chart(dates)
     # gc.get_vtubers_for_line_chart(dates)

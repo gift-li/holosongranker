@@ -266,11 +266,11 @@ class GraphDataCreater:
 
         videos_df = videos_df.fillna(0)
 
-        videos_df ['sum'] = videos_df[dates].sum(axis=1)
+        videos_df ['Total view'] = videos_df[dates].sum(axis=1)
 
         # print(videos_df['sum'])
 
-        videos_df = videos_df[['title' , 'thumbnail_url', 'sum']]
+        videos_df = videos_df[['title' , 'thumbnail_url', 'Total view']]
 
         file_name = "datas/csv/race_chart/songs_sum.csv"
         videos_df.to_csv(file_name )
@@ -295,8 +295,8 @@ class GraphDataCreater:
         videos_df = videos_df[videos_df['title'] != 'hololive ホロライブ - VTuber Group']
 
 
-        videos_df ['sum'] = videos_df[dates].sum(axis=1)
-        videos_df = videos_df[['title' , 'thumbnail_url', 'sum']]
+        videos_df ['Total view'] = videos_df[dates].sum(axis=1)
+        videos_df = videos_df[['title' , 'thumbnail_url', 'Total view']]
 
         file_name = "datas/csv/race_chart/vtubers_sum.csv"
         videos_df.to_csv(file_name )
