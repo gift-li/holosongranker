@@ -115,7 +115,7 @@
                     </form>
                 </div>
                 <div class="table-responsive mb-3">
-                    {% include 'partials/singer_table.html' with records=records                    old_order_query=old_order_query %}
+                    {% include 'tables/singer.html' with records=records                    old_order_query=old_order_query %}
                 </div>
                 <div class="col">
                     {% include 'partials/pagination.html' with page_obj=records %}
