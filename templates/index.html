@@ -57,13 +57,13 @@
                     {% trans "歌曲週榜" %}
                 </h2>
             </div>
-            <div class="row row-cols-2 row-cols-lg-3 g-2 g-md-3 gx-xl-5 mb-3 mt-lg-2">
+            <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3 gx-xl-4 mb-3 mt-lg-2">
                 {% for record in songrank %}
                 <div class="col">
                     <div class="card rounded-3 h-100">
                         <a href="{{record.song.youtube_url}}" target="_blank">
-                            <img src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}"
-                                class="img-fluid card-img-top" alt="影片縮圖">
+                            <img src="{{record.song.thumbnail_url}}" class="img-fluid card-img-top" alt="影片縮圖"
+                                onerror="this.onerror=null;this.src='{% static 'img/default.img' %}'">
                         </a>
                         <div class="card-body d-inline-block align-middle p-4">
                             <h2 class="card-title text-info">#{{forloop.counter}}</h2>
@@ -125,9 +125,10 @@
                             </div>
                             <div class="col-1 col-md-2 my-auto">
                                 <a href="{% url 'singers:profile' id=record.vtuber.id %}">
-                                    <img src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
+                                    <img src="{{record.vtuber.thumbnail_url}}"
                                         class="card-img-top img-vtuber img-fluid border border-1 rounded-circle"
-                                        alt="頻道縮圖">
+                                        alt="頻道縮圖"
+                                        onerror="this.onerror=null;this.src='{% static 'img/default.img' %}'">
                                 </a>
                             </div>
                             <div class="col-9 col-md-8 my-auto">
