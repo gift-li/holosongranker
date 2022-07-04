@@ -17,6 +17,7 @@
     <title>{% block title %}{% endblock title %}</title>
 
     <link rel="stylesheet" href="{% static 'css/truncate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}">
     {% block styles %}{% endblock %}
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -62,6 +63,7 @@
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
     </script>
 
+    <script src="{% static 'js/dark-mode-switch.min.js' %}"></script>
     {% block scripts %}{% endblock scripts %}
 </body>
 
