@@ -2,7 +2,7 @@
 {% load humanize %}
 {% load static %}
 {% load i18n %}
-{% block title %}首頁{% endblock %}
+{% block title %}HoloSongRanker - 首頁{% endblock %}
 
 {% block styles %}
 
@@ -37,10 +37,28 @@
 </style>
 {% endblock %}
 
+{% block meta %}
+<meta name="description" content="Hololive 有許多出色的歌曲與歌手，我們相信很多粉絲很好奇Hololive歌曲的排名與數據。
+因此，我們製作'Hololive Song Ranker'網站，藉由歌曲觀看數來呈現Hololive歌曲的人氣排名">
+<link rel="alternate" href="https://holosongranker.com/en" hreflang="en-us" />
+<link rel="alternate" href="https://holosongranker.com/zh-hant" hreflang="zh-tw" />
+
+<meta property="og:type" content="ranking" />
+<meta property="og:title" content="Holo Song Ranker - 首頁" />
+<meta property="og:description" content="Hololive 有許多出色的歌曲與歌手，我們相信很多粉絲很好奇Hololive歌曲的排名與數據。
+    因此，我們製作'Hololive Song Ranker'網站，藉由歌曲觀看數來呈現Hololive歌曲的人氣排名" />
+<meta property="og:url" content="https://holosongranker.com/" />
+<meta property="og:site_name" content="Holo Song Ranker" />
+<meta property="og:image" content="{% static 'img/main/banner_2.png' %}" />
+
+<meta name="twitter:card" content="ranking" />
+<meta name="twitter:title" content="Holo Song Ranker - 首頁" />
+<meta name="twitter:description" content="Hololive 有許多出色的歌曲與歌手，我們相信很多粉絲很好奇Hololive歌曲的排名與數據。
+    因此，我們製作'Hololive Song Ranker'網站，藉由歌曲觀看數來呈現Hololive歌曲的人氣排名" />
+<meta name="twitter:image" content="{% static 'img/main/banner_2.png' %}" />
+{% endblock meta %}
+
 {% block main %}
-
-
-
 <div class="container">
     <section id="intro" class="container-fluid text-center justify-content-center bg-secondary bg-opacity-25 pt-5 pb-5">
         <img class="img-intro" src="{% static 'img/main/shortcut_icon.png' %}" alt="intro圖片">
@@ -57,13 +75,13 @@
                     {% trans "歌曲週榜" %}
                 </h2>
             </div>
-            <div class="row row-cols-2 row-cols-lg-3 g-2 g-md-3 gx-xl-5 mb-3 mt-lg-2">
+            <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3 gx-xl-4 mb-3 mt-lg-2">
                 {% for record in songrank %}
                 <div class="col">
                     <div class="card rounded-3 h-100">
                         <a href="{{record.song.youtube_url}}" target="_blank">
-                            <img src="{% static 'img/song_thumbnails/'|add:record.song.youtube_id|add:'.png' %}"
-                                class="img-fluid card-img-top" alt="影片縮圖">
+                            <img src="{{record.song.thumbnail_url}}" class="img-fluid card-img-top" alt="影片縮圖"
+                                onerror="this.onerror=null;this.src='{% static 'img/default.img' %}'">
                         </a>
                         <div class="card-body d-inline-block align-middle p-4">
                             <h2 class="card-title text-info">#{{forloop.counter}}</h2>
@@ -125,9 +143,10 @@
                             </div>
                             <div class="col-1 col-md-2 my-auto">
                                 <a href="{% url 'singers:profile' id=record.vtuber.id %}">
-                                    <img src="{% static 'img/vtuber_thumbnails/'|add:record.vtuber.youtube_id|add:'.png' %}"
+                                    <img src="{{record.vtuber.thumbnail_url}}"
                                         class="card-img-top img-vtuber img-fluid border border-1 rounded-circle"
-                                        alt="頻道縮圖">
+                                        alt="頻道縮圖"
+                                        onerror="this.onerror=null;this.src='{% static 'img/default.img' %}'">
                                 </a>
                             </div>
                             <div class="col-9 col-md-8 my-auto">

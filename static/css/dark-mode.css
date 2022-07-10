@@ -1,0 +1,32 @@
+[data-theme="dark"] {
+    background-color: #4d5356 !important;
+    color: #eee;
+}
+
+[data-theme="dark"] .bg-light {
+    background-color: #333 !important;
+}
+
+[data-theme="dark"] .bg-white {
+    background-color: #181a1b !important;
+}
+
+[data-theme="dark"] .bg-black {
+    background-color: rgb(175, 175, 175) !important;
+}
+
+[data-theme="dark"] .bg-primary {
+    background-color: rgb(2, 80, 196) !important;
+}
+
+[data-theme="dark"] .bg-secondary {
+    background-color: rgb(88, 95, 99) !important;
+}
+
+[data-theme="dark"] .bg-info {
+    background-color: rgb(10, 162, 192) !important;
+}
+
+[data-theme="dark"] .text-light {
+    color: rgb(228, 226, 222) !important;
+}
