@@ -12,7 +12,7 @@ def weekly_work():
     # 先將setting 設為的 DEBUG = True(32)
 
     # 1.去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-07-31'
+    this_date = '2022-08-07'
 
     
 
@@ -28,7 +28,7 @@ def weekly_work():
     # sc.insert_vtuber_record(this_date)
 
 
-    # 2.5. 更新VT頭像、頻道縮圖
+    # # 2.5. 更新VT頭像、頻道縮圖
     # imgdownloader = ImageDownloader()
     # # 抓取Vtuber頻道縮圖、封面
     # imgdownloader.download_vtuber_image()
