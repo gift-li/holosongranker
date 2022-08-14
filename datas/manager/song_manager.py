@@ -92,15 +92,22 @@ class SongModelController:
             except Exception as e: 
                 except_video.append(video_id)
                 # 找不到資料時，抓上週資料
+                print(except_video)
                 last_record = Record.objects.filter(song = songs[i]).order_by('-date')[0]
                 viewCount = last_record.total_view
 
-                print(except_video)
+                
 
             record = Record(song = songs[i], 
                 total_view = viewCount, 
                 date=date)
             record.save()
+
+    # 刪除某周歌曲數據
+    def delete_this_week_record(self, date):
+        records = Record.objects.filter(date = date)
+        for record in records:
+            record.delete()
 
     # 計算周觀看數
     def caculate_weekly_view_in_record(self, date):
@@ -150,6 +157,7 @@ class SongModelController:
                 vtuber_record.save()
             else: # 歌曲數為0
                 print('錯誤:{}歌曲為0'.format(vtuber))
+
 
 # 產生圖表所需資料
 class GraphDataCreater:
