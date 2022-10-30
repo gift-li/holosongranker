@@ -12,7 +12,7 @@ def weekly_work():
     # 先將setting 設為的 DEBUG = True(32)
 
     # 1.去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-10-23'
+    this_date = '2022-10-30'
 
     
     # python manage.py test datas
