@@ -12,20 +12,20 @@ def weekly_work():
     # 先將setting 設為的 DEBUG = True(32)
 
     # 1.去colab 找新歌曲 https://colab.research.google.com/drive/1Ddb4O_2UH5t5ZPkUI9ISygSR3sYGQ3Jv?usp=sharing
-    this_date = '2022-11-06'
+    this_date = '2022-11-13'
 
     
     # python manage.py test datas
-    # 2.更新歌曲資料進資料庫
+    # # 2.更新歌曲資料進資料庫
     sc = SongModelController()
     # # 將本周新歌加入資料庫
-    # sc.insert_this_week_new_song()
-    # 抓取本周歌曲數據 歌曲,日期,總觀看數
-    sc.insert_this_week_record(this_date)
-    # 計算周觀看數
-    sc.caculate_weekly_view_in_record(this_date)
-    # 計算本周VTuber的歌曲數據
-    sc.insert_vtuber_record(this_date)
+    sc.insert_this_week_new_song()
+    # # 抓取本周歌曲數據 歌曲,日期,總觀看數
+    # sc.insert_this_week_record(this_date)
+    # # 計算周觀看數
+    # sc.caculate_weekly_view_in_record(this_date)
+    # # 計算本周VTuber的歌曲數據
+    # sc.insert_vtuber_record(this_date)
 
 
     # # 2.5. 更新VT頭像、頻道縮圖
